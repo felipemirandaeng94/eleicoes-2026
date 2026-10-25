@@ -52,6 +52,14 @@ def main():
     if not result["brasil"] and not result["ufs"]:
         raise RuntimeError("Nenhum arquivo oficial disponível; preservando último JSON")
     OUT.parent.mkdir(parents=True, exist_ok=True)
+    if OUT.exists():
+        try:
+            previous = json.loads(OUT.read_text(encoding="utf-8"))
+            if previous.get("brasil") == result["brasil"] and previous.get("ufs") == result["ufs"]:
+                print("Votos e seções do TSE inalterados; mantendo JSON e evitando deploy.")
+                return
+        except (ValueError, OSError):
+            pass
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Coletados: {len(result['ufs'])} UFs. Erros: {len(result['errors'])}")
 
