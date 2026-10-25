@@ -103,6 +103,18 @@ button:hover{background:#22395a}
 .gl-nome{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gl-res{white-space:nowrap}.gl-res.lula{color:var(--lula-t)}.gl-res.flavio{color:var(--flavio-t)}.gl-res.nd{color:var(--muted)}
 .gl .vbar{height:6px;margin:0}.gl-sec{grid-column:1/-1;font-size:12px;color:var(--muted)}
 .more{display:block;margin:14px auto 0;min-height:44px}
+/* Placar original: seção expansível fechada inicialmente. */
+.probitas-details{padding:0;overflow:hidden}
+.probitas-details>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 22px;cursor:pointer;list-style:none}
+.probitas-details>summary::-webkit-details-marker{display:none}
+.probitas-details>summary strong{display:block;color:var(--text);font-size:18px;line-height:1.35}
+.probitas-details>summary .muted{display:block;margin-top:4px}
+.probitas-chevron{font-size:28px;color:var(--accent);line-height:1;transition:transform .2s}
+.probitas-details[open] .probitas-chevron{transform:rotate(180deg)}
+.probitas-details>summary:hover{background:#1c2e46}
+.probitas-details>summary:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+.probitas-content{padding:0 22px 22px;border-top:1px solid var(--line)}
+@media(max-width:640px){.probitas-details>summary{padding:16px}.probitas-content{padding:0 16px 16px}}
 /* ---------- Brasil ---------- */
 .region-bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .region-bar button{display:inline-flex;flex-direction:column;align-items:stretch;gap:5px;padding:8px 13px 9px;font-size:13.5px;border-radius:12px;min-height:44px;min-width:104px;text-align:left}
@@ -236,7 +248,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 <button id="extMore" class="more hidden" type="button">Mostrar mais</button>
 </div>
 
-<div class="card"><div class="eyebrow">Fonte pública</div><h2>Placar original do Probitas</h2><p class="muted">A incorporação depende do servidor de origem. Caso não carregue, abra a fonte diretamente.</p><iframe id="probitasFrame" src="https://probitasbrasil.org/apuracao/embed" width="100%" height="245" style="border:0;max-width:760px;display:block;margin:auto;background:white;border-radius:12px" title="Placar original do Probitas" loading="lazy"></iframe><p style="margin:12px 0 0"><a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Abrir placar e comparação com o 1º turno ↗</a></p></div>
+<details class="card probitas-details"><summary><span><span class="eyebrow">Fonte pública · Consulta opcional</span><strong>Placar original do Probitas</strong><span class="muted">Clique para mostrar ou ocultar o placar incorporado</span></span><span class="probitas-chevron" aria-hidden="true">⌄</span></summary><div class="probitas-content"><p class="muted">A incorporação depende do servidor de origem. Caso não carregue, abra a fonte diretamente.</p><iframe id="probitasFrame" src="https://probitasbrasil.org/apuracao/embed" width="100%" height="245" style="border:0;max-width:760px;display:block;margin:auto;background:white;border-radius:12px" title="Placar original do Probitas" loading="lazy"></iframe><p style="margin:12px 0 0"><a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Abrir placar e comparação com o 1º turno ↗</a></p></div></details>
 </section>
 
 <section id="brasil" class="hidden" aria-label="Brasil">
