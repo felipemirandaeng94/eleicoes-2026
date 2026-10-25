@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T15:23:12Z",
-  "lula_votes": 16996,
-  "flavio_votes": 34331,
-  "blank_votes": 1339,
-  "null_votes": 1180,
-  "turnout": 53846,
-  "electorate_counted_sections": 125377,
-  "sections_counted": 184,
+  "collected_at": "2026-10-25T15:28:11Z",
+  "lula_votes": 17794,
+  "flavio_votes": 34788,
+  "blank_votes": 1357,
+  "null_votes": 1195,
+  "turnout": 55134,
+  "electorate_counted_sections": 127817,
+  "sections_counted": 188,
   "sections_total": 1351,
-  "electorate_share_counted": 0.137165,
-  "source_updated_at": "2026-10-25T15:23:04Z",
-  "last_bulletin_at": "2026-10-25T15:21:43Z",
+  "electorate_share_counted": 0.139835,
+  "source_updated_at": "2026-10-25T15:28:04Z",
+  "last_bulletin_at": "2026-10-25T15:25:55Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "8c0b06157ab85c35",
+  "content_hash": "eb28884c33cdfb6d",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_15.sqlite3",
   "warnings": [],
@@ -131,6 +131,34 @@
       "electorate": 3119,
       "sections_counted": 5,
       "sections_total": 5
+    },
+    {
+      "code": "29785",
+      "city": "HELSINQUE",
+      "name": "Finlândia",
+      "region": "Europa",
+      "lula_votes": 550,
+      "flavio_votes": 185,
+      "blank_votes": 13,
+      "null_votes": 8,
+      "turnout": 756,
+      "electorate": 1278,
+      "sections_counted": 2,
+      "sections_total": 2
+    },
+    {
+      "code": "29335",
+      "city": "ATENAS",
+      "name": "Grécia",
+      "region": "Europa",
+      "lula_votes": 255,
+      "flavio_votes": 311,
+      "blank_votes": 13,
+      "null_votes": 2,
+      "turnout": 581,
+      "electorate": 1211,
+      "sections_counted": 2,
+      "sections_total": 2
     },
     {
       "code": "29289",
@@ -315,20 +343,6 @@
       "sections_total": 1
     },
     {
-      "code": "29335",
-      "city": "ATENAS",
-      "name": "Grécia",
-      "region": "Europa",
-      "lula_votes": 115,
-      "flavio_votes": 156,
-      "blank_votes": 9,
-      "null_votes": 2,
-      "turnout": 282,
-      "electorate": 605,
-      "sections_counted": 1,
-      "sections_total": 2
-    },
-    {
       "code": "29840",
       "city": "JACARTA",
       "name": "Indonésia",
@@ -367,6 +381,20 @@
       "null_votes": 4,
       "turnout": 89,
       "electorate": 170,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "30090",
+      "city": "MAPUTO",
+      "name": "Moçambique",
+      "region": "África",
+      "lula_votes": 108,
+      "flavio_votes": 117,
+      "blank_votes": 1,
+      "null_votes": 7,
+      "turnout": 233,
+      "electorate": 556,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -983,14 +1011,6 @@
       "sections_total": 1
     },
     {
-      "code": "29785",
-      "city": "HELSINQUE",
-      "name": "Finlândia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 2
-    },
-    {
       "code": "99511",
       "city": "MARSELHA",
       "name": "França",
@@ -1211,14 +1231,6 @@
       "city": "YANGON",
       "name": "Mianmar",
       "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "30090",
-      "city": "MAPUTO",
-      "name": "Moçambique",
-      "region": "África",
       "sections_counted": 0,
       "sections_total": 1
     },
