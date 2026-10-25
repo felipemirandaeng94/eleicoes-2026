@@ -13,7 +13,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: coletar-probitas-exterior
+  group: eleicoes-2026-coleta
   cancel-in-progress: false
 env:
   # Depois desta data o coletor encerra sem acessar a fonte (evita execuções
@@ -28,11 +28,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - id: prioridade
+        name: Verificar prioridade de coleta em Brasília
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import os
+          from zoneinfo import ZoneInfo
+          fuso = ZoneInfo("America/Sao_Paulo")
+          agora = dt.datetime.now(fuso)
+          executar = agora < dt.datetime(2026, 10, 25, 17, 0, tzinfo=fuso)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as saida:
+              saida.write(f"executar={'true' if executar else 'false'}\n")
+          print(f"Prioridade Probitas: {'ativa' if executar else 'encerrada'} ({agora.isoformat()})")
+          PY
       # Sem dependências externas: a fonte é JSON público, lido com a biblioteca padrão.
       - name: Coletar e validar apuração do exterior
+        if: steps.prioridade.outputs.executar == 'true'
         run: python scripts/coletar_probitas.py
       - name: Guardar diagnóstico (artefato, sem commit)
-        if: always()
+        if: always() && steps.prioridade.outputs.executar == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: probitas-diagnostico-${{ github.run_id }}
@@ -41,6 +56,7 @@ jobs:
           if-no-files-found: ignore
       # Só executa se a coleta foi validada; em falha, o último JSON válido permanece.
       - name: Publicar leitura validada e histórico horário
+        if: steps.prioridade.outputs.executar == 'true'
         run: |
           git add data/exterior.json data/historico_exterior/
           if git diff --staged --quiet; then

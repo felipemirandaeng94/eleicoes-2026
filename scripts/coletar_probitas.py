@@ -429,7 +429,12 @@ def main(argv=None) -> int:
 
     comparar_com_anterior(dados, anterior, avisos)
     conteudo = hash_conteudo(dados)
-    banco, inseriu = gravar_sqlite(pasta / "historico_exterior", inicio, dados, metodo, endpoint, conteudo)
+    dados_alterados = (anterior or {}).get("content_hash") != conteudo
+    if dados_alterados:
+        banco, inseriu = gravar_sqlite(pasta / "historico_exterior", inicio, dados, metodo, endpoint, conteudo)
+    else:
+        banco = Path((anterior or {}).get("history_db") or "")
+        inseriu = False
     publicado = {
         "schema": 2,
         "validated": True,
@@ -447,7 +452,10 @@ def main(argv=None) -> int:
         "countries": dados["countries"],
         "locations_pending": dados["locations_pending"],
     }
-    escrever_json(saida, publicado)
+    if dados_alterados:
+        escrever_json(saida, publicado)
+    else:
+        print("Dados do Probitas inalterados; JSON, histórico e commits preservados.")
     diag.update(status="validado", leitura_sqlite_inserida=inseriu, banco=banco.as_posix(),
                 lula_votes=dados["lula_votes"], flavio_votes=dados["flavio_votes"],
                 sections=f"{dados['sections_counted']}/{dados['sections_total']}")

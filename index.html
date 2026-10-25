@@ -519,7 +519,7 @@ async function refresh(){
   const d=await r.json();
   if(d.simulation)throw Error('Arquivo de simulação rejeitado');
   tse=d&&typeof d==='object'?d:{};if(!tse.ufs||typeof tse.ufs!=='object')tse.ufs={};
-  el('status').textContent='Última coleta do TSE: '+(tse.collected_at?brt(tse.collected_at)+' (Brasília)':'ainda não executada')+'. A página consulta novos dados a cada 60 segundos.';
+  el('status').textContent='Última coleta do TSE: '+(tse.collected_at?brt(tse.collected_at)+' (Brasília)':'ainda não executada')+'. A página consulta novos dados a cada 30 segundos.';
   renderBrasil();
  }catch(e){console.warn('TSE: falha ao ler data/results.json',e);el('status').textContent='Aguardando dados oficiais do TSE.'}
  finally{tentouTSE=true;rotuloTopo()}
@@ -658,7 +658,7 @@ function rotuloTopo(){
  box.title=`${fonte}: última coleta às ${hora} (Brasília)`;
 }
 setInterval(rotuloTopo,30000);
-renderBrasil();carregarMapa();refresh();refreshExterior();setInterval(refresh,60000);setInterval(refreshExterior,60000);syncElectionMode();
+renderBrasil();carregarMapa();refresh();refreshExterior();setInterval(refresh,30000);setInterval(refreshExterior,30000);syncElectionMode();
 setInterval(syncElectionMode,1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});
 </script>

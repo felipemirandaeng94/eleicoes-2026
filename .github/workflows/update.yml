@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: tse-data
+  group: eleicoes-2026-coleta
   cancel-in-progress: false
 jobs:
   update:
@@ -16,8 +16,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python scripts/fetch_tse.py
+      - id: prioridade
+        name: Verificar prioridade de coleta em Brasília
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import os
+          from zoneinfo import ZoneInfo
+          fuso = ZoneInfo("America/Sao_Paulo")
+          agora = dt.datetime.now(fuso)
+          executar = agora >= dt.datetime(2026, 10, 25, 17, 0, tzinfo=fuso)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as saida:
+              saida.write(f"executar={'true' if executar else 'false'}\n")
+          print(f"Prioridade TSE: {'ativa' if executar else 'aguardando 17h'} ({agora.isoformat()})")
+          PY
+      - name: Coletar dados oficiais do TSE
+        if: steps.prioridade.outputs.executar == 'true'
+        run: python scripts/fetch_tse.py
       - name: Commit JSON
+        if: steps.prioridade.outputs.executar == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
