@@ -32,38 +32,19 @@ jobs:
           path: data/probitas_diagnostico.json
           retention-days: 7
           if-no-files-found: ignore
-      - name: Publicar apenas mudança real nos votos e seções
+      - name: Publicar leituras validadas e histórico horário
         run: |
           if test ! -f data/exterior.json; then
-            echo "Nenhum dado validado; não há atualização a publicar."
+            echo "Nenhum dado validado; nenhum resultado publicado."
             exit 0
           fi
-          python - <<'PY'
-          import json, subprocess
-          from pathlib import Path
-          file = Path("data/exterior.json")
-          new = json.loads(file.read_text(encoding="utf-8"))
-          try:
-              old = json.loads(subprocess.check_output(
-                  ["git", "show", "HEAD:data/exterior.json"], text=True))
-          except subprocess.CalledProcessError:
-              old = None
-          keys = ("validated", "source", "lula_votes", "flavio_votes",
-                  "sections_counted", "sections_total", "countries")
-          if old is not None and all(old.get(k) == new.get(k) for k in keys):
-              file.write_text(json.dumps(old, ensure_ascii=False, indent=2)+"\n",
-                              encoding="utf-8")
-              print("Votos e seções inalterados; não gerar commit.")
-          else:
-              print("Dados validados mudaram; publicar atualização.")
-          PY
-          git add data/exterior.json
+          git add data/exterior.json data/historico_exterior/
           if git diff --staged --quiet; then
-            echo "Nada a publicar."
+            echo "Nenhuma leitura nova."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Atualizar apuração validada do exterior"
+          git commit -m "Registrar coleta validada do exterior"
           git pull --rebase origin main
           git push origin HEAD:main

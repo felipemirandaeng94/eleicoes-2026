@@ -9,6 +9,7 @@ import datetime as dt
 import json
 import os
 import re
+import sqlite3
 from pathlib import Path
 from urllib.parse import urlparse
 from playwright.async_api import async_playwright
@@ -110,6 +111,30 @@ def extract_rendered(text):
     return {"lula_votes":lula,"flavio_votes":flavio,
             "sections_counted":counted,"sections_total":total}
 
+def save_hourly_record(payload, timestamp):
+    """Persistir leituras validadas em um SQLite por hora (UTC)."""
+    hour = dt.datetime.fromisoformat(timestamp).strftime("%Y-%m-%d_%H")
+    path = Path("data/historico_exterior") / f"{hour}.sqlite3"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with sqlite3.connect(path) as db:
+        db.execute("""CREATE TABLE IF NOT EXISTS leituras (
+            coletado_em TEXT PRIMARY KEY,
+            lula_votes INTEGER NOT NULL,
+            flavio_votes INTEGER NOT NULL,
+            sections_counted INTEGER NOT NULL,
+            sections_total INTEGER NOT NULL,
+            fonte TEXT NOT NULL
+        )""")
+        db.execute(
+            """INSERT OR REPLACE INTO leituras
+            (coletado_em,lula_votes,flavio_votes,sections_counted,sections_total,fonte)
+            VALUES (?,?,?,?,?,?)""",
+            (timestamp, payload["lula_votes"], payload["flavio_votes"],
+             payload["sections_counted"], payload["sections_total"], payload["source"])
+        )
+    print(f"Histórico validado registrado em {path}")
+
+
 async def main():
     captured = []
     selected = None
@@ -181,6 +206,7 @@ async def main():
     if selected:
         payload = {**selected, "validated":True,"source":BASE,"collected_at":timestamp,
                    "countries":[]}
+        save_hourly_record(payload, timestamp)
         OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         print("VALIDADO: votos e seções gravados em data/exterior.json")
     else:
