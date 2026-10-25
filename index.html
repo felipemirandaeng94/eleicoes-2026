@@ -105,7 +105,13 @@ button:hover{background:#22395a}
 .more{display:block;margin:14px auto 0;min-height:44px}
 /* ---------- Brasil ---------- */
 .region-bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
-.region-bar button{padding:8px 14px;font-size:13.5px;border-radius:999px;min-height:40px}
+.region-bar button{display:inline-flex;flex-direction:column;align-items:stretch;gap:5px;padding:8px 13px 9px;font-size:13.5px;border-radius:12px;min-height:44px;min-width:104px;text-align:left}
+.rb-nome{white-space:nowrap}
+.rb-linha{display:flex;align-items:center;gap:7px}
+.rb-pct{font-size:11.5px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.region-bar button[aria-pressed=true] .rb-pct{color:#d7e8fa}
+.rb-bar{display:block;flex:1;min-width:24px;height:4px;border-radius:999px;background:#2b3b51;overflow:hidden}
+.rb-bar>span{display:block;height:100%;width:0;background:var(--ok);transition:width .45s}
 .region-bar button[aria-pressed=true]{background:#255786;border-color:#5b95c6;color:#fff}
 .br-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(330px,.85fr);grid-template-areas:"map card";gap:18px;align-items:start}
 .br-card{grid-area:card;position:sticky;top:12px}.map-card{grid-area:map}
@@ -186,7 +192,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
  .ext-tools{grid-template-columns:1fr 1fr}.ext-tools input{grid-column:1/-1}
  .loc-grid{grid-template-columns:1fr}
  .grp-cols{grid-template-columns:1fr}
- .region-bar{gap:5px}.region-bar button{padding:7px 11px;font-size:13px}
+ .region-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.region-bar button{min-width:0;padding:7px 9px 8px;font-size:13px;gap:4px}.rb-pct{font-size:11px}
  .cand{padding:10px}.cand .cand-photo{width:36px;height:45px}
  .legenda{grid-template-columns:auto repeat(4,30px)}
  footer.rodape{grid-template-columns:1fr}
@@ -229,7 +235,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 
 <section id="brasil" class="hidden" aria-label="Brasil">
 <div class="region-bar" id="regionBar" aria-label="Recorte geográfico">
-<button type="button" data-escopo="BR">Brasil</button><button type="button" data-escopo="Norte">Norte</button><button type="button" data-escopo="Nordeste">Nordeste</button><button type="button" data-escopo="Centro-Oeste">Centro-Oeste</button><button type="button" data-escopo="Sudeste">Sudeste</button><button type="button" data-escopo="Sul">Sul</button>
+<button type="button" data-escopo="BR"><span class="rb-nome">Brasil</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Norte"><span class="rb-nome">Norte</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Nordeste"><span class="rb-nome">Nordeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Centro-Oeste"><span class="rb-nome">Centro-Oeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Sudeste"><span class="rb-nome">Sudeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Sul"><span class="rb-nome">Sul</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button>
 </div>
 <div class="br-grid">
 <article class="card br-card" id="brCard" aria-live="polite">
@@ -331,7 +337,7 @@ function renderCard(){
  const lead=el('brLeader');lead.className='leader '+classeLider(p);lead.textContent=textoLider(p)+(p&&p.validos&&p.dif?` (${format(Math.abs(p.dif))} votos)`:'');
  const tem=p&&p.disponivel&&p.validos>0;
  el('brLulaPct').textContent=tem?percentage(p.pL):'—';el('brFlavioPct').textContent=tem?percentage(p.pF):'—';
- el('brLulaVotes').textContent=p&&p.disponivel?format(p.L)+' votos':'Sem dados';el('brFlavioVotes').textContent=p&&p.disponivel?format(p.F)+' votos':'Sem dados';
+ const vt=n=>!p||!p.disponivel?'Sem dados':!p.validos?'Aguardando apuração':format(n)+' votos';el('brLulaVotes').textContent=vt(p&&p.L);el('brFlavioVotes').textContent=vt(p&&p.F);
  el('brBarL').style.width=(tem?p.pL:0)+'%';el('brBarF').style.width=(tem?p.pF:0)+'%';
  const ps=p?p.pSec:null;el('brSecPct').textContent=ps===null?'—':percentage(ps);el('brSecBar').style.width=(ps||0)+'%';
  el('brSecTxt').textContent=ps===null?'Sem dados de seções':`${format(p.D)} de ${format(p.T)} seções`;
@@ -348,7 +354,13 @@ function renderChips(){
   return `<button type="button" class="ufchip" data-uf="${uf}" aria-pressed="${est.uf===uf}" aria-label="${esc(NOMES[uf])}: ${esc(textoLider(p))}">${sw}<b>${uf}</b><small>${esc(txt)}</small><span class="mini">${mini}</span></button>`}).join('');
 }
 function renderBrasil(){
- for(const b of el('regionBar').querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.dataset.escopo===est.escopo));
+ for(const b of el('regionBar').querySelectorAll('button')){
+  const e=b.dataset.escopo,p=e==='BR'?tseBR():agregado(REGIOES[e]),ps=p?p.pSec:null,nome=e==='BR'?'Brasil':e;
+  b.setAttribute('aria-pressed',String(e===est.escopo));
+  b.querySelector('.rb-pct').textContent=ps===null?'—':percentage(ps,1);
+  b.querySelector('.rb-bar>span').style.width=(ps||0)+'%';
+  b.setAttribute('aria-label',`${nome}: ${ps===null?'sem dados de seções':percentage(ps,1)+' das seções totalizadas'}`);
+ }
  el('mapTitle').textContent=est.escopo==='BR'?'Brasil':'Região '+est.escopo;
  renderCard();renderChips();pintarMapa();
 }
@@ -502,11 +514,10 @@ function syncElectionMode(){
 /* =================== Exterior (Probitas) =================== */
 const EXT_STALE_MIN=20;
 let extLast=null;
+// O horário da coleta e o aviso de dado antigo ficam no topo; aqui, só o último boletim lido pelo Probitas.
 function extFreshness(){
  if(!extLast)return;
- const age=(Date.now()-Date.parse(extLast.collected_at))/60000;
- const bu=extLast.last_bulletin_at?' · último boletim: '+brt(extLast.last_bulletin_at):'';
- el('extUpdated').textContent=(age>EXT_STALE_MIN?'Desatualizado: última coleta válida em ':'Atualizado em ')+brt(extLast.collected_at)+' (Brasília)'+bu;
+ el('extUpdated').textContent=extLast.last_bulletin_at?'Último boletim: '+brt(extLast.last_bulletin_at):'';
 }
 const MINUSC=new Set(['de','do','da','dos','das','e','del','la','los','las','y']);
 function tituloLocal(s){return String(s||'').trim().toLocaleLowerCase('pt-BR').split(/(\s+|-|\/)/).map((w,i)=>i>0&&MINUSC.has(w)?w:w.charAt(0).toLocaleUpperCase('pt-BR')+w.slice(1)).join('')}
