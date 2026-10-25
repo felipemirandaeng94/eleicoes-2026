@@ -198,7 +198,7 @@ def validar_exterior(estado) -> tuple[dict | None, list, list]:
         problemas.append(f"comparecimento {obs['C']} maior que eleitores das seções {obs['E']}")
 
     # Conferência cruzada: a soma das cidades deve reproduzir o total.
-    linhas, soma_cid = [], dict.fromkeys(CAMPOS_VOTOS, 0)
+    linhas, pendentes, soma_cid = [], [], dict.fromkeys(CAMPOS_VOTOS, 0)
     soma_rec = soma_sec = 0
     for i, c in enumerate(cidades):
         p = []
@@ -218,6 +218,14 @@ def validar_exterior(estado) -> tuple[dict | None, list, list]:
                 "lula_votes": v["L"], "flavio_votes": v["F"], "blank_votes": v["B"],
                 "null_votes": v["N"], "turnout": v["C"], "electorate": v["E"],
                 "sections_counted": rec, "sections_total": sec,
+            })
+        elif sec > 0:
+            # Local ainda sem seção contada: só identificação e seções previstas,
+            # nunca votos (o painel mostra "sem seções apuradas").
+            pendentes.append({
+                "code": str(c.get("cd") or ""), "city": str(c.get("nm") or "").strip(),
+                "name": str(c.get("pais") or "").strip(), "region": str(c.get("regiao") or "").strip(),
+                "sections_counted": 0, "sections_total": sec,
             })
     if soma_rec != sec_rec or soma_sec != sec_tot:
         problemas.append(f"seções por cidade ({soma_rec}/{soma_sec}) não batem com o total ({sec_rec}/{sec_tot})")
@@ -244,6 +252,7 @@ def validar_exterior(estado) -> tuple[dict | None, list, list]:
         avisos.append("exterior.oficial ausente: sem referência da totalização oficial do TSE")
     p_apur = ext.get("pApur")
     linhas.sort(key=lambda x: (-x["sections_counted"], x["name"], x["city"]))
+    pendentes.sort(key=lambda x: (x["name"], x["city"]))
     dados = {
         "lula_votes": obs["L"], "flavio_votes": obs["F"], "blank_votes": obs["B"],
         "null_votes": obs["N"], "turnout": obs["C"], "electorate_counted_sections": obs["E"],
@@ -254,6 +263,7 @@ def validar_exterior(estado) -> tuple[dict | None, list, list]:
         "source_version": estado.get("versao"),
         "official_tse": oficial_tse,
         "countries": linhas,
+        "locations_pending": pendentes,
     }
     if dados["source_updated_at"] is None:
         avisos.append("estado.at ausente: horário de atualização da fonte desconhecido")
@@ -429,12 +439,13 @@ def main(argv=None) -> int:
         "nature": NATUREZA,
         "office": "Presidente", "round": 2, "scope": "exterior",
         "collected_at": iso(inicio),
-        **{k: v for k, v in dados.items() if k != "countries"},
+        **{k: v for k, v in dados.items() if k not in ("countries", "locations_pending")},
         "content_hash": conteudo,
         "changed_since_previous": (anterior or {}).get("content_hash") != conteudo,
         "history_db": banco.as_posix(),
         "warnings": avisos,
         "countries": dados["countries"],
+        "locations_pending": dados["locations_pending"],
     }
     escrever_json(saida, publicado)
     diag.update(status="validado", leitura_sqlite_inserida=inseriu, banco=banco.as_posix(),
