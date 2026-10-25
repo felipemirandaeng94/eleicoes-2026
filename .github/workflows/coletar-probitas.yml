@@ -51,7 +51,7 @@ jobs:
           keys = ("validated", "source", "lula_votes", "flavio_votes",
                   "sections_counted", "sections_total", "countries")
           if old is not None and all(old.get(k) == new.get(k) for k in keys):
-              file.write_text(json.dumps(old, ensure_ascii=False, indent=2)+"\\n",
+              file.write_text(json.dumps(old, ensure_ascii=False, indent=2)+"\n",
                               encoding="utf-8")
               print("Votos e seções inalterados; não gerar commit.")
           else:
