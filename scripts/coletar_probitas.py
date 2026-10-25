@@ -71,10 +71,49 @@ def extract_explicit(data):
         return None
     return matched
 
+def visible_number(text):
+    value = text.strip().replace("\\u00a0", " ")
+    m = re.fullmatch(r"\\s*(\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:votos?)?\\s*", value, re.I)
+    return int(m.group(1).replace(".", "")) if m else None
+
+def extract_rendered(text):
+    """Leitura conservadora de blocos de texto visíveis, sem OCR e sem palpites."""
+    lines = [re.sub(r"\\s+", " ", x).strip() for x in text.splitlines() if x.strip()]
+    def find_vote(pattern):
+        matches = []
+        for i,line in enumerate(lines):
+            if not re.search(pattern,line,re.I):
+                continue
+            # Exigir campo 'votos' na proximidade para não confundir número
+            # do candidato ou porcentagem com a totalização.
+            vicinity = lines[max(0,i-2):min(len(lines),i+5)]
+            for j,near in enumerate(vicinity):
+                m=re.search(r"(?:votos?\\s*[:\\-]?\\s*)(\\d{1,3}(?:\\.\\d{3})+|\\d+)(?![%\\d])",near,re.I)
+                if m:
+                    matches.append(int(m.group(1).replace(".","")))
+                elif re.fullmatch(r"\\d{1,3}(?:\\.\\d{3})+|\\d+",near):
+                    if any(re.search(r"votos?",s,re.I) for s in vicinity):
+                        matches.append(int(near.replace(".","")))
+        matches=[x for x in matches if x>100]
+        return matches[0] if len(set(matches))==1 else None
+    lula=find_vote(r"\\bLula\\b")
+    flavio=find_vote(r"Fl[aá]vio\\s+Bolsonaro")
+    counted=total=None
+    for line in lines:
+        if re.search(r"se[cç][oõ]es|urnas",line,re.I):
+            m=re.search(r"(\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:de|/)\\s*(\\d{1,3}(?:\\.\\d{3})+|\\d+)",line,re.I)
+            if m:
+                counted,total=(int(x.replace(".","")) for x in m.groups())
+                break
+    if None in (lula,flavio,counted,total) or not (0<=counted<=total<=100000):
+        return None
+    return {"lula_votes":lula,"flavio_votes":flavio,
+            "sections_counted":counted,"sections_total":total}
+
 async def main():
     captured = []
     selected = None
-    page_text = ""
+    page_text = ""\n    extracted_from = None
     errors = []
 
     async with async_playwright() as p:
@@ -111,7 +150,20 @@ async def main():
         try:
             await page.goto(BASE, wait_until="domcontentloaded", timeout=35000)
             await page.wait_for_timeout(15000)
-            page_text = (await page.locator("body").inner_text(timeout=5000))[:20000]
+            texts=[]
+            for frame in page.frames:
+                try:
+                    texts.append((await frame.locator("body").inner_text(timeout=5000))[:40000])
+                except Exception:
+                    pass
+            page_text="\\n".join(texts)
+            if selected is None:
+                for rendered in texts:
+                    candidate=extract_rendered(rendered)
+                    if candidate:
+                        selected=candidate
+                        extracted_from="rendered_text"
+                        break
         except Exception as exc:
             errors.append("Página: " + str(exc)[:180])
         await browser.close()
@@ -122,7 +174,7 @@ async def main():
     report = {"checked_at":timestamp, "source":BASE, "status":"validado" if selected else "requer_mapeamento",
               "responses_with_indicators":captured[:80], "page_indicators":
               sorted(set(re.findall(r"(?i)lula|fl[aá]vio|se[cç][oõ]es|exterior|estados unidos|portugal|jap[aã]o", page_text)))[:30],
-              "errors":errors[:10]}
+              "errors":errors[:10], "extraction_method": extracted_from or ("json" if selected else None)}
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     if selected:
