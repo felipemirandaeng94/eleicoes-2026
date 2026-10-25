@@ -8,19 +8,19 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T15:43:12Z",
-  "lula_votes": 19244,
-  "flavio_votes": 35857,
-  "blank_votes": 1417,
-  "null_votes": 1258,
-  "turnout": 57776,
-  "electorate_counted_sections": 135157,
-  "sections_counted": 199,
+  "collected_at": "2026-10-25T16:08:11Z",
+  "lula_votes": 20244,
+  "flavio_votes": 35903,
+  "blank_votes": 1425,
+  "null_votes": 1273,
+  "turnout": 58845,
+  "electorate_counted_sections": 137292,
+  "sections_counted": 202,
   "sections_total": 1351,
-  "electorate_share_counted": 0.147865,
-  "source_updated_at": "2026-10-25T15:43:04Z",
-  "last_bulletin_at": "2026-10-25T15:41:03Z",
-  "source_version": "41c128099e",
+  "electorate_share_counted": 0.150201,
+  "source_updated_at": "2026-10-25T16:07:59Z",
+  "last_bulletin_at": "2026-10-25T16:06:53Z",
+  "source_version": "1397479232",
   "official_tse": {
     "lula_votes": 0,
     "flavio_votes": 0,
@@ -29,9 +29,9 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "7f24aea7a8bc2c51",
+  "content_hash": "10651b6013ef2b97",
   "changed_since_previous": true,
-  "history_db": "data/historico_exterior/2026-10-25_15.sqlite3",
+  "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
   "countries": [
     {
@@ -159,6 +159,20 @@
       "electorate": 3119,
       "sections_counted": 5,
       "sections_total": 5
+    },
+    {
+      "code": "30414",
+      "city": "RAMALLAH",
+      "name": "Palestina",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 1000,
+      "flavio_votes": 46,
+      "blank_votes": 8,
+      "null_votes": 15,
+      "turnout": 1069,
+      "electorate": 2135,
+      "sections_counted": 3,
+      "sections_total": 3
     },
     {
       "code": "29785",
@@ -1323,14 +1337,6 @@
       "region": "Ásia e Oriente Médio",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "30414",
-      "city": "RAMALLAH",
-      "name": "Palestina",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 3
     },
     {
       "code": "30260",
