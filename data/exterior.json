@@ -8,7 +8,7 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T12:12:14Z",
+  "collected_at": "2026-10-25T12:44:40Z",
   "lula_votes": 14654,
   "flavio_votes": 32893,
   "blank_votes": 1287,
@@ -18,7 +18,7 @@
   "sections_counted": 166,
   "sections_total": 1351,
   "electorate_share_counted": 0.12785,
-  "source_updated_at": "2026-10-25T12:12:03Z",
+  "source_updated_at": "2026-10-25T12:44:33Z",
   "last_bulletin_at": "2026-10-25T11:55:46Z",
   "source_version": "41c128099e",
   "official_tse": {
@@ -30,7 +30,7 @@
     "finished": false
   },
   "content_hash": "6833d0cf73866ee4",
-  "changed_since_previous": true,
+  "changed_since_previous": false,
   "history_db": "data/historico_exterior/2026-10-25_12.sqlite3",
   "warnings": [],
   "countries": [
@@ -284,6 +284,1352 @@
       "turnout": 48,
       "electorate": 141,
       "sections_counted": 1,
+      "sections_total": 1
+    }
+  ],
+  "locations_pending": [
+    {
+      "code": "99139",
+      "city": "TIRANA",
+      "name": "Albânia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29386",
+      "city": "BERLIM",
+      "name": "Alemanha",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 20
+    },
+    {
+      "code": "29696",
+      "city": "FRANKFURT",
+      "name": "Alemanha",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 21
+    },
+    {
+      "code": "30180",
+      "city": "MUNIQUE",
+      "name": "Alemanha",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 21
+    },
+    {
+      "code": "29998",
+      "city": "LUANDA",
+      "name": "Angola",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99147",
+      "city": "SAINT JOHNS",
+      "name": "Antígua e Barbuda",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29467",
+      "city": "BUENOS AIRES",
+      "name": "Argentina",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 15
+    },
+    {
+      "code": "29602",
+      "city": "CÓRDOBA",
+      "name": "Argentina",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "39004",
+      "city": "MENDOZA",
+      "name": "Argentina",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30295",
+      "city": "PASO LOS LIBRES",
+      "name": "Argentina",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99155",
+      "city": "PUERTO IGUAZÚ",
+      "name": "Argentina",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29300",
+      "city": "ARGEL",
+      "name": "Argélia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "38989",
+      "city": "IEREVAN",
+      "name": "Armênia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30422",
+      "city": "RIADE",
+      "name": "Arábia Saudita",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39128",
+      "city": "BAKU",
+      "name": "Azerbaijão",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99180",
+      "city": "NASSAU",
+      "name": "Bahamas",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99473",
+      "city": "BAREIN",
+      "name": "Bahrein",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29629",
+      "city": "DACCA",
+      "name": "Bangladesh",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29424",
+      "city": "BRIDGETOWN",
+      "name": "Barbados",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "38881",
+      "city": "BELMOPAN",
+      "name": "Belize",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "38920",
+      "city": "COTONOU",
+      "name": "Benin",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99210",
+      "city": "COBIJA",
+      "name": "Bolívia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29572",
+      "city": "COCHABAMBA",
+      "name": "Bolívia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29904",
+      "city": "LA PAZ",
+      "name": "Bolívia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99236",
+      "city": "PUERTO QUIJARRO",
+      "name": "Bolívia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30473",
+      "city": "SANTA CRUZ DE LA SIERRA",
+      "name": "Bolívia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "30669",
+      "city": "GABORONE",
+      "name": "Botsuana",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30546",
+      "city": "SÓFIA",
+      "name": "Bulgária",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39284",
+      "city": "UAGADUGU",
+      "name": "Burkina Faso",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29432",
+      "city": "BRUXELAS",
+      "name": "Bélgica",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 14
+    },
+    {
+      "code": "30988",
+      "city": "SARAJEVO",
+      "name": "Bósnia e Herzegovina",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "30368",
+      "city": "PRAIA",
+      "name": "Cabo Verde",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29815",
+      "city": "IAUNDÊ",
+      "name": "Camarões",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30155",
+      "city": "MONTREAL",
+      "name": "Canadá",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 15
+    },
+    {
+      "code": "30252",
+      "city": "OTTAWA",
+      "name": "Canadá",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 4
+    },
+    {
+      "code": "30635",
+      "city": "TORONTO",
+      "name": "Canadá",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 28
+    },
+    {
+      "code": "39063",
+      "city": "VANCOUVER",
+      "name": "Canadá",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 16
+    },
+    {
+      "code": "29653",
+      "city": "DOHA",
+      "name": "Catar",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39241",
+      "city": "ASTANA",
+      "name": "Cazaquistão",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30481",
+      "city": "SANTIAGO",
+      "name": "Chile",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "39322",
+      "city": "NICOSIA",
+      "name": "Chipre",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29408",
+      "city": "BOGOTÁ",
+      "name": "Colômbia",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "39187",
+      "city": "BRAZZAVILLE",
+      "name": "Congo",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99295",
+      "city": "PYONGYANG",
+      "name": "Coreia do Norte",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30511",
+      "city": "SÃO JOSÉ",
+      "name": "Costa Rica",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29254",
+      "city": "ABIDJÃ",
+      "name": "Costa do Marfim",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39020",
+      "city": "ZAGREB",
+      "name": "Croácia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29777",
+      "city": "HAVANA",
+      "name": "Cuba",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29599",
+      "city": "COPENHAGUE",
+      "name": "Dinamarca",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 4
+    },
+    {
+      "code": "29483",
+      "city": "CAIRO",
+      "name": "Egito",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30520",
+      "city": "SÃO SALVADOR",
+      "name": "El Salvador",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29262",
+      "city": "ABU DHABI",
+      "name": "Emirados Árabes",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "30392",
+      "city": "QUITO",
+      "name": "Equador",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "39209",
+      "city": "BRATISLAVA",
+      "name": "Eslováquia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39160",
+      "city": "LIUBLIANA",
+      "name": "Eslovênia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29351",
+      "city": "BARCELONA",
+      "name": "Espanha",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 22
+    },
+    {
+      "code": "30066",
+      "city": "MADRI",
+      "name": "Espanha",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 30
+    },
+    {
+      "code": "39080",
+      "city": "ATLANTA",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 22
+    },
+    {
+      "code": "29416",
+      "city": "BOSTON",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 69
+    },
+    {
+      "code": "29513",
+      "city": "CHICAGO",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 18
+    },
+    {
+      "code": "30902",
+      "city": "HARTFORD",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 12
+    },
+    {
+      "code": "29807",
+      "city": "HOUSTON",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 23
+    },
+    {
+      "code": "29980",
+      "city": "LOS ANGELES",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 25
+    },
+    {
+      "code": "30112",
+      "city": "MIAMI",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 51
+    },
+    {
+      "code": "30228",
+      "city": "NOVA YORK",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 53
+    },
+    {
+      "code": "99490",
+      "city": "ORLANDO",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 34
+    },
+    {
+      "code": "30503",
+      "city": "SÃO FRANCISCO",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 20
+    },
+    {
+      "code": "30783",
+      "city": "WASHINGTON",
+      "name": "Estados Unidos",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 31
+    },
+    {
+      "code": "99317",
+      "city": "TALIN",
+      "name": "Estônia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99325",
+      "city": "ADIS ABEBA",
+      "name": "Etiópia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29785",
+      "city": "HELSINQUE",
+      "name": "Finlândia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "99511",
+      "city": "MARSELHA",
+      "name": "França",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 4
+    },
+    {
+      "code": "30287",
+      "city": "PARIS",
+      "name": "França",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 34
+    },
+    {
+      "code": "29939",
+      "city": "LIBREVILLE",
+      "name": "Gabão",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29270",
+      "city": "ACCRA",
+      "name": "Gana",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99104",
+      "city": "TBILISI",
+      "name": "Geórgia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29335",
+      "city": "ATENAS",
+      "name": "Grécia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "98000",
+      "city": "GUATEMALA",
+      "name": "Guatemala",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29718",
+      "city": "GEORGETOWN",
+      "name": "Guiana",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29475",
+      "city": "CAIENA",
+      "name": "Guiana Francesa",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "99333",
+      "city": "ST GEORGES DE LOYAPOCK",
+      "name": "Guiana Francesa",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "38903",
+      "city": "CONACRI",
+      "name": "Guiné",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39263",
+      "city": "MALABO",
+      "name": "Guiné Equatorial",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29394",
+      "city": "BISSAU",
+      "name": "Guiné-Bissau",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30333",
+      "city": "PORTO PRÍNCIPE",
+      "name": "Haiti",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30600",
+      "city": "TEGUCIGALPA",
+      "name": "Honduras",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29459",
+      "city": "BUDAPESTE",
+      "name": "Hungria",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "99171",
+      "city": "BAGDÁ",
+      "name": "Iraque",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29661",
+      "city": "DUBLIN",
+      "name": "Irlanda",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 28
+    },
+    {
+      "code": "30597",
+      "city": "TEERÃ",
+      "name": "Irã",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30619",
+      "city": "TEL AVIV",
+      "name": "Israel",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "30120",
+      "city": "MILÃO",
+      "name": "Itália",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 37
+    },
+    {
+      "code": "30449",
+      "city": "ROMA",
+      "name": "Itália",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 22
+    },
+    {
+      "code": "99430",
+      "city": "KINGSTON-JAMAICA",
+      "name": "Jamaica",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29289",
+      "city": "AMÃ",
+      "name": "Jordânia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "29882",
+      "city": "KUAITE",
+      "name": "Kuwait",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29360",
+      "city": "BEIRUTE",
+      "name": "Líbano",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 13
+    },
+    {
+      "code": "30686",
+      "city": "TRÍPOLI",
+      "name": "Líbia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99341",
+      "city": "LILONGUE",
+      "name": "Malaui",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99350",
+      "city": "BAMAKO",
+      "name": "Mali",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30406",
+      "city": "RABAT",
+      "name": "Marrocos",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99376",
+      "city": "YANGON",
+      "name": "Mianmar",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30090",
+      "city": "MAPUTO",
+      "name": "Moçambique",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30104",
+      "city": "MEXICO",
+      "name": "México",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 6
+    },
+    {
+      "code": "30821",
+      "city": "WINDHOEK",
+      "name": "Namíbia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29173",
+      "city": "KATMANDU",
+      "name": "Nepal",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30074",
+      "city": "MANÁGUA",
+      "name": "Nicarágua",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99198",
+      "city": "ABUJA",
+      "name": "Nigéria",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29912",
+      "city": "LAGOS",
+      "name": "Nigéria",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30244",
+      "city": "OSLO",
+      "name": "Noruega",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 3
+    },
+    {
+      "code": "39102",
+      "city": "MASCATE",
+      "name": "Omã",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30414",
+      "city": "RAMALLAH",
+      "name": "Palestina",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 3
+    },
+    {
+      "code": "30260",
+      "city": "PANAMA",
+      "name": "Panamá",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "29831",
+      "city": "ISLAMABADE",
+      "name": "Paquistão",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29327",
+      "city": "ASSUNÇÃO",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 4
+    },
+    {
+      "code": "29556",
+      "city": "CIUDAD DEL ESTE",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 7
+    },
+    {
+      "code": "29580",
+      "city": "CONCEPCIÓN",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29670",
+      "city": "ENCARNACIÓN",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30309",
+      "city": "PEDRO JUAN CABALLERO",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30465",
+      "city": "SALTO DEL GUAIRÁ",
+      "name": "Paraguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 2
+    },
+    {
+      "code": "30457",
+      "city": "AMSTERDÃ",
+      "name": "Países Baixos",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 17
+    },
+    {
+      "code": "29823",
+      "city": "IQUITOS",
+      "name": "Peru",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29947",
+      "city": "LIMA",
+      "name": "Peru",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 3
+    },
+    {
+      "code": "30740",
+      "city": "VARSÓVIA",
+      "name": "Polônia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30961",
+      "city": "FARO",
+      "name": "Portugal",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 11
+    },
+    {
+      "code": "29955",
+      "city": "LISBOA",
+      "name": "Portugal",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 103
+    },
+    {
+      "code": "30341",
+      "city": "PORTO",
+      "name": "Portugal",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 62
+    },
+    {
+      "code": "30201",
+      "city": "NAIRÓBI",
+      "name": "Quênia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29874",
+      "city": "KINSHASA",
+      "name": "RD Congo",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99503",
+      "city": "EDIMBURGO",
+      "name": "Reino Unido",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 6
+    },
+    {
+      "code": "29971",
+      "city": "LONDRES",
+      "name": "Reino Unido",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 48
+    },
+    {
+      "code": "30490",
+      "city": "SÃO DOMINGOS",
+      "name": "Rep. Dominicana",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29440",
+      "city": "BUCARESTE",
+      "name": "Romênia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30163",
+      "city": "MOSCOU",
+      "name": "Rússia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99384",
+      "city": "CASTRIES",
+      "name": "Santa Lúcia",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29610",
+      "city": "DACAR",
+      "name": "Senegal",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30929",
+      "city": "COLOMBO",
+      "name": "Sri Lanka",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30279",
+      "city": "PARAMARIBO",
+      "name": "Suriname",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 3
+    },
+    {
+      "code": "29688",
+      "city": "ESTOCOLMO",
+      "name": "Suécia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 7
+    },
+    {
+      "code": "29700",
+      "city": "GENEBRA",
+      "name": "Suíça",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 15
+    },
+    {
+      "code": "30864",
+      "city": "ZURIQUE",
+      "name": "Suíça",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 19
+    },
+    {
+      "code": "39225",
+      "city": "SÃO TOMÉ",
+      "name": "São Tomé e Príncipe",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29378",
+      "city": "BELGRADO",
+      "name": "Sérvia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29637",
+      "city": "DAMASCO",
+      "name": "Síria",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "38962",
+      "city": "DAR ES SALAAM",
+      "name": "Tanzânia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30350",
+      "city": "PRAGA",
+      "name": "Tchéquia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29645",
+      "city": "DÍLI",
+      "name": "Timor-Leste",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29963",
+      "city": "LOMÉ",
+      "name": "Togo",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30325",
+      "city": "PORT OF SPAIN",
+      "name": "Trinidad e Tobago",
+      "region": "América do Norte, Central e Caribe",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30708",
+      "city": "TUNIS",
+      "name": "Tunísia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29297",
+      "city": "ANCARA",
+      "name": "Turquia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "39306",
+      "city": "ISTAMBUL",
+      "name": "Turquia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29858",
+      "city": "KIEV",
+      "name": "Ucrânia",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29319",
+      "city": "ARTIGAS",
+      "name": "Uruguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29521",
+      "city": "CHUY",
+      "name": "Uruguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30147",
+      "city": "MONTEVIDÉU",
+      "name": "Uruguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 4
+    },
+    {
+      "code": "30430",
+      "city": "RIO BRANCO",
+      "name": "Uruguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99244",
+      "city": "RIVERA",
+      "name": "Uruguai",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29505",
+      "city": "CARACAS",
+      "name": "Venezuela",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 3
+    },
+    {
+      "code": "29564",
+      "city": "CIUDAD GUAYANA",
+      "name": "Venezuela",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99279",
+      "city": "SANTA ELENA DE UAIRÉN",
+      "name": "Venezuela",
+      "region": "América do Sul",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29750",
+      "city": "HANÓI",
+      "name": "Vietnã",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29769",
+      "city": "HARARE",
+      "name": "Zimbábue",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "99287",
+      "city": "LUSACA",
+      "name": "Zâmbia",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "29530",
+      "city": "CIDADE DO CABO",
+      "name": "África do Sul",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30376",
+      "city": "PRETÓRIA",
+      "name": "África do Sul",
+      "region": "África",
+      "sections_counted": 0,
+      "sections_total": 1
+    },
+    {
+      "code": "30767",
+      "city": "VIENA",
+      "name": "Áustria",
+      "region": "Europa",
+      "sections_counted": 0,
+      "sections_total": 5
+    },
+    {
+      "code": "30171",
+      "city": "MUMBAI",
+      "name": "Índia",
+      "region": "Ásia e Oriente Médio",
+      "sections_counted": 0,
       "sections_total": 1
     }
   ]
