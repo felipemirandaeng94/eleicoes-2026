@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:48:10Z",
-  "lula_votes": 30766,
-  "flavio_votes": 39431,
-  "blank_votes": 1567,
-  "null_votes": 1467,
-  "turnout": 73231,
-  "electorate_counted_sections": 165819,
-  "sections_counted": 246,
+  "collected_at": "2026-10-25T16:58:11Z",
+  "lula_votes": 33303,
+  "flavio_votes": 40236,
+  "blank_votes": 1605,
+  "null_votes": 1509,
+  "turnout": 76653,
+  "electorate_counted_sections": 174051,
+  "sections_counted": 257,
   "sections_total": 1351,
-  "electorate_share_counted": 0.18141,
-  "source_updated_at": "2026-10-25T16:48:07Z",
-  "last_bulletin_at": "2026-10-25T16:46:18Z",
+  "electorate_share_counted": 0.190416,
+  "source_updated_at": "2026-10-25T16:58:10Z",
+  "last_bulletin_at": "2026-10-25T16:58:10Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "7ac34b8eac98cdd3",
+  "content_hash": "dfcebaf0cb86b7c9",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -133,6 +133,20 @@
       "sections_total": 21
     },
     {
+      "code": "29688",
+      "city": "ESTOCOLMO",
+      "name": "Suécia",
+      "region": "Europa",
+      "lula_votes": 2127,
+      "flavio_votes": 591,
+      "blank_votes": 26,
+      "null_votes": 34,
+      "turnout": 2778,
+      "electorate": 4866,
+      "sections_counted": 7,
+      "sections_total": 7
+    },
+    {
       "code": "29262",
       "city": "ABU DHABI",
       "name": "Emirados Árabes",
@@ -145,6 +159,20 @@
       "electorate": 2988,
       "sections_counted": 5,
       "sections_total": 5
+    },
+    {
+      "code": "30287",
+      "city": "PARIS",
+      "name": "França",
+      "region": "Europa",
+      "lula_votes": 1356,
+      "flavio_votes": 253,
+      "blank_votes": 14,
+      "null_votes": 11,
+      "turnout": 1634,
+      "electorate": 3965,
+      "sections_counted": 5,
+      "sections_total": 34
     },
     {
       "code": "30619",
@@ -175,20 +203,6 @@
       "sections_total": 5
     },
     {
-      "code": "29688",
-      "city": "ESTOCOLMO",
-      "name": "Suécia",
-      "region": "Europa",
-      "lula_votes": 1615,
-      "flavio_votes": 456,
-      "blank_votes": 24,
-      "null_votes": 22,
-      "turnout": 2117,
-      "electorate": 3757,
-      "sections_counted": 5,
-      "sections_total": 7
-    },
-    {
       "code": "30767",
       "city": "VIENA",
       "name": "Áustria",
@@ -215,6 +229,20 @@
       "electorate": 2855,
       "sections_counted": 4,
       "sections_total": 4
+    },
+    {
+      "code": "30066",
+      "city": "MADRI",
+      "name": "Espanha",
+      "region": "Europa",
+      "lula_votes": 669,
+      "flavio_votes": 417,
+      "blank_votes": 22,
+      "null_votes": 19,
+      "turnout": 1127,
+      "electorate": 3158,
+      "sections_counted": 4,
+      "sections_total": 30
     },
     {
       "code": "99511",
@@ -1097,14 +1125,6 @@
       "sections_total": 22
     },
     {
-      "code": "30066",
-      "city": "MADRI",
-      "name": "Espanha",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 30
-    },
-    {
       "code": "39080",
       "city": "ATLANTA",
       "name": "Estados Unidos",
@@ -1199,14 +1219,6 @@
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "30287",
-      "city": "PARIS",
-      "name": "França",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 34
     },
     {
       "code": "29939",
