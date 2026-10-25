@@ -16,7 +16,7 @@ from playwright.async_api import async_playwright
 BASE = "https://probitasbrasil.org/apuracao/"
 OUT = Path("data/exterior.json")
 REPORT = Path("data/probitas_diagnostico.json")
-NUMBER = re.compile(r"^\d{1,3}(?:\\.\d{3})*$|^\d+$")
+NUMBER = re.compile(r"^\d{1,3}(?:\.\d{3})*$|^\d+$")
 
 def integer(value):
     if isinstance(value, bool):
