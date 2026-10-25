@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T14:19:07Z",
-  "lula_votes": 15435,
-  "flavio_votes": 33728,
-  "blank_votes": 1309,
-  "null_votes": 1138,
-  "turnout": 51610,
-  "electorate_counted_sections": 120474,
-  "sections_counted": 174,
+  "collected_at": "2026-10-25T14:29:08Z",
+  "lula_votes": 15701,
+  "flavio_votes": 33785,
+  "blank_votes": 1310,
+  "null_votes": 1144,
+  "turnout": 51940,
+  "electorate_counted_sections": 121714,
+  "sections_counted": 177,
   "sections_total": 1351,
-  "electorate_share_counted": 0.131801,
-  "source_updated_at": "2026-10-25T14:19:03Z",
-  "last_bulletin_at": "2026-10-25T14:17:31Z",
+  "electorate_share_counted": 0.133158,
+  "source_updated_at": "2026-10-25T14:29:03Z",
+  "last_bulletin_at": "2026-10-25T14:22:30Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "a8b4d8a5c4cfa5ab",
+  "content_hash": "7aba79a2922d4b78",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_14.sqlite3",
   "warnings": [],
@@ -273,6 +273,20 @@
       "sections_total": 1
     },
     {
+      "code": "29882",
+      "city": "KUAITE",
+      "name": "Kuwait",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 62,
+      "flavio_votes": 17,
+      "blank_votes": 1,
+      "null_votes": 4,
+      "turnout": 84,
+      "electorate": 138,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "29890",
       "city": "KUALA LUMPUR",
       "name": "Malásia",
@@ -301,6 +315,20 @@
       "sections_total": 1
     },
     {
+      "code": "29637",
+      "city": "DAMASCO",
+      "name": "Síria",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 106,
+      "flavio_votes": 11,
+      "blank_votes": 0,
+      "null_votes": 2,
+      "turnout": 119,
+      "electorate": 775,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "29343",
       "city": "BANGKOK",
       "name": "Tailândia",
@@ -325,6 +353,20 @@
       "null_votes": 7,
       "turnout": 239,
       "electorate": 622,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "39306",
+      "city": "ISTAMBUL",
+      "name": "Turquia",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 98,
+      "flavio_votes": 29,
+      "blank_votes": 0,
+      "null_votes": 0,
+      "turnout": 127,
+      "electorate": 327,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -1081,14 +1123,6 @@
       "sections_total": 2
     },
     {
-      "code": "29882",
-      "city": "KUAITE",
-      "name": "Kuwait",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "29360",
       "city": "BEIRUTE",
       "name": "Líbano",
@@ -1457,14 +1491,6 @@
       "sections_total": 1
     },
     {
-      "code": "29637",
-      "city": "DAMASCO",
-      "name": "Síria",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "38962",
       "city": "DAR ES SALAAM",
       "name": "Tanzânia",
@@ -1515,14 +1541,6 @@
     {
       "code": "29297",
       "city": "ANCARA",
-      "name": "Turquia",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "39306",
-      "city": "ISTAMBUL",
       "name": "Turquia",
       "region": "Ásia e Oriente Médio",
       "sections_counted": 0,
