@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T15:28:11Z",
-  "lula_votes": 17794,
-  "flavio_votes": 34788,
-  "blank_votes": 1357,
-  "null_votes": 1195,
-  "turnout": 55134,
-  "electorate_counted_sections": 127817,
-  "sections_counted": 188,
+  "collected_at": "2026-10-25T15:33:11Z",
+  "lula_votes": 19078,
+  "flavio_votes": 35158,
+  "blank_votes": 1399,
+  "null_votes": 1239,
+  "turnout": 56874,
+  "electorate_counted_sections": 131714,
+  "sections_counted": 194,
   "sections_total": 1351,
-  "electorate_share_counted": 0.139835,
-  "source_updated_at": "2026-10-25T15:28:04Z",
-  "last_bulletin_at": "2026-10-25T15:25:55Z",
+  "electorate_share_counted": 0.144098,
+  "source_updated_at": "2026-10-25T15:33:04Z",
+  "last_bulletin_at": "2026-10-25T15:29:43Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "eb28884c33cdfb6d",
+  "content_hash": "13e6d6e0d7d1dad3",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_15.sqlite3",
   "warnings": [],
@@ -117,6 +117,20 @@
       "electorate": 2988,
       "sections_counted": 5,
       "sections_total": 5
+    },
+    {
+      "code": "29360",
+      "city": "BEIRUTE",
+      "name": "Líbano",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 1205,
+      "flavio_votes": 175,
+      "blank_votes": 38,
+      "null_votes": 38,
+      "turnout": 1456,
+      "electorate": 3240,
+      "sections_counted": 5,
+      "sections_total": 13
     },
     {
       "code": "30805",
@@ -479,6 +493,20 @@
       "null_votes": 5,
       "turnout": 176,
       "electorate": 355,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "30376",
+      "city": "PRETÓRIA",
+      "name": "África do Sul",
+      "region": "África",
+      "lula_votes": 79,
+      "flavio_votes": 195,
+      "blank_votes": 4,
+      "null_votes": 6,
+      "turnout": 284,
+      "electorate": 657,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -1187,14 +1215,6 @@
       "sections_total": 1
     },
     {
-      "code": "29360",
-      "city": "BEIRUTE",
-      "name": "Líbano",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 13
-    },
-    {
       "code": "30686",
       "city": "TRÍPOLI",
       "name": "Líbia",
@@ -1694,14 +1714,6 @@
       "code": "99287",
       "city": "LUSACA",
       "name": "Zâmbia",
-      "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "30376",
-      "city": "PRETÓRIA",
-      "name": "África do Sul",
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
