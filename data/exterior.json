@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T13:23:23Z",
-  "lula_votes": 14879,
-  "flavio_votes": 33221,
-  "blank_votes": 1295,
-  "null_votes": 1123,
-  "turnout": 50518,
-  "electorate_counted_sections": 118028,
-  "sections_counted": 168,
+  "collected_at": "2026-10-25T14:10:07Z",
+  "lula_votes": 15297,
+  "flavio_votes": 33665,
+  "blank_votes": 1306,
+  "null_votes": 1134,
+  "turnout": 51402,
+  "electorate_counted_sections": 119850,
+  "sections_counted": 171,
   "sections_total": 1351,
-  "electorate_share_counted": 0.129125,
-  "source_updated_at": "2026-10-25T13:23:18Z",
-  "last_bulletin_at": "2026-10-25T13:18:28Z",
+  "electorate_share_counted": 0.131119,
+  "source_updated_at": "2026-10-25T14:10:03Z",
+  "last_bulletin_at": "2026-10-25T13:30:16Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,9 +29,9 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "a784bce3c0d9b40b",
+  "content_hash": "a5b199b5e3600a7b",
   "changed_since_previous": true,
-  "history_db": "data/historico_exterior/2026-10-25_13.sqlite3",
+  "history_db": "data/historico_exterior/2026-10-25_14.sqlite3",
   "warnings": [],
   "countries": [
     {
@@ -105,6 +105,20 @@
       "sections_total": 10
     },
     {
+      "code": "29262",
+      "city": "ABU DHABI",
+      "name": "Emirados Árabes",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 643,
+      "flavio_votes": 772,
+      "blank_votes": 19,
+      "null_votes": 31,
+      "turnout": 1465,
+      "electorate": 2988,
+      "sections_counted": 5,
+      "sections_total": 5
+    },
+    {
       "code": "30805",
       "city": "WELLINGTON",
       "name": "Nova Zelândia",
@@ -116,20 +130,6 @@
       "turnout": 526,
       "electorate": 3119,
       "sections_counted": 5,
-      "sections_total": 5
-    },
-    {
-      "code": "29262",
-      "city": "ABU DHABI",
-      "name": "Emirados Árabes",
-      "region": "Ásia e Oriente Médio",
-      "lula_votes": 225,
-      "flavio_votes": 328,
-      "blank_votes": 8,
-      "null_votes": 20,
-      "turnout": 581,
-      "electorate": 1166,
-      "sections_counted": 2,
       "sections_total": 5
     },
     {
