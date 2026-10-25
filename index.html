@@ -39,6 +39,7 @@ button:hover{background:#22395a}
 .tabs{display:flex;gap:6px;margin-bottom:16px;padding:5px;background:#0b1729;border:1px solid var(--line);border-radius:14px;width:max-content;max-width:100%}
 .tabs button{border-color:transparent;background:transparent}
 .tabs button.active{background:#255786;border-color:#477faf;color:#fff}
+.tabs button:disabled{opacity:.42;cursor:not-allowed;background:transparent;border-color:transparent}
 .card{background:linear-gradient(160deg,var(--card2),var(--card) 70%);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0;box-shadow:0 14px 36px #0003}
 .eyebrow{color:#81c5ff;font-size:11px;letter-spacing:.15em;font-weight:800;text-transform:uppercase;margin-bottom:6px}
 /* Barras */
@@ -219,7 +220,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 </style></head><body>
 <header class="top"><div class="top-in"><div class="kicker">Cobertura eleitoral · 2º turno</div><h1>Eleições 2026 <span>| Presidente</span></h1><div class="top-date"><span class="data-longa">25 de outubro de 2026</span><span class="data-curta">25/10/2026</span><span class="upd" id="topUpdate" aria-live="polite"><i aria-hidden="true"></i><span id="topUpdateTxt">Carregando…</span></span></div></div></header>
 <main>
-<div class="tabs" role="tablist" aria-label="Recorte"><button id="extTab" role="tab">Exterior · Probitas</button><button id="brTab" role="tab">Brasil · TSE oficial</button></div>
+<div class="tabs" role="tablist" aria-label="Recorte"><button id="brTab" role="tab">Brasil · TSE oficial</button><button id="extTab" role="tab" disabled aria-disabled="true" title="Exterior (Probitas) desativado: o painel segue com os resultados oficiais do TSE">Exterior · Probitas</button></div>
 
 <section id="exterior" aria-label="Exterior">
 <p class="muted" style="margin:0 0 12px"><strong>Apuração independente — não oficial.</strong> Os números do Probitas não substituem a totalização oficial do TSE.</p>
@@ -511,8 +512,10 @@ el('brBack').addEventListener('click',voltar);
 el('ufList').addEventListener('click',e=>{const b=e.target.closest('[data-uf]');if(!b)return;selecionarUF(b.dataset.uf);if(matchMedia('(max-width:900px)').matches)el('brCard').scrollIntoView({behavior:reduzido()?'auto':'smooth',block:'start'})});
 
 /* =================== Abas e coleta TSE =================== */
-function show(tab){el('exterior').classList.toggle('hidden',tab!=='ext');el('brasil').classList.toggle('hidden',tab!=='br');el('extTab').classList.toggle('active',tab==='ext');el('brTab').classList.toggle('active',tab==='br');el('extTab').setAttribute('aria-selected',String(tab==='ext'));el('brTab').setAttribute('aria-selected',String(tab==='br'));if(tab==='br')requestAnimationFrame(escalarRotulos);rotuloTopo()}
-el('extTab').onclick=()=>show('ext');el('brTab').onclick=()=>show('br');
+// Aba do exterior desativada: o painel fica só na aba Brasil (TSE oficial).
+const EXT_ATIVO=false;
+function show(tab){if(tab==='ext'&&!EXT_ATIVO)tab='br';el('exterior').classList.toggle('hidden',tab!=='ext');el('brasil').classList.toggle('hidden',tab!=='br');el('extTab').classList.toggle('active',tab==='ext');el('brTab').classList.toggle('active',tab==='br');el('extTab').setAttribute('aria-selected',String(tab==='ext'));el('brTab').setAttribute('aria-selected',String(tab==='br'));if(tab==='br')requestAnimationFrame(escalarRotulos);rotuloTopo()}
+el('extTab').onclick=()=>{if(EXT_ATIVO)show('ext')};el('brTab').onclick=()=>show('br');
 async function refresh(){
  try{
   const r=await fetch('./data/results.json?v='+Date.now(),{cache:'no-store'});
@@ -529,7 +532,7 @@ async function refresh(){
 const cutoff=Date.parse('2026-10-25T17:00:00-03:00');
 let switched=null;
 function syncElectionMode(){
- const official=Date.now()>=cutoff,tabs=document.querySelector('.tabs');
+ const official=!EXT_ATIVO||Date.now()>=cutoff,tabs=document.querySelector('.tabs');
  const first=official?el('brTab'):el('extTab'),second=official?el('extTab'):el('brTab');
  if(tabs.firstElementChild!==first)tabs.append(first,second);
  if(official!==switched){switched=official;show(official?'br':'ext')}
