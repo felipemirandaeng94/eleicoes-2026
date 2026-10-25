@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T18:13:11Z",
-  "lula_votes": 93675,
-  "flavio_votes": 64183,
-  "blank_votes": 2441,
-  "null_votes": 2530,
-  "turnout": 162829,
-  "electorate_counted_sections": 363660,
-  "sections_counted": 523,
+  "collected_at": "2026-10-25T18:18:11Z",
+  "lula_votes": 112246,
+  "flavio_votes": 76684,
+  "blank_votes": 2819,
+  "null_votes": 2875,
+  "turnout": 194624,
+  "electorate_counted_sections": 438857,
+  "sections_counted": 627,
   "sections_total": 1351,
-  "electorate_share_counted": 0.397852,
-  "source_updated_at": "2026-10-25T18:13:07Z",
-  "last_bulletin_at": "2026-10-25T18:12:59Z",
+  "electorate_share_counted": 0.480119,
+  "source_updated_at": "2026-10-25T18:18:10Z",
+  "last_bulletin_at": "2026-10-25T18:17:35Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,11 +29,25 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "3aafdd69fb753787",
+  "content_hash": "9583e488aaf2b0e0",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_18.sqlite3",
   "warnings": [],
   "countries": [
+    {
+      "code": "30341",
+      "city": "PORTO",
+      "name": "Portugal",
+      "region": "Europa",
+      "lula_votes": 13435,
+      "flavio_votes": 8910,
+      "blank_votes": 268,
+      "null_votes": 249,
+      "turnout": 22862,
+      "electorate": 47505,
+      "sections_counted": 62,
+      "sections_total": 62
+    },
     {
       "code": "30198",
       "city": "NAGÓIA",
@@ -61,6 +75,20 @@
       "electorate": 30030,
       "sections_counted": 43,
       "sections_total": 43
+    },
+    {
+      "code": "30120",
+      "city": "MILÃO",
+      "name": "Itália",
+      "region": "Europa",
+      "lula_votes": 4723,
+      "flavio_votes": 3545,
+      "blank_votes": 109,
+      "null_votes": 88,
+      "turnout": 8465,
+      "electorate": 24598,
+      "sections_counted": 37,
+      "sections_total": 37
     },
     {
       "code": "30287",
@@ -315,6 +343,20 @@
       "sections_total": 7
     },
     {
+      "code": "99503",
+      "city": "EDIMBURGO",
+      "name": "Reino Unido",
+      "region": "Europa",
+      "lula_votes": 658,
+      "flavio_votes": 176,
+      "blank_votes": 4,
+      "null_votes": 7,
+      "turnout": 845,
+      "electorate": 4448,
+      "sections_counted": 6,
+      "sections_total": 6
+    },
+    {
       "code": "29262",
       "city": "ABU DHABI",
       "name": "Emirados Árabes",
@@ -539,6 +581,20 @@
       "sections_total": 1
     },
     {
+      "code": "30368",
+      "city": "PRAIA",
+      "name": "Cabo Verde",
+      "region": "África",
+      "lula_votes": 48,
+      "flavio_votes": 29,
+      "blank_votes": 2,
+      "null_votes": 2,
+      "turnout": 81,
+      "electorate": 146,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "29653",
       "city": "DOHA",
       "name": "Catar",
@@ -735,20 +791,6 @@
       "sections_total": 1
     },
     {
-      "code": "30120",
-      "city": "MILÃO",
-      "name": "Itália",
-      "region": "Europa",
-      "lula_votes": 185,
-      "flavio_votes": 127,
-      "blank_votes": 3,
-      "null_votes": 1,
-      "turnout": 316,
-      "electorate": 702,
-      "sections_counted": 1,
-      "sections_total": 37
-    },
-    {
       "code": "29882",
       "city": "KUAITE",
       "name": "Kuwait",
@@ -831,20 +873,6 @@
       "electorate": 110,
       "sections_counted": 1,
       "sections_total": 1
-    },
-    {
-      "code": "99503",
-      "city": "EDIMBURGO",
-      "name": "Reino Unido",
-      "region": "Europa",
-      "lula_votes": 108,
-      "flavio_votes": 32,
-      "blank_votes": 2,
-      "null_votes": 0,
-      "turnout": 142,
-      "electorate": 798,
-      "sections_counted": 1,
-      "sections_total": 6
     },
     {
       "code": "29440",
@@ -1201,14 +1229,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 2
-    },
-    {
-      "code": "30368",
-      "city": "PRAIA",
-      "name": "Cabo Verde",
-      "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
     },
     {
       "code": "29815",
@@ -1713,14 +1733,6 @@
       "region": "América do Sul",
       "sections_counted": 0,
       "sections_total": 3
-    },
-    {
-      "code": "30341",
-      "city": "PORTO",
-      "name": "Portugal",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 62
     },
     {
       "code": "29874",
