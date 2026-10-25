@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-25T13:23:24.167100+00:00",
+  "collected_at": "2026-10-25T14:19:09.166932+00:00",
   "source": "TSE",
   "brasil": {
     "votes": {
@@ -11,6 +11,17 @@
     "sections_done": 0,
     "published_at": "24/10/2026 19:19:13",
     "generation_id": "3943321"
+  },
+  "exterior": {
+    "votes": {
+      "22": 0,
+      "13": 0
+    },
+    "valid": 0,
+    "sections_total": 1351,
+    "sections_done": 0,
+    "published_at": "24/10/2026 20:11:36",
+    "generation_id": "3946125"
   },
   "ufs": {
     "AC": {
