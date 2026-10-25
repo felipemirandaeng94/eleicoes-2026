@@ -40,9 +40,16 @@ button:hover{background:#25405f;transform:translateY(-1px)}button.active{backgro
 .ext-label{font-size:13px;color:#b9cbdf}
 .ext-country-link{display:inline-block;margin-top:15px}
 @media(max-width:540px){.ext-candidates{gap:9px}.ext-candidate{padding:12px}.ext-candidate .candidate-card{gap:8px;flex-direction:column;align-items:flex-start}.ext-candidate .candidate-photo{width:73px;height:90px}.ext-candidate .candidate-number{font-size:31px}.ext-candidate .candidate-name{font-size:13px}}
+
+body.demo-mode header{border-bottom:3px solid #f6b94e}
+#simulationBanner{display:none;padding:16px 22px;background:#503313;border:2px solid #ffcf70;border-radius:14px;color:#fff0ce;font-weight:800;margin-bottom:18px;font-size:15px;line-height:1.5}
+body.demo-mode #simulationBanner{display:block}
+body.demo-mode #brSource{color:#ffd48a;font-weight:800}
+.test-link{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:10px 13px;border-radius:10px;border:1px solid #4a6684;background:#12273f;color:#bbdcff;text-decoration:none;font-weight:700;font-size:13px}
+body.demo-mode .test-link{border-color:#f1c46d;color:#ffe1a0}
 </style></head><body>
 <header><h1>Eleições 2026 <span style="color:#8abef0">| Presidente</span></h1><div class="muted">2º turno · 25 de outubro de 2026</div><p id="status">Aguardando coleta oficial...</p></header>
-<main><div class="tabs"><button id="extTab">Exterior · Probitas</button><button id="brTab">Brasil · TSE oficial</button></div>
+<main><div id="simulationBanner" role="alert">MODO DE TESTE — SIMULAÇÃO COM 1.000.000 DE VOTOS FICTÍCIOS. Estes números não foram divulgados pelo TSE e não representam resultados eleitorais reais. <a href="./">Sair da simulação e voltar ao painel normal ↗</a></div><div class="tabs"><button id="extTab">Exterior · Probitas</button><button id="brTab">Brasil · TSE oficial</button></div>
 <section id="exterior">
 <div class="card ext-hero" style="margin-bottom:20px">
 <div class="ext-eyebrow">Exterior · Apuração independente</div>
@@ -60,11 +67,13 @@ button:hover{background:#25405f;transform:translateY(-1px)}button.active{backgro
 <div class="card" style="margin-bottom:20px"><div class="ext-eyebrow">Resultados detalhados</div><h2>Apuração por país e cidade</h2><p class="muted">Busque países e cidades quando o coletor disponibilizar dados estruturados validados. Não exibimos estimativas como resultados.</p><input id="countrySearch" type="search" placeholder="Buscar país ou cidade" aria-label="Buscar país ou cidade" style="width:100%;padding:13px;border-radius:11px;background:#0b192a;color:white;border:1px solid #344c67;margin:5px 0 16px"><div id="countryResults" class="muted">Aguardando dados detalhados por país.</div><a class="ext-country-link" href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Conferir os países diretamente no Probitas ↗</a></div>
 <div class="card"><div class="ext-eyebrow">Fonte pública</div><h2>Placar original do Probitas</h2><p class="muted">A incorporação abaixo depende do servidor de origem. Caso não carregue, utilize o link para abrir a fonte diretamente.</p><iframe id="probitasFrame" src="https://probitasbrasil.org/apuracao/embed" width="100%" height="245" style="border:0;max-width:760px;display:block;margin:auto;background:white;border-radius:12px" title="Placar original do Probitas" loading="lazy"></iframe><a class="ext-country-link" href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Abrir placar e comparação com o 1º turno ↗</a></div>
 </section>
-<section id="brasil" class="hidden"><div class="grid"><div class="card"><h2>Mapa eleitoral por estado</h2><p class="muted">Clique no mapa ou em uma UF. Azul = liderança de Flávio Bolsonaro; vermelho = liderança de Lula. Quanto maior a vantagem, mais forte a cor. Cinza = dados indisponíveis.</p><div id="map"></div><div class="legend"><span>Azul: Flávio Bolsonaro (22)</span><span>Vermelho: Lula (13)</span></div><div class="ufbuttons" id="ufbuttons"></div></div><div class="card"><div class="muted">Fonte: Tribunal Superior Eleitoral</div><h2 id="region">Brasil</h2><div class="muted" id="published">Aguardando dados</div><div class="bar"><div class="red" id="redBar" style="width:0%"></div><div class="blue" id="blueBar" style="width:0%"></div></div><div class="two"><div class="tile"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto oficial de candidatura de Lula em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/08.08.2026%20-%20FOTOS%20OFICIAIS%20-%2055450293419.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Lula</div><div class="muted">PT · Número</div><div class="candidate-number lula">13</div></div></div><strong id="redPct">—</strong><div class="muted" id="redVotes">— votos</div></div><div class="tile"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto de registro eleitoral de Flávio Bolsonaro em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/2026%20FLAVIO%20BOLSONARO%20CANDIDATO%20PRESIDENTE%20TSE%20%28280002551544%29%20%28cropped%29.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Flávio Bolsonaro</div><div class="muted">PL · Número</div><div class="candidate-number flavio">22</div></div></div><strong id="bluePct">—</strong><div class="muted" id="blueVotes">— votos</div></div></div><h3>Seções totalizadas</h3><div class="big" id="sectionsPct">—</div><div class="muted" id="sectionsCount">Sem dados</div><div class="bar"><div id="progress" style="width:0%;background:#48b9a6"></div></div><p class="muted">Percentuais dos candidatos sobre votos válidos. O percentual de seções totalizadas usa os campos oficiais de seções, não a quantidade de eleitores.</p><a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Conferir no TSE</a></div></div></section>
+<section id="brasil" class="hidden"><a id="demoLink" class="test-link" href="?demo=tse">Testar painel Brasil com 1 milhão de votos fictícios ↗</a><div class="grid"><div class="card"><h2>Mapa eleitoral por estado</h2><p class="muted">Clique no mapa ou em uma UF. Azul = liderança de Flávio Bolsonaro; vermelho = liderança de Lula. Quanto maior a vantagem, mais forte a cor. Cinza = dados indisponíveis.</p><div id="map"></div><div class="legend"><span>Azul: Flávio Bolsonaro (22)</span><span>Vermelho: Lula (13)</span></div><div class="ufbuttons" id="ufbuttons"></div></div><div class="card"><div class="muted" id="brSource">Fonte: Tribunal Superior Eleitoral</div><h2 id="region">Brasil</h2><div class="muted" id="published">Aguardando dados</div><div class="bar"><div class="red" id="redBar" style="width:0%"></div><div class="blue" id="blueBar" style="width:0%"></div></div><div class="two"><div class="tile"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto oficial de candidatura de Lula em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/08.08.2026%20-%20FOTOS%20OFICIAIS%20-%2055450293419.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Lula</div><div class="muted">PT · Número</div><div class="candidate-number lula">13</div></div></div><strong id="redPct">—</strong><div class="muted" id="redVotes">— votos</div></div><div class="tile"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto de registro eleitoral de Flávio Bolsonaro em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/2026%20FLAVIO%20BOLSONARO%20CANDIDATO%20PRESIDENTE%20TSE%20%28280002551544%29%20%28cropped%29.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Flávio Bolsonaro</div><div class="muted">PL · Número</div><div class="candidate-number flavio">22</div></div></div><strong id="bluePct">—</strong><div class="muted" id="blueVotes">— votos</div></div></div><h3>Seções totalizadas</h3><div class="big" id="sectionsPct">—</div><div class="muted" id="sectionsCount">Sem dados</div><div class="bar"><div id="progress" style="width:0%;background:#48b9a6"></div></div><p class="muted">Percentuais dos candidatos sobre votos válidos. O percentual de seções totalizadas usa os campos oficiais de seções, não a quantidade de eleitores.</p><a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Conferir no TSE</a></div></div></section>
 <footer>Painel independente. Os dados podem ser preliminares e sofrer alterações. O agendamento de cinco minutos do GitHub Actions não garante atualização em tempo real.</footer></main>
 <script>
 const UFS=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
 const names={'Acre':'AC','Alagoas':'AL','Amapá':'AP','Amazonas':'AM','Bahia':'BA','Ceará':'CE','Distrito Federal':'DF','Espírito Santo':'ES','Goiás':'GO','Maranhão':'MA','Mato Grosso':'MT','Mato Grosso do Sul':'MS','Minas Gerais':'MG','Pará':'PA','Paraíba':'PB','Paraná':'PR','Pernambuco':'PE','Piauí':'PI','Rio de Janeiro':'RJ','Rio Grande do Norte':'RN','Rio Grande do Sul':'RS','Rondônia':'RO','Roraima':'RR','Santa Catarina':'SC','São Paulo':'SP','Sergipe':'SE','Tocantins':'TO'};
+const demoMode=new URLSearchParams(location.search).get('demo')==='tse';
+if(demoMode){document.body.classList.add('demo-mode');document.title='SIMULAÇÃO — Eleições 2026';}
 let payload={ufs:{}},chosen='BR';const el=id=>document.getElementById(id),format=n=>Number(n||0).toLocaleString('pt-BR'),percentage=n=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
 function show(tab){el('exterior').classList.toggle('hidden',tab!=='ext');el('brasil').classList.toggle('hidden',tab!=='br');el('extTab').classList.toggle('active',tab==='ext');el('brTab').classList.toggle('active',tab==='br')}
 el('extTab').onclick=()=>show('ext');el('brTab').onclick=()=>show('br');
@@ -73,7 +82,26 @@ function select(uf){chosen=uf;const x=uf==='BR'?payload.brasil:payload.ufs?.[uf]
 function redraw(){select(chosen);document.querySelectorAll('.state').forEach(node=>node.setAttribute('fill',fill(node.dataset.uf)))}
 async function buildMap(){try{const r=await fetch('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson');if(!r.ok)throw Error('GeoJSON indisponível');const geo=await r.json();const svg=d3.select('#map').append('svg').attr('viewBox','0 0 620 540');const projection=d3.geoMercator().fitSize([600,525],geo),path=d3.geoPath(projection);svg.selectAll('path').data(geo.features).join('path').attr('class','state').attr('d',path).attr('data-uf',d=>names[d.properties.name]||d.properties.sigla||'').attr('fill',d=>fill(names[d.properties.name]||d.properties.sigla)).on('click',(_,d)=>select(names[d.properties.name]||d.properties.sigla||'BR')).append('title').text(d=>d.properties.name||'Estado')}catch(e){el('map').textContent='Mapa temporariamente indisponível. Selecione uma UF abaixo.'}}
 for(const uf of ['BR',...UFS]){const b=document.createElement('button');b.textContent=uf;b.onclick=()=>select(uf);el('ufbuttons').appendChild(b)}
-async function refresh(){try{const r=await fetch('./data/results.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);payload=await r.json();el('status').textContent='Última coleta: '+(payload.collected_at?new Date(payload.collected_at).toLocaleString('pt-BR'):'ainda não executada')+' · tela consulta a cada 60 segundos';redraw()}catch(e){el('status').textContent='Aguardando dados oficiais; verifique o workflow no GitHub.'}}
+async function refresh(){
+  try{
+    const url=demoMode?'./data/simulacao_tse.json':'./data/results.json';
+    const r=await fetch(url+'?v='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw Error('HTTP '+r.status);
+    const d=await r.json();
+    if(demoMode){
+      if(d.simulation!==true||!d.brasil||Object.keys(d.ufs||{}).length!==27)throw Error('Massa de teste inválida');
+      const national=d.brasil.votes||{};
+      const sum=Number(national['13']||0)+Number(national['22']||0);
+      if(sum!==1000000)throw Error('Simulação sem 1 milhão de votos');
+    }else if(d.simulation===true){throw Error('Dados simulados não são permitidos no modo oficial')}
+    payload=d;
+    el('brSource').textContent=demoMode?'SIMULAÇÃO FICTÍCIA — NÃO É RESULTADO DO TSE':'Fonte: Tribunal Superior Eleitoral';
+    el('status').textContent=demoMode?'MODO TESTE · 1.000.000 DE VOTOS FICTÍCIOS · Dados simulados em todas as UFs': 'Última coleta: '+(payload.collected_at?new Date(payload.collected_at).toLocaleString('pt-BR'):'ainda não executada')+' · tela consulta a cada 60 segundos';
+    redraw();
+  }catch(e){
+    el('status').textContent=demoMode?'Falha ao carregar massa de teste: '+e.message:'Aguardando dados oficiais; verifique o workflow no GitHub.';
+  }
+}
 // Horário de corte fixo: 25/10/2026, 17:00 em Brasília (UTC-03).
 // Usar instante absoluto evita diferenças de fuso do visitante.
 const cutoff=Date.parse('2026-10-25T17:00:00-03:00');
@@ -86,7 +114,7 @@ function syncElectionMode(){
   if(tabs.firstElementChild!==first){tabs.append(first,second)}
   if(official!==switched){
     switched=official;
-    show(official?'br':'ext');
+    show(demoMode?'br':(official?'br':'ext'));
   }
 }
 async function refreshExterior(){
