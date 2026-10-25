@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T14:10:07Z",
-  "lula_votes": 15297,
-  "flavio_votes": 33665,
-  "blank_votes": 1306,
-  "null_votes": 1134,
-  "turnout": 51402,
-  "electorate_counted_sections": 119850,
-  "sections_counted": 171,
+  "collected_at": "2026-10-25T14:19:07Z",
+  "lula_votes": 15435,
+  "flavio_votes": 33728,
+  "blank_votes": 1309,
+  "null_votes": 1138,
+  "turnout": 51610,
+  "electorate_counted_sections": 120474,
+  "sections_counted": 174,
   "sections_total": 1351,
-  "electorate_share_counted": 0.131119,
-  "source_updated_at": "2026-10-25T14:10:03Z",
-  "last_bulletin_at": "2026-10-25T13:30:16Z",
+  "electorate_share_counted": 0.131801,
+  "source_updated_at": "2026-10-25T14:19:03Z",
+  "last_bulletin_at": "2026-10-25T14:17:31Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "a5b199b5e3600a7b",
+  "content_hash": "a8b4d8a5c4cfa5ab",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_14.sqlite3",
   "warnings": [],
@@ -147,6 +147,20 @@
       "sections_total": 2
     },
     {
+      "code": "30422",
+      "city": "RIADE",
+      "name": "Arábia Saudita",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 49,
+      "flavio_votes": 31,
+      "blank_votes": 2,
+      "null_votes": 2,
+      "turnout": 84,
+      "electorate": 311,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "30651",
       "city": "CANTÃO",
       "name": "China",
@@ -217,6 +231,20 @@
       "sections_total": 1
     },
     {
+      "code": "29483",
+      "city": "CAIRO",
+      "name": "Egito",
+      "region": "África",
+      "lula_votes": 60,
+      "flavio_votes": 16,
+      "blank_votes": 1,
+      "null_votes": 2,
+      "turnout": 79,
+      "electorate": 203,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "30082",
       "city": "MANILA",
       "name": "Filipinas",
@@ -255,6 +283,20 @@
       "null_votes": 4,
       "turnout": 89,
       "electorate": 170,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "30201",
+      "city": "NAIRÓBI",
+      "name": "Quênia",
+      "region": "África",
+      "lula_votes": 29,
+      "flavio_votes": 16,
+      "blank_votes": 0,
+      "null_votes": 0,
+      "turnout": 45,
+      "electorate": 110,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -402,14 +444,6 @@
       "code": "38989",
       "city": "IEREVAN",
       "name": "Armênia",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "30422",
-      "city": "RIADE",
-      "name": "Arábia Saudita",
       "region": "Ásia e Oriente Médio",
       "sections_counted": 0,
       "sections_total": 1
@@ -693,14 +727,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 4
-    },
-    {
-      "code": "29483",
-      "city": "CAIRO",
-      "name": "Egito",
-      "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
     },
     {
       "code": "30520",
@@ -1309,14 +1335,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 62
-    },
-    {
-      "code": "30201",
-      "city": "NAIRÓBI",
-      "name": "Quênia",
-      "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
     },
     {
       "code": "29874",
