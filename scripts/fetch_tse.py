@@ -38,12 +38,14 @@ def parse(raw):
     }
 
 def main():
-    result = {"collected_at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "source": "TSE", "brasil": None, "ufs": {}, "errors": {}}
-    for uf in ["br", *UFS]:
+    result = {"collected_at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "source": "TSE", "brasil": None, "exterior": None, "ufs": {}, "errors": {}}
+    for uf in ["br", "zz", *UFS]:
         try:
             item = parse(fetch(uf))
             if uf == "br":
                 result["brasil"] = item
+            elif uf == "zz":
+                result["exterior"] = item
             else:
                 result["ufs"][uf.upper()] = item
         except Exception as exc:
@@ -55,7 +57,7 @@ def main():
     if OUT.exists():
         try:
             previous = json.loads(OUT.read_text(encoding="utf-8"))
-            if previous.get("brasil") == result["brasil"] and previous.get("ufs") == result["ufs"]:
+            if previous.get("brasil") == result["brasil"] and previous.get("exterior") == result["exterior"] and previous.get("ufs") == result["ufs"]:
                 print("Votos e seções do TSE inalterados; mantendo JSON e evitando deploy.")
                 return
         except (ValueError, OSError):

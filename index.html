@@ -114,7 +114,9 @@ button:hover{background:#22395a}
 .rb-bar>span{display:block;height:100%;width:0;background:var(--ok);transition:width .45s}
 .region-bar button[aria-pressed=true]{background:#255786;border-color:#5b95c6;color:#fff}
 .br-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(330px,.85fr);grid-template-areas:"map card";gap:18px;align-items:start}
-.br-card{grid-area:card;position:sticky;top:12px}.map-card{grid-area:map}
+.br-card{grid-area:card;position:sticky;top:12px}
+.br-grid.exterior-oficial{grid-template-columns:minmax(0,1fr);grid-template-areas:"card"}
+.br-grid.exterior-oficial .map-card{display:none}.map-card{grid-area:map}
 .br-top{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:22px}
 .back{padding:6px 11px;font-size:13px;min-height:36px}
 .br-card h2{font-size:clamp(22px,2.6vw,28px);margin:2px 0 2px}
@@ -236,8 +238,9 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 <section id="brasil" class="hidden" aria-label="Brasil">
 <div class="region-bar" id="regionBar" aria-label="Recorte geográfico">
 <button type="button" data-escopo="BR"><span class="rb-nome">Brasil</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Norte"><span class="rb-nome">Norte</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Nordeste"><span class="rb-nome">Nordeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Centro-Oeste"><span class="rb-nome">Centro-Oeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Sudeste"><span class="rb-nome">Sudeste</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button><button type="button" data-escopo="Sul"><span class="rb-nome">Sul</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button>
+<button type="button" data-escopo="ZZ"><span class="rb-nome">Exterior (TSE)</span><span class="rb-linha"><span class="rb-bar" aria-hidden="true"><span></span></span><span class="rb-pct">—</span></span></button>
 </div>
-<div class="br-grid">
+<div class="br-grid" id="brGrid">
 <article class="card br-card" id="brCard" aria-live="polite">
 <div class="br-top"><div class="eyebrow" id="brEyebrow" style="margin:0">Total nacional · TSE oficial</div><button type="button" class="back hidden" id="brBack">← Voltar</button></div>
 <h2 id="brTitle">Brasil</h2>
@@ -273,7 +276,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 
 <footer class="rodape">
 <div><h3>Atualização</h3><p id="status">Aguardando coleta oficial...</p><p>O agendamento de cinco minutos do GitHub Actions não garante atualização em tempo real.</p></div>
-<div><h3>Fontes</h3><p><b>Brasil:</b> resultados oficiais do <a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Tribunal Superior Eleitoral</a>.</p><p><b>Exterior:</b> dados publicados por <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a>. Contagem não oficial: soma dos boletins de urna do exterior já publicados pelo TSE. A totalização oficial do TSE pode diferir.</p><p><b>Mapa:</b> limites estaduais do IBGE (via Code for America), projeção cônica equivalente de Albers.</p></div>
+<div><h3>Fontes</h3><p><b>Brasil e Exterior oficial:</b> resultados oficiais do <a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Tribunal Superior Eleitoral</a>.</p><p><b>Exterior independente:</b> dados publicados por <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a>. Contagem não oficial: soma dos boletins de urna do exterior já publicados pelo TSE. A totalização oficial do TSE pode diferir.</p><p><b>Mapa:</b> limites estaduais do IBGE (via Code for America), projeção cônica equivalente de Albers.</p></div>
 <p class="fim">Painel independente. Os dados podem ser preliminares e sofrer alterações.</p>
 </footer>
 </main>
@@ -317,6 +320,7 @@ let tse={ufs:{}};
 const est={escopo:'BR',uf:null};
 function tseUF(uf){const x=tse.ufs?.[uf];return x?placar(x.votes?.['13'],x.votes?.['22'],x.valid,x.sections_done,x.sections_total):null}
 function tseBR(){const x=tse.brasil;return x?placar(x.votes?.['13'],x.votes?.['22'],x.valid,x.sections_done,x.sections_total):null}
+function tseExterior(){const x=tse.exterior;return x?placar(x.votes?.['13'],x.votes?.['22'],x.valid,x.sections_done,x.sections_total):null}
 // Agregado regional: soma de votos absolutos e de seções das UFs disponíveis.
 function agregado(lista){
  let L=0,F=0,V=0,D=0,T=0;const com=[],sem=[];
@@ -327,9 +331,10 @@ function agregado(lista){
 function renderCard(){
  let p,titulo,eyebrow,sub='',aviso=null,vazio=null;
  if(est.uf){const x=tse.ufs?.[est.uf];p=tseUF(est.uf);titulo=`${NOMES[est.uf]} (${est.uf})`;eyebrow=`Região ${REGIAO_DE[est.uf]} · TSE oficial`;sub=x?.published_at?'Divulgação do TSE: '+x.published_at:'';}
+ else if(est.escopo==='ZZ'){p=tseExterior();titulo='Exterior (TSE)';eyebrow='Votação no exterior · TSE oficial';sub=tse.exterior?.published_at?'Divulgação oficial: '+tse.exterior.published_at:'Dados exclusivos das seções do exterior, sem números do Probitas.';}
  else if(est.escopo==='BR'){p=tseBR();titulo='Brasil';eyebrow='Total nacional · TSE oficial';sub=tse.brasil?.published_at?'Divulgação do TSE: '+tse.brasil.published_at:'';}
  else{p=agregado(REGIOES[est.escopo]);titulo='Região '+est.escopo;eyebrow=`${p.com.length} de ${REGIOES[est.escopo].length} UFs com dados · TSE oficial`;sub='Soma dos votos e seções das UFs com dados.';if(p.parcial)aviso=`Agregado parcial: sem dados de ${p.sem.join(', ')}. Os totais consideram apenas ${p.com.join(', ')}.`;}
- const nome=est.uf?NOMES[est.uf]:est.escopo==='BR'?'o Brasil':'a Região '+est.escopo;
+ const nome=est.uf?NOMES[est.uf]:est.escopo==='BR'?'o Brasil':est.escopo==='ZZ'?'o exterior':'a Região '+est.escopo;
  if(!p||!p.disponivel)vazio=`Ainda não há dados oficiais do TSE para ${nome}. A divulgação começa às 17h (Brasília) e o painel consulta novos dados a cada minuto.`;
  else if(!p.validos)vazio='Apuração ainda não iniciada: nenhum voto totalizado até agora.';
  if(p&&p.aviso)aviso=(aviso?aviso+' ':'')+p.aviso;
@@ -347,7 +352,7 @@ function renderCard(){
  back.classList.toggle('hidden',!destino);back.textContent='← Voltar para '+(destino||'Brasil');
 }
 function renderChips(){
- const lista=est.escopo==='BR'?UFS:REGIOES[est.escopo];
+ const lista=est.escopo==='ZZ'?[]:est.escopo==='BR'?UFS:REGIOES[est.escopo];
  el('ufList').innerHTML=lista.map(uf=>{const p=tseUF(uf),cat=categoria(p);const txt=!p||!p.disponivel?'Sem dados':!p.validos?'Não iniciada':p.lider==='empate'?'Empate':`${p.lider==='lula'?'Lula':'Flávio'} ${percentage(Math.max(p.pL,p.pF),1)}`;
   const sw=cat==='nd'?'<span class="sw hach"></span>':`<span class="sw" style="background:${CORES[cat]}"></span>`;
   const mini=p&&p.validos?`<span class="l" style="width:${p.pL}%"></span><span class="f" style="width:${p.pF}%"></span>`:'';
@@ -355,16 +360,17 @@ function renderChips(){
 }
 function renderBrasil(){
  for(const b of el('regionBar').querySelectorAll('button')){
-  const e=b.dataset.escopo,p=e==='BR'?tseBR():agregado(REGIOES[e]),ps=p?p.pSec:null,nome=e==='BR'?'Brasil':e;
+  const e=b.dataset.escopo,p=e==='BR'?tseBR():e==='ZZ'?tseExterior():agregado(REGIOES[e]),ps=p?p.pSec:null,nome=e==='BR'?'Brasil':e==='ZZ'?'Exterior (TSE)':e;
   b.setAttribute('aria-pressed',String(e===est.escopo));
   b.querySelector('.rb-pct').textContent=ps===null?'—':percentage(ps,1);
   b.querySelector('.rb-bar>span').style.width=(ps||0)+'%';
   b.setAttribute('aria-label',`${nome}: ${ps===null?'sem dados de seções':percentage(ps,1)+' das seções totalizadas'}`);
  }
- el('mapTitle').textContent=est.escopo==='BR'?'Brasil':'Região '+est.escopo;
+ el('brGrid').classList.toggle('exterior-oficial',est.escopo==='ZZ');
+ el('mapTitle').textContent=est.escopo==='BR'?'Brasil':est.escopo==='ZZ'?'Exterior (TSE)':'Região '+est.escopo;
  renderCard();renderChips();pintarMapa();
 }
-function selecionarEscopo(e){est.escopo=e;est.uf=null;esconderTip(true);zoomPara(e);renderBrasil()}
+function selecionarEscopo(e){if(e!=='BR'&&e!=='ZZ'&&!REGIOES[e])return;est.escopo=e;est.uf=null;esconderTip(true);if(e!=='ZZ')zoomPara(e);renderBrasil()}
 function selecionarUF(uf,{fixar=false}={}){
  if(!NOMES[uf])return;
  if(est.escopo!=='BR'&&REGIAO_DE[uf]!==est.escopo){est.escopo=REGIAO_DE[uf];zoomPara(est.escopo)}
@@ -624,7 +630,7 @@ async function refreshExterior(){try{await refreshExteriorDados()}finally{tentou
 // Topo: horário da última coleta do que está na tela (exterior ou TSE) e há quanto tempo.
 // Fica âmbar após 20 min sem coleta nova (o agendamento não garante 5 em 5 minutos).
 function rotuloTopo(){
- const br=!el('brasil').classList.contains('hidden'),iso=br?tse.collected_at:extLast?.collected_at,fonte=br?'Brasil (TSE)':'Exterior (Probitas)';
+ const br=!el('brasil').classList.contains('hidden'),iso=br?tse.collected_at:extLast?.collected_at,fonte=br?(est.escopo==='ZZ'?'Exterior (TSE)':'Brasil (TSE)'):'Exterior (Probitas)';
  const box=el('topUpdate'),txt=el('topUpdateTxt');
  if(!iso||Number.isNaN(Date.parse(iso))){box.className='upd';if(!(br?tentouTSE:tentouExt)){txt.textContent='Carregando…';return}txt.textContent=br?'TSE: ainda sem coleta':'Exterior: ainda sem coleta';box.title=fonte;return}
  const min=Math.max(0,Math.floor((Date.now()-Date.parse(iso))/60000));
