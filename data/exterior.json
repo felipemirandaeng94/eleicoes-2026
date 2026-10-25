@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T18:08:10Z",
-  "lula_votes": 88857,
-  "flavio_votes": 62368,
-  "blank_votes": 2376,
-  "null_votes": 2454,
-  "turnout": 156055,
-  "electorate_counted_sections": 348779,
-  "sections_counted": 500,
+  "collected_at": "2026-10-25T18:13:11Z",
+  "lula_votes": 93675,
+  "flavio_votes": 64183,
+  "blank_votes": 2441,
+  "null_votes": 2530,
+  "turnout": 162829,
+  "electorate_counted_sections": 363660,
+  "sections_counted": 523,
   "sections_total": 1351,
-  "electorate_share_counted": 0.381572,
-  "source_updated_at": "2026-10-25T18:08:07Z",
-  "last_bulletin_at": "2026-10-25T18:07:13Z",
+  "electorate_share_counted": 0.397852,
+  "source_updated_at": "2026-10-25T18:13:07Z",
+  "last_bulletin_at": "2026-10-25T18:12:59Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "33f5db9932501cb9",
+  "content_hash": "3aafdd69fb753787",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_18.sqlite3",
   "warnings": [],
@@ -143,6 +143,20 @@
       "null_votes": 88,
       "turnout": 6305,
       "electorate": 12955,
+      "sections_counted": 21,
+      "sections_total": 21
+    },
+    {
+      "code": "30180",
+      "city": "MUNIQUE",
+      "name": "Alemanha",
+      "region": "Europa",
+      "lula_votes": 4525,
+      "flavio_votes": 1656,
+      "blank_votes": 60,
+      "null_votes": 75,
+      "turnout": 6316,
+      "electorate": 13381,
       "sections_counted": 21,
       "sections_total": 21
     },
@@ -721,6 +735,20 @@
       "sections_total": 1
     },
     {
+      "code": "30120",
+      "city": "MILÃO",
+      "name": "Itália",
+      "region": "Europa",
+      "lula_votes": 185,
+      "flavio_votes": 127,
+      "blank_votes": 3,
+      "null_votes": 1,
+      "turnout": 316,
+      "electorate": 702,
+      "sections_counted": 1,
+      "sections_total": 37
+    },
+    {
       "code": "29882",
       "city": "KUAITE",
       "name": "Kuwait",
@@ -803,6 +831,20 @@
       "electorate": 110,
       "sections_counted": 1,
       "sections_total": 1
+    },
+    {
+      "code": "99503",
+      "city": "EDIMBURGO",
+      "name": "Reino Unido",
+      "region": "Europa",
+      "lula_votes": 108,
+      "flavio_votes": 32,
+      "blank_votes": 2,
+      "null_votes": 0,
+      "turnout": 142,
+      "electorate": 798,
+      "sections_counted": 1,
+      "sections_total": 6
     },
     {
       "code": "29440",
@@ -967,14 +1009,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "30180",
-      "city": "MUNIQUE",
-      "name": "Alemanha",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 21
     },
     {
       "code": "99147",
@@ -1505,14 +1539,6 @@
       "sections_total": 1
     },
     {
-      "code": "30120",
-      "city": "MILÃO",
-      "name": "Itália",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 37
-    },
-    {
       "code": "99430",
       "city": "KINGSTON-JAMAICA",
       "name": "Jamaica",
@@ -1703,14 +1729,6 @@
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "99503",
-      "city": "EDIMBURGO",
-      "name": "Reino Unido",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 6
     },
     {
       "code": "29971",
