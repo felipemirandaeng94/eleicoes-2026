@@ -27,7 +27,11 @@ header.top{border-bottom:1px solid #22344c88;background:linear-gradient(100deg,#
 .kicker{color:#79c8ff;letter-spacing:.16em;font-size:11px;font-weight:800;text-transform:uppercase}
 h1{font-size:clamp(22px,3.3vw,38px);letter-spacing:-.035em;line-height:1.12;margin:5px 0 2px;font-weight:850}
 h1 span{color:#8abef0;font-weight:750}
-.top-date{color:var(--muted);font-size:13px}
+.top-date{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;align-items:center;gap:3px 14px;margin-top:2px}
+.data-curta{display:none}
+.upd{display:inline-flex;align-items:center;gap:6px;color:#c9d6e6;font-weight:650}
+.upd i{width:8px;height:8px;border-radius:50%;background:#6f829b;flex-shrink:0}
+.upd.ok i{background:var(--ok);box-shadow:0 0 0 3px #43b9a326}.upd.velho{color:#f3dfa8}.upd.velho i{background:var(--warn);box-shadow:0 0 0 3px #e6b04c26}
 main{max-width:1280px;margin:auto;padding:16px 22px 0}
 h2{font-size:20px;letter-spacing:-.025em;margin:0 0 10px;line-height:1.2}
 button{font:inherit;background:#15253a;color:#dce9f9;border:1px solid #2b415a;border-radius:10px;padding:10px 15px;cursor:pointer;font-weight:650;transition:background .18s,border-color .18s}
@@ -174,7 +178,7 @@ footer.rodape p{margin:0 0 8px;line-height:1.55}
 footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 @media(max-width:900px){.br-grid{grid-template-columns:1fr;grid-template-areas:"card" "map"}.br-card{position:static}}
 @media(max-width:640px){
- .top-in{padding:14px 16px 12px}.kicker{font-size:10px}.top-date{font-size:12px}
+ .top-in{padding:14px 16px 12px}.kicker{font-size:10px}.top-date{font-size:12px;gap:2px 12px}.data-longa{display:none}.data-curta{display:inline}
  main{padding:12px 12px 0}.card{padding:16px;border-radius:16px}
  .tabs{width:100%;margin-bottom:12px}.tabs button{flex:1;padding:11px 6px;font-size:13.5px}
  .ext-candidates{gap:9px;margin:12px 0}.ext-candidate{padding:11px}
@@ -189,7 +193,7 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="kicker">Cobertura eleitoral · 2º turno</div><h1>Eleições 2026 <span>| Presidente</span></h1><div class="top-date">25 de outubro de 2026</div></div></header>
+<header class="top"><div class="top-in"><div class="kicker">Cobertura eleitoral · 2º turno</div><h1>Eleições 2026 <span>| Presidente</span></h1><div class="top-date"><span class="data-longa">25 de outubro de 2026</span><span class="data-curta">25/10/2026</span><span class="upd" id="topUpdate" aria-live="polite"><i aria-hidden="true"></i><span id="topUpdateTxt">Carregando…</span></span></div></div></header>
 <main>
 <div class="tabs" role="tablist" aria-label="Recorte"><button id="extTab" role="tab">Exterior · Probitas</button><button id="brTab" role="tab">Brasil · TSE oficial</button></div>
 
@@ -471,7 +475,7 @@ el('brBack').addEventListener('click',voltar);
 el('ufList').addEventListener('click',e=>{const b=e.target.closest('[data-uf]');if(!b)return;selecionarUF(b.dataset.uf);if(matchMedia('(max-width:900px)').matches)el('brCard').scrollIntoView({behavior:reduzido()?'auto':'smooth',block:'start'})});
 
 /* =================== Abas e coleta TSE =================== */
-function show(tab){el('exterior').classList.toggle('hidden',tab!=='ext');el('brasil').classList.toggle('hidden',tab!=='br');el('extTab').classList.toggle('active',tab==='ext');el('brTab').classList.toggle('active',tab==='br');el('extTab').setAttribute('aria-selected',String(tab==='ext'));el('brTab').setAttribute('aria-selected',String(tab==='br'));if(tab==='br')requestAnimationFrame(escalarRotulos)}
+function show(tab){el('exterior').classList.toggle('hidden',tab!=='ext');el('brasil').classList.toggle('hidden',tab!=='br');el('extTab').classList.toggle('active',tab==='ext');el('brTab').classList.toggle('active',tab==='br');el('extTab').setAttribute('aria-selected',String(tab==='ext'));el('brTab').setAttribute('aria-selected',String(tab==='br'));if(tab==='br')requestAnimationFrame(escalarRotulos);rotuloTopo()}
 el('extTab').onclick=()=>show('ext');el('brTab').onclick=()=>show('br');
 async function refresh(){
  try{
@@ -483,6 +487,7 @@ async function refresh(){
   el('status').textContent='Última coleta do TSE: '+(tse.collected_at?brt(tse.collected_at)+' (Brasília)':'ainda não executada')+'. A página consulta novos dados a cada 60 segundos.';
   renderBrasil();
  }catch(e){console.warn('TSE: falha ao ler data/results.json',e);el('status').textContent='Aguardando dados oficiais do TSE.'}
+ finally{tentouTSE=true;rotuloTopo()}
 }
 // Horário de corte fixo: 25/10/2026, 17:00 em Brasília (UTC-03).
 const cutoff=Date.parse('2026-10-25T17:00:00-03:00');
@@ -576,7 +581,7 @@ let extDebounce=0;
 el('countrySearch').addEventListener('input',()=>{clearTimeout(extDebounce);extDebounce=setTimeout(()=>{ext.limite=24;renderExterior()},120)});
 for(const id of ['extSort','extCountry','extGroup','extPending'])el(id).addEventListener('change',()=>{ext.limite=24;renderExterior()});
 el('extMore').addEventListener('click',()=>{ext.limite+=24;renderExterior()});
-async function refreshExterior(){
+async function refreshExteriorDados(){
  let d;
  try{
   const response=await fetch('./data/exterior.json?v='+Date.now(),{cache:'no-store'});
@@ -603,6 +608,22 @@ async function refreshExterior(){
  }catch(e){console.warn('Exterior: erro ao atualizar o placar',e)}
 }
 
+let tentouTSE=false,tentouExt=false;
+async function refreshExterior(){try{await refreshExteriorDados()}finally{tentouExt=true;rotuloTopo()}}
+// Topo: horário da última coleta do que está na tela (exterior ou TSE) e há quanto tempo.
+// Fica âmbar após 20 min sem coleta nova (o agendamento não garante 5 em 5 minutos).
+function rotuloTopo(){
+ const br=!el('brasil').classList.contains('hidden'),iso=br?tse.collected_at:extLast?.collected_at,fonte=br?'Brasil (TSE)':'Exterior (Probitas)';
+ const box=el('topUpdate'),txt=el('topUpdateTxt');
+ if(!iso||Number.isNaN(Date.parse(iso))){box.className='upd';if(!(br?tentouTSE:tentouExt)){txt.textContent='Carregando…';return}txt.textContent=br?'TSE: ainda sem coleta':'Exterior: ainda sem coleta';box.title=fonte;return}
+ const min=Math.max(0,Math.floor((Date.now()-Date.parse(iso))/60000));
+ const hora=new Date(iso).toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
+ const ha=min<1?'agora':min<60?`há ${min} min`:`há ${Math.floor(min/60)} h${min%60?' '+(min%60)+' min':''}`;
+ box.className='upd '+(min>EXT_STALE_MIN?'velho':'ok');
+ txt.textContent=`Atualizado às ${hora} · ${ha}`;
+ box.title=`${fonte}: última coleta às ${hora} (Brasília)`;
+}
+setInterval(rotuloTopo,30000);
 renderBrasil();carregarMapa();refresh();refreshExterior();setInterval(refresh,60000);setInterval(refreshExterior,60000);syncElectionMode();
 setInterval(syncElectionMode,1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});
