@@ -113,7 +113,8 @@ def extract_rendered(text):
 async def main():
     captured = []
     selected = None
-    page_text = ""\n    extracted_from = None
+    page_text = ""
+    extracted_from = None
     errors = []
 
     async with async_playwright() as p:
