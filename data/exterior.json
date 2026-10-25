@@ -8,19 +8,19 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:13:09Z",
-  "lula_votes": 21775,
-  "flavio_votes": 37004,
-  "blank_votes": 1465,
-  "null_votes": 1305,
-  "turnout": 61549,
-  "electorate_counted_sections": 142971,
-  "sections_counted": 210,
+  "collected_at": "2026-10-25T16:18:09Z",
+  "lula_votes": 22347,
+  "flavio_votes": 37179,
+  "blank_votes": 1472,
+  "null_votes": 1320,
+  "turnout": 62318,
+  "electorate_counted_sections": 144411,
+  "sections_counted": 212,
   "sections_total": 1351,
-  "electorate_share_counted": 0.156413,
-  "source_updated_at": "2026-10-25T16:13:06Z",
-  "last_bulletin_at": "2026-10-25T16:09:37Z",
-  "source_version": "0f1bc6aa78",
+  "electorate_share_counted": 0.157989,
+  "source_updated_at": "2026-10-25T16:18:02Z",
+  "last_bulletin_at": "2026-10-25T16:16:10Z",
+  "source_version": "9d51c0bb7a",
   "official_tse": {
     "lula_votes": 0,
     "flavio_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "32b39d3f89d365c0",
+  "content_hash": "ad8b9a65afed6422",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -441,6 +441,20 @@
       "sections_total": 1
     },
     {
+      "code": "30740",
+      "city": "VARSÓVIA",
+      "name": "Polônia",
+      "region": "Europa",
+      "lula_votes": 268,
+      "flavio_votes": 89,
+      "blank_votes": 1,
+      "null_votes": 5,
+      "turnout": 363,
+      "electorate": 750,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "30201",
       "city": "NAIRÓBI",
       "name": "Quênia",
@@ -493,6 +507,20 @@
       "null_votes": 7,
       "turnout": 239,
       "electorate": 622,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "30350",
+      "city": "PRAGA",
+      "name": "Tchéquia",
+      "region": "Europa",
+      "lula_votes": 304,
+      "flavio_votes": 86,
+      "blank_votes": 6,
+      "null_votes": 10,
+      "turnout": 406,
+      "electorate": 690,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -1427,14 +1455,6 @@
       "sections_total": 3
     },
     {
-      "code": "30740",
-      "city": "VARSÓVIA",
-      "name": "Polônia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "30961",
       "city": "FARO",
       "name": "Portugal",
@@ -1583,14 +1603,6 @@
       "city": "DAR ES SALAAM",
       "name": "Tanzânia",
       "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "30350",
-      "city": "PRAGA",
-      "name": "Tchéquia",
-      "region": "Europa",
       "sections_counted": 0,
       "sections_total": 1
     },
