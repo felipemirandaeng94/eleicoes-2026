@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Eleições 2026 — Apuração",
+  "short_name": "Eleições 2026",
+  "description": "Apuração do 2º turno presidencial de 2026: Brasil (TSE oficial) e exterior (contagem não oficial do Probitas Brasil).",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101d",
+  "theme_color": "#0b1a2e",
+  "categories": ["news", "politics"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "icons/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}

@@ -9,6 +9,12 @@ Painel responsivo para GitHub Pages com mapa dos estados, votos, percentuais e s
 
 URL após a publicação: https://felipemirandaeng94.github.io/eleicoes-2026/
 
+## Instalar no celular
+- **Android (Chrome):** abra o site → menu ⋮ → **Instalar app** (ou **Adicionar à tela inicial**).
+- **iPhone/iPad (Safari):** abra o site → botão Compartilhar → **Adicionar à Tela de Início**.
+
+O ícone vem de `icons/icone.svg`; as versões PNG (padrão, maskable do Android, `apple-touch-icon` e favicon) são geradas por `tools/gerar_icones.py`. Não há service worker: o app sempre busca os dados ao vivo, sem cache offline.
+
 ## Fontes e limitações
 - **Brasil e estados:** arquivos JSON oficiais do TSE, segundo turno presidencial, coletados por GitHub Actions a cada cinco minutos. Agendamentos podem atrasar.
 - **Exterior:** contagem **não oficial** do [Probitas Brasil](https://probitasbrasil.org/apuracao/) (soma dos boletins de urna do exterior já publicados pelo TSE). O workflow **Coletar Probitas Exterior** (`scripts/coletar_probitas.py`) lê a cada cinco minutos `https://probitasbrasil.org/apuracao/state.json` — o mesmo retrato JSON que a página do Probitas usa — com o fluxo `/apuracao/events` como reserva. Usa apenas `exterior.obs` (votos do 2º turno) e `secRec`/`secTot` (seções); campos de 1º turno, projeção e Brasil são ignorados. Cada leitura validada vai para `data/historico_exterior/AAAA-MM-DD_HH.sqlite3` (hora UTC; tabelas `leituras` e `cidades`) e para `data/exterior.json`. Se a coleta falhar, o último resultado válido é mantido e o painel o marca como desatualizado após 20 minutos. Não se inventam resultados.
