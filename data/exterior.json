@@ -8,19 +8,19 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:18:09Z",
-  "lula_votes": 22347,
-  "flavio_votes": 37179,
-  "blank_votes": 1472,
-  "null_votes": 1320,
-  "turnout": 62318,
-  "electorate_counted_sections": 144411,
-  "sections_counted": 212,
+  "collected_at": "2026-10-25T16:28:09Z",
+  "lula_votes": 22445,
+  "flavio_votes": 37233,
+  "blank_votes": 1474,
+  "null_votes": 1325,
+  "turnout": 62477,
+  "electorate_counted_sections": 144710,
+  "sections_counted": 214,
   "sections_total": 1351,
-  "electorate_share_counted": 0.157989,
-  "source_updated_at": "2026-10-25T16:18:02Z",
-  "last_bulletin_at": "2026-10-25T16:16:10Z",
-  "source_version": "9d51c0bb7a",
+  "electorate_share_counted": 0.158316,
+  "source_updated_at": "2026-10-25T16:28:06Z",
+  "last_bulletin_at": "2026-10-25T16:27:32Z",
+  "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
     "flavio_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "ad8b9a65afed6422",
+  "content_hash": "63a06f096462bb30",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -343,6 +343,20 @@
       "sections_total": 1
     },
     {
+      "code": "39020",
+      "city": "ZAGREB",
+      "name": "Croácia",
+      "region": "Europa",
+      "lula_votes": 31,
+      "flavio_votes": 26,
+      "blank_votes": 1,
+      "null_votes": 1,
+      "turnout": 59,
+      "electorate": 136,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "29483",
       "city": "CAIRO",
       "name": "Egito",
@@ -353,6 +367,20 @@
       "null_votes": 2,
       "turnout": 79,
       "electorate": 203,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
+      "code": "39160",
+      "city": "LIUBLIANA",
+      "name": "Eslovênia",
+      "region": "Europa",
+      "lula_votes": 67,
+      "flavio_votes": 28,
+      "blank_votes": 1,
+      "null_votes": 4,
+      "turnout": 100,
+      "electorate": 163,
       "sections_counted": 1,
       "sections_total": 1
     },
@@ -927,14 +955,6 @@
       "sections_total": 1
     },
     {
-      "code": "39020",
-      "city": "ZAGREB",
-      "name": "Croácia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "29777",
       "city": "HAVANA",
       "name": "Cuba",
@@ -970,14 +990,6 @@
       "code": "39209",
       "city": "BRATISLAVA",
       "name": "Eslováquia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "39160",
-      "city": "LIUBLIANA",
-      "name": "Eslovênia",
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 1
