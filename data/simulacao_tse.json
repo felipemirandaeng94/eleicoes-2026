@@ -1,0 +1,316 @@
+{
+  "simulation": true,
+  "source": "DADOS FICTÍCIOS DE TESTE — NÃO SÃO RESULTADOS DO TSE",
+  "collected_at": null,
+  "brasil": {
+    "votes": {
+      "13": 529689,
+      "22": 470311
+    },
+    "valid": 1000000,
+    "sections_total": 6830,
+    "sections_done": 3050,
+    "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+    "generation_id": "mock-2026"
+  },
+  "ufs": {
+    "AC": {
+      "votes": {
+        "13": 2179,
+        "22": 3874
+      },
+      "valid": 6053,
+      "sections_total": 125,
+      "sections_done": 29,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "AL": {
+      "votes": {
+        "13": 8983,
+        "22": 7966
+      },
+      "valid": 16949,
+      "sections_total": 170,
+      "sections_done": 57,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "AP": {
+      "votes": {
+        "13": 4237,
+        "22": 1816
+      },
+      "valid": 6053,
+      "sections_total": 125,
+      "sections_done": 55,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "AM": {
+      "votes": {
+        "13": 10896,
+        "22": 10895
+      },
+      "valid": 21791,
+      "sections_total": 190,
+      "sections_done": 104,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "BA": {
+      "votes": {
+        "13": 54346,
+        "22": 26767
+      },
+      "valid": 81113,
+      "sections_total": 435,
+      "sections_done": 283,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "CE": {
+      "votes": {
+        "13": 17639,
+        "22": 19891
+      },
+      "valid": 37530,
+      "sections_total": 255,
+      "sections_done": 193,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "DF": {
+      "votes": {
+        "13": 21695,
+        "22": 12203
+      },
+      "valid": 33898,
+      "sections_total": 240,
+      "sections_done": 55,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "ES": {
+      "votes": {
+        "13": 9056,
+        "22": 11525
+      },
+      "valid": 20581,
+      "sections_total": 185,
+      "sections_done": 62,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "GO": {
+      "votes": {
+        "13": 25109,
+        "22": 16053
+      },
+      "valid": 41162,
+      "sections_total": 270,
+      "sections_done": 119,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "MA": {
+      "votes": {
+        "13": 11913,
+        "22": 17142
+      },
+      "valid": 29055,
+      "sections_total": 220,
+      "sections_done": 120,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "MT": {
+      "votes": {
+        "13": 11937,
+        "22": 8644
+      },
+      "valid": 20581,
+      "sections_total": 185,
+      "sections_done": 120,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "MS": {
+      "votes": {
+        "13": 5060,
+        "22": 8257
+      },
+      "valid": 13317,
+      "sections_total": 155,
+      "sections_done": 117,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "MG": {
+      "votes": {
+        "13": 56598,
+        "22": 46307
+      },
+      "valid": 102905,
+      "sections_total": 525,
+      "sections_done": 121,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "PA": {
+      "votes": {
+        "13": 23535,
+        "22": 9152
+      },
+      "valid": 32687,
+      "sections_total": 235,
+      "sections_done": 79,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "PB": {
+      "votes": {
+        "13": 11961,
+        "22": 11041
+      },
+      "valid": 23002,
+      "sections_total": 195,
+      "sections_done": 86,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "PR": {
+      "votes": {
+        "13": 35084,
+        "22": 15763
+      },
+      "valid": 50847,
+      "sections_total": 310,
+      "sections_done": 169,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "PE": {
+      "votes": {
+        "13": 21949,
+        "22": 22845
+      },
+      "valid": 44794,
+      "sections_total": 285,
+      "sections_done": 185,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "PI": {
+      "votes": {
+        "13": 14382,
+        "22": 7409
+      },
+      "valid": 21791,
+      "sections_total": 190,
+      "sections_done": 143,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "RJ": {
+      "votes": {
+        "13": 40653,
+        "22": 47724
+      },
+      "valid": 88377,
+      "sections_total": 465,
+      "sections_done": 107,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "RN": {
+      "votes": {
+        "13": 12203,
+        "22": 7167
+      },
+      "valid": 19370,
+      "sections_total": 180,
+      "sections_done": 60,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "RS": {
+      "votes": {
+        "13": 24988,
+        "22": 33123
+      },
+      "valid": 58111,
+      "sections_total": 340,
+      "sections_done": 150,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "RO": {
+      "votes": {
+        "13": 7264,
+        "22": 4842
+      },
+      "valid": 12106,
+      "sections_total": 150,
+      "sections_done": 82,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "RR": {
+      "votes": {
+        "13": 2421,
+        "22": 3632
+      },
+      "valid": 6053,
+      "sections_total": 125,
+      "sections_done": 81,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "SC": {
+      "votes": {
+        "13": 17941,
+        "22": 13535
+      },
+      "valid": 31476,
+      "sections_total": 230,
+      "sections_done": 174,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "SP": {
+      "votes": {
+        "13": 51961,
+        "22": 88474
+      },
+      "valid": 140435,
+      "sections_total": 680,
+      "sections_done": 156,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "SE": {
+      "votes": {
+        "13": 8499,
+        "22": 7239
+      },
+      "valid": 15738,
+      "sections_total": 165,
+      "sections_done": 55,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    },
+    "TO": {
+      "votes": {
+        "13": 17200,
+        "22": 7025
+      },
+      "valid": 24225,
+      "sections_total": 200,
+      "sections_done": 88,
+      "published_at": "SIMULAÇÃO — NÃO OFICIAL",
+      "generation_id": "mock-2026"
+    }
+  },
+  "errors": {}
+}
