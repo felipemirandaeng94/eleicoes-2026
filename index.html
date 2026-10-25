@@ -199,6 +199,10 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
  .legenda{grid-template-columns:auto repeat(4,30px)}
  footer.rodape{grid-template-columns:1fr}
 }
+.visitors{display:flex;align-items:center;flex-wrap:wrap;gap:9px 12px;border:1px solid var(--line2);border-radius:12px;background:var(--inner);padding:13px 16px;align-self:start;font-size:14px}
+.visitors-dot{width:9px;height:9px;flex-shrink:0;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px #43b9a326}
+.visitors strong{font-size:20px;color:var(--text);font-variant-numeric:tabular-nums}
+.visitors #visitorsHint{flex-basis:100%;font-size:12px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style></head><body>
 <header class="top"><div class="top-in"><div class="kicker">Cobertura eleitoral · 2º turno</div><h1>Eleições 2026 <span>| Presidente</span></h1><div class="top-date"><span class="data-longa">25 de outubro de 2026</span><span class="data-curta">25/10/2026</span><span class="upd" id="topUpdate" aria-live="polite"><i aria-hidden="true"></i><span id="topUpdateTxt">Carregando…</span></span></div></div></header>
@@ -277,7 +281,8 @@ footer.rodape .fim{grid-column:1/-1;margin-top:6px}
 <footer class="rodape">
 <div><h3>Atualização</h3><p id="status">Aguardando coleta oficial...</p><p>O agendamento de cinco minutos do GitHub Actions não garante atualização em tempo real.</p></div>
 <div><h3>Fontes</h3><p><b>Brasil e Exterior oficial:</b> resultados oficiais do <a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Tribunal Superior Eleitoral</a>.</p><p><b>Exterior independente:</b> dados publicados por <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a>. Contagem não oficial: soma dos boletins de urna do exterior já publicados pelo TSE. A totalização oficial do TSE pode diferir.</p><p><b>Mapa:</b> limites estaduais do IBGE (via Code for America), projeção cônica equivalente de Albers.</p></div>
-<p class="fim">Painel independente. Os dados podem ser preliminares e sofrer alterações.</p>
+<div class="visitors" aria-live="polite"><span class="visitors-dot" aria-hidden="true"></span><span><strong id="visitorsOnline">—</strong> <span id="visitorsLabel">visitantes online</span></span><span id="visitorsHint" class="muted">Conectando contador…</span></div>
+<p class="fim">Painel independente. Os dados podem ser preliminares e sofrer alterações. Visitantes online: sessões anônimas ativas nos últimos 2 minutos; não representa pessoas únicas.</p>
 </footer>
 </main>
 <script>
@@ -644,4 +649,57 @@ setInterval(rotuloTopo,30000);
 renderBrasil();carregarMapa();refresh();refreshExterior();setInterval(refresh,60000);setInterval(refreshExterior,60000);syncElectionMode();
 setInterval(syncElectionMode,1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});
-</script></body></html>
+</script>
+<script type="module">
+// Firebase Web SDK (CDN oficial). Nunca embutir credenciais administrativas.
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+import {getAuth,signInAnonymously,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+import {getDatabase,ref,onValue,onDisconnect,set,serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js';
+const firebaseConfig = {
+  apiKey: 'AIzaSyAGvunUY8-XGn5tsYUCpdJVpb9-02h0kIs',
+  authDomain: 'eleicoes-2026-59b27.firebaseapp.com',
+  databaseURL: 'https://eleicoes-2026-59b27-default-rtdb.firebaseio.com',
+  projectId: 'eleicoes-2026-59b27',
+  appId: '1:34745365779:web:6752e494a0d5e32a3056e6'
+};
+const online = document.getElementById('visitorsOnline');
+const hint = document.getElementById('visitorsHint');
+const label = document.getElementById('visitorsLabel');
+const setError = () => {online.textContent = '—';hint.textContent = 'Contador temporariamente indisponível';};
+try {
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+  let connectedOnce = false;
+  onAuthStateChanged(auth, user => {
+    if(!user || connectedOnce) return;
+    connectedOnce = true;
+    const me = ref(db, 'presenca/'+user.uid);
+    // Somente após registrar a remoção no servidor, marcar presença.
+    // Isso evita sessões fantasma após quedas de conexão.
+    onValue(ref(db,'.info/connected'), async snap => {
+      if(snap.val() !== true) return;
+      try {
+        await onDisconnect(me).remove();
+        await set(me,serverTimestamp());
+        hint.textContent = 'Atualização em tempo real';
+      } catch(err) {console.warn('Firebase: presença indisponível',err);setError();}
+    });
+    let cache = {};
+    function paint(){
+      const limit = Date.now()-120000;
+      const total = Object.values(cache).filter(v=>typeof v==='number'&&v>=limit&&v<=Date.now()+60000).length;
+      online.textContent = total.toLocaleString('pt-BR');
+      label.textContent = total===1?'visitante online':'visitantes online';
+    }
+    onValue(ref(db,'presenca'), snap=>{
+      cache = snap.val() || {};
+      paint();
+    }, err=>{console.warn('Firebase: leitura da presença bloqueada',err);setError();});
+    // Renova presença a cada 45 segundos; expira visualmente após 2 minutos.
+    setInterval(()=>{if(!navigator.onLine)return;set(me,serverTimestamp()).catch(err=>console.warn('Firebase: renovação falhou',err));paint();},45000);
+  }, err=>{console.warn('Firebase: autenticação',err);setError();});
+  signInAnonymously(auth).catch(err=>{console.warn('Firebase: login anônimo falhou',err);setError();});
+} catch(err) {console.warn('Firebase: configuração',err);setError();}
+</script>
+</body></html>
