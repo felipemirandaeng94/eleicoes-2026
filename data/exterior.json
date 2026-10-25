@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T17:23:09Z",
-  "lula_votes": 70600,
-  "flavio_votes": 56253,
-  "blank_votes": 2191,
-  "null_votes": 2194,
-  "turnout": 131238,
-  "electorate_counted_sections": 297287,
-  "sections_counted": 420,
+  "collected_at": "2026-10-25T17:33:10Z",
+  "lula_votes": 76609,
+  "flavio_votes": 57108,
+  "blank_votes": 2236,
+  "null_votes": 2275,
+  "turnout": 138228,
+  "electorate_counted_sections": 308501,
+  "sections_counted": 435,
   "sections_total": 1351,
-  "electorate_share_counted": 0.325239,
-  "source_updated_at": "2026-10-25T17:23:07Z",
-  "last_bulletin_at": "2026-10-25T17:19:36Z",
+  "electorate_share_counted": 0.337507,
+  "source_updated_at": "2026-10-25T17:33:07Z",
+  "last_bulletin_at": "2026-10-25T17:32:52Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "272980ee78dbd1bc",
+  "content_hash": "0b4f0330d4185084",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_17.sqlite3",
   "warnings": [],
@@ -117,6 +117,20 @@
       "electorate": 12955,
       "sections_counted": 21,
       "sections_total": 21
+    },
+    {
+      "code": "29386",
+      "city": "BERLIM",
+      "name": "Alemanha",
+      "region": "Europa",
+      "lula_votes": 7452,
+      "flavio_votes": 1125,
+      "blank_votes": 60,
+      "null_votes": 102,
+      "turnout": 8739,
+      "electorate": 15068,
+      "sections_counted": 20,
+      "sections_total": 20
     },
     {
       "code": "30562",
@@ -243,20 +257,6 @@
       "electorate": 4866,
       "sections_counted": 7,
       "sections_total": 7
-    },
-    {
-      "code": "29386",
-      "city": "BERLIM",
-      "name": "Alemanha",
-      "region": "Europa",
-      "lula_votes": 1771,
-      "flavio_votes": 406,
-      "blank_votes": 20,
-      "null_votes": 27,
-      "turnout": 2224,
-      "electorate": 4646,
-      "sections_counted": 6,
-      "sections_total": 20
     },
     {
       "code": "29262",
@@ -719,6 +719,20 @@
       "electorate": 750,
       "sections_counted": 1,
       "sections_total": 1
+    },
+    {
+      "code": "29955",
+      "city": "LISBOA",
+      "name": "Portugal",
+      "region": "Europa",
+      "lula_votes": 328,
+      "flavio_votes": 136,
+      "blank_votes": 5,
+      "null_votes": 6,
+      "turnout": 475,
+      "electorate": 792,
+      "sections_counted": 1,
+      "sections_total": 103
     },
     {
       "code": "30201",
@@ -1621,14 +1635,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 11
-    },
-    {
-      "code": "29955",
-      "city": "LISBOA",
-      "name": "Portugal",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 103
     },
     {
       "code": "30341",
