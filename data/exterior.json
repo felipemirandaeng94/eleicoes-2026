@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:33:11Z",
-  "lula_votes": 24060,
-  "flavio_votes": 37689,
-  "blank_votes": 1498,
-  "null_votes": 1347,
-  "turnout": 64594,
-  "electorate_counted_sections": 148467,
-  "sections_counted": 219,
+  "collected_at": "2026-10-25T16:38:11Z",
+  "lula_votes": 25610,
+  "flavio_votes": 38050,
+  "blank_votes": 1523,
+  "null_votes": 1377,
+  "turnout": 66560,
+  "electorate_counted_sections": 152038,
+  "sections_counted": 224,
   "sections_total": 1351,
-  "electorate_share_counted": 0.162426,
-  "source_updated_at": "2026-10-25T16:33:06Z",
-  "last_bulletin_at": "2026-10-25T16:32:12Z",
+  "electorate_share_counted": 0.166333,
+  "source_updated_at": "2026-10-25T16:38:06Z",
+  "last_bulletin_at": "2026-10-25T16:37:36Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "31e64e210c91f8a5",
+  "content_hash": "7600239ec83cf956",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -175,6 +175,20 @@
       "sections_total": 7
     },
     {
+      "code": "29599",
+      "city": "COPENHAGUE",
+      "name": "Dinamarca",
+      "region": "Europa",
+      "lula_votes": 1383,
+      "flavio_votes": 243,
+      "blank_votes": 24,
+      "null_votes": 27,
+      "turnout": 1677,
+      "electorate": 2855,
+      "sections_counted": 4,
+      "sections_total": 4
+    },
+    {
       "code": "30414",
       "city": "RAMALLAH",
       "name": "Palestina",
@@ -243,6 +257,20 @@
       "electorate": 864,
       "sections_counted": 2,
       "sections_total": 2
+    },
+    {
+      "code": "29998",
+      "city": "LUANDA",
+      "name": "Angola",
+      "region": "África",
+      "lula_votes": 167,
+      "flavio_votes": 118,
+      "blank_votes": 1,
+      "null_votes": 3,
+      "turnout": 289,
+      "electorate": 716,
+      "sections_counted": 1,
+      "sections_total": 1
     },
     {
       "code": "30422",
@@ -657,14 +685,6 @@
       "sections_total": 21
     },
     {
-      "code": "29998",
-      "city": "LUANDA",
-      "name": "Angola",
-      "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "99147",
       "city": "SAINT JOHNS",
       "name": "Antígua e Barbuda",
@@ -975,14 +995,6 @@
       "region": "América do Norte, Central e Caribe",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "29599",
-      "city": "COPENHAGUE",
-      "name": "Dinamarca",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 4
     },
     {
       "code": "30520",
