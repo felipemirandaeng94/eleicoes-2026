@@ -16,7 +16,7 @@ from playwright.async_api import async_playwright
 BASE = "https://probitasbrasil.org/apuracao/"
 OUT = Path("data/exterior.json")
 REPORT = Path("data/probitas_diagnostico.json")
-NUMBER = re.compile(r"^\\d{1,3}(?:\\.\\d{3})*$|^\\d+$")
+NUMBER = re.compile(r"^\d{1,3}(?:\\.\d{3})*$|^\d+$")
 
 def integer(value):
     if isinstance(value, bool):
@@ -124,11 +124,11 @@ async def main():
               sorted(set(re.findall(r"(?i)lula|fl[aá]vio|se[cç][oõ]es|exterior|estados unidos|portugal|jap[aã]o", page_text)))[:30],
               "errors":errors[:10]}
     REPORT.parent.mkdir(parents=True, exist_ok=True)
-    REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     if selected:
         payload = {**selected, "validated":True,"source":BASE,"collected_at":timestamp,
                    "countries":[]}
-        OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         print("VALIDADO: votos e seções gravados em data/exterior.json")
     else:
         print("SEM DADOS VALIDADOS: consulte data/probitas_diagnostico.json. Não altera os números anteriores.")
