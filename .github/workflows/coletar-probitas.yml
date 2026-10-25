@@ -24,13 +24,46 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Inspecionar dados públicos do Probitas
         run: python scripts/coletar_probitas.py
-      - name: Salvar relatório e dados validados
+      - name: Guardar diagnóstico sem disparar GitHub Pages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: probitas-diagnostico-${{ github.run_id }}
+          path: data/probitas_diagnostico.json
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Publicar apenas mudança real nos votos e seções
         run: |
+          if test ! -f data/exterior.json; then
+            echo "Nenhum dado validado; não há atualização a publicar."
+            exit 0
+          fi
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          file = Path("data/exterior.json")
+          new = json.loads(file.read_text(encoding="utf-8"))
+          try:
+              old = json.loads(subprocess.check_output(
+                  ["git", "show", "HEAD:data/exterior.json"], text=True))
+          except subprocess.CalledProcessError:
+              old = None
+          keys = ("validated", "source", "lula_votes", "flavio_votes",
+                  "sections_counted", "sections_total", "countries")
+          if old is not None and all(old.get(k) == new.get(k) for k in keys):
+              file.write_text(json.dumps(old, ensure_ascii=False, indent=2)+"\\n",
+                              encoding="utf-8")
+              print("Votos e seções inalterados; não gerar commit.")
+          else:
+              print("Dados validados mudaram; publicar atualização.")
+          PY
+          git add data/exterior.json
+          if git diff --staged --quiet; then
+            echo "Nada a publicar."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/probitas_diagnostico.json
-          if test -f data/exterior.json; then git add data/exterior.json; fi
-          if ! git diff --staged --quiet; then
-            git commit -m "Coleta Probitas: diagnóstico e dados validados"
-            git push
-          fi
+          git commit -m "Atualizar apuração validada do exterior"
+          git pull --rebase origin main
+          git push origin HEAD:main
