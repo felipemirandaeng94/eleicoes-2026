@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:43:09Z",
-  "lula_votes": 28027,
-  "flavio_votes": 38738,
-  "blank_votes": 1536,
-  "null_votes": 1408,
-  "turnout": 69709,
-  "electorate_counted_sections": 158285,
-  "sections_counted": 233,
+  "collected_at": "2026-10-25T16:48:10Z",
+  "lula_votes": 30766,
+  "flavio_votes": 39431,
+  "blank_votes": 1567,
+  "null_votes": 1467,
+  "turnout": 73231,
+  "electorate_counted_sections": 165819,
+  "sections_counted": 246,
   "sections_total": 1351,
-  "electorate_share_counted": 0.173167,
-  "source_updated_at": "2026-10-25T16:43:06Z",
-  "last_bulletin_at": "2026-10-25T16:43:04Z",
+  "electorate_share_counted": 0.18141,
+  "source_updated_at": "2026-10-25T16:48:07Z",
+  "last_bulletin_at": "2026-10-25T16:46:18Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "a789af784da6432e",
+  "content_hash": "7ac34b8eac98cdd3",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -189,6 +189,20 @@
       "sections_total": 7
     },
     {
+      "code": "30767",
+      "city": "VIENA",
+      "name": "Áustria",
+      "region": "Europa",
+      "lula_votes": 1178,
+      "flavio_votes": 393,
+      "blank_votes": 21,
+      "null_votes": 31,
+      "turnout": 1623,
+      "electorate": 3135,
+      "sections_counted": 5,
+      "sections_total": 5
+    },
+    {
       "code": "29599",
       "city": "COPENHAGUE",
       "name": "Dinamarca",
@@ -201,6 +215,34 @@
       "electorate": 2855,
       "sections_counted": 4,
       "sections_total": 4
+    },
+    {
+      "code": "99511",
+      "city": "MARSELHA",
+      "name": "França",
+      "region": "Europa",
+      "lula_votes": 929,
+      "flavio_votes": 112,
+      "blank_votes": 1,
+      "null_votes": 7,
+      "turnout": 1049,
+      "electorate": 2660,
+      "sections_counted": 4,
+      "sections_total": 4
+    },
+    {
+      "code": "30244",
+      "city": "OSLO",
+      "name": "Noruega",
+      "region": "Europa",
+      "lula_votes": 820,
+      "flavio_votes": 248,
+      "blank_votes": 9,
+      "null_votes": 20,
+      "turnout": 1097,
+      "electorate": 2190,
+      "sections_counted": 3,
+      "sections_total": 3
     },
     {
       "code": "30414",
@@ -427,6 +469,20 @@
       "sections_total": 1
     },
     {
+      "code": "39209",
+      "city": "BRATISLAVA",
+      "name": "Eslováquia",
+      "region": "Europa",
+      "lula_votes": 47,
+      "flavio_votes": 14,
+      "blank_votes": 0,
+      "null_votes": 4,
+      "turnout": 65,
+      "electorate": 131,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "39160",
       "city": "LIUBLIANA",
       "name": "Eslovênia",
@@ -553,6 +609,20 @@
       "sections_total": 1
     },
     {
+      "code": "29378",
+      "city": "BELGRADO",
+      "name": "Sérvia",
+      "region": "Europa",
+      "lula_votes": 35,
+      "flavio_votes": 13,
+      "blank_votes": 1,
+      "null_votes": 2,
+      "turnout": 51,
+      "electorate": 115,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "29637",
       "city": "DAMASCO",
       "name": "Síria",
@@ -649,20 +719,6 @@
       "electorate": 657,
       "sections_counted": 1,
       "sections_total": 1
-    },
-    {
-      "code": "30767",
-      "city": "VIENA",
-      "name": "Áustria",
-      "region": "Europa",
-      "lula_votes": 270,
-      "flavio_votes": 87,
-      "blank_votes": 1,
-      "null_votes": 5,
-      "turnout": 363,
-      "electorate": 697,
-      "sections_counted": 1,
-      "sections_total": 5
     },
     {
       "code": "30210",
@@ -1033,14 +1089,6 @@
       "sections_total": 2
     },
     {
-      "code": "39209",
-      "city": "BRATISLAVA",
-      "name": "Eslováquia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "29351",
       "city": "BARCELONA",
       "name": "Espanha",
@@ -1151,14 +1199,6 @@
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "99511",
-      "city": "MARSELHA",
-      "name": "França",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 4
     },
     {
       "code": "30287",
@@ -1409,14 +1449,6 @@
       "sections_total": 1
     },
     {
-      "code": "30244",
-      "city": "OSLO",
-      "name": "Noruega",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 3
-    },
-    {
       "code": "39102",
       "city": "MASCATE",
       "name": "Omã",
@@ -1637,14 +1669,6 @@
       "city": "SÃO TOMÉ",
       "name": "São Tomé e Príncipe",
       "region": "África",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
-      "code": "29378",
-      "city": "BELGRADO",
-      "name": "Sérvia",
-      "region": "Europa",
       "sections_counted": 0,
       "sections_total": 1
     },
