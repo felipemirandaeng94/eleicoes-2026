@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T12:44:40Z",
-  "lula_votes": 14654,
-  "flavio_votes": 32893,
-  "blank_votes": 1287,
-  "null_votes": 1103,
-  "turnout": 49937,
-  "electorate_counted_sections": 116862,
-  "sections_counted": 166,
+  "collected_at": "2026-10-25T13:23:23Z",
+  "lula_votes": 14879,
+  "flavio_votes": 33221,
+  "blank_votes": 1295,
+  "null_votes": 1123,
+  "turnout": 50518,
+  "electorate_counted_sections": 118028,
+  "sections_counted": 168,
   "sections_total": 1351,
-  "electorate_share_counted": 0.12785,
-  "source_updated_at": "2026-10-25T12:44:33Z",
-  "last_bulletin_at": "2026-10-25T11:55:46Z",
+  "electorate_share_counted": 0.129125,
+  "source_updated_at": "2026-10-25T13:23:18Z",
+  "last_bulletin_at": "2026-10-25T13:18:28Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,9 +29,9 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "6833d0cf73866ee4",
-  "changed_since_previous": false,
-  "history_db": "data/historico_exterior/2026-10-25_12.sqlite3",
+  "content_hash": "a784bce3c0d9b40b",
+  "changed_since_previous": true,
+  "history_db": "data/historico_exterior/2026-10-25_13.sqlite3",
   "warnings": [],
   "countries": [
     {
@@ -116,6 +116,20 @@
       "turnout": 526,
       "electorate": 3119,
       "sections_counted": 5,
+      "sections_total": 5
+    },
+    {
+      "code": "29262",
+      "city": "ABU DHABI",
+      "name": "Emirados Árabes",
+      "region": "Ásia e Oriente Médio",
+      "lula_votes": 225,
+      "flavio_votes": 328,
+      "blank_votes": 8,
+      "null_votes": 20,
+      "turnout": 581,
+      "electorate": 1166,
+      "sections_counted": 2,
       "sections_total": 5
     },
     {
@@ -695,14 +709,6 @@
       "region": "América do Norte, Central e Caribe",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "29262",
-      "city": "ABU DHABI",
-      "name": "Emirados Árabes",
-      "region": "Ásia e Oriente Médio",
-      "sections_counted": 0,
-      "sections_total": 5
     },
     {
       "code": "30392",
