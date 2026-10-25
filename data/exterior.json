@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:58:11Z",
-  "lula_votes": 33303,
-  "flavio_votes": 40236,
-  "blank_votes": 1605,
-  "null_votes": 1509,
-  "turnout": 76653,
-  "electorate_counted_sections": 174051,
-  "sections_counted": 257,
+  "collected_at": "2026-10-25T17:03:11Z",
+  "lula_votes": 51297,
+  "flavio_votes": 49342,
+  "blank_votes": 1911,
+  "null_votes": 1881,
+  "turnout": 104431,
+  "electorate_counted_sections": 236218,
+  "sections_counted": 339,
   "sections_total": 1351,
-  "electorate_share_counted": 0.190416,
-  "source_updated_at": "2026-10-25T16:58:10Z",
-  "last_bulletin_at": "2026-10-25T16:58:10Z",
+  "electorate_share_counted": 0.258428,
+  "source_updated_at": "2026-10-25T17:03:10Z",
+  "last_bulletin_at": "2026-10-25T17:03:09Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,9 +29,9 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "dfcebaf0cb86b7c9",
+  "content_hash": "e8f284c0e422129f",
   "changed_since_previous": true,
-  "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
+  "history_db": "data/historico_exterior/2026-10-25_17.sqlite3",
   "warnings": [],
   "countries": [
     {
@@ -63,6 +63,20 @@
       "sections_total": 43
     },
     {
+      "code": "30066",
+      "city": "MADRI",
+      "name": "Espanha",
+      "region": "Europa",
+      "lula_votes": 4472,
+      "flavio_votes": 2873,
+      "blank_votes": 108,
+      "null_votes": 138,
+      "turnout": 7591,
+      "electorate": 23464,
+      "sections_counted": 30,
+      "sections_total": 30
+    },
+    {
       "code": "30562",
       "city": "SYDNEY",
       "name": "Austrália",
@@ -73,6 +87,20 @@
       "null_votes": 128,
       "turnout": 6830,
       "electorate": 14034,
+      "sections_counted": 19,
+      "sections_total": 19
+    },
+    {
+      "code": "30864",
+      "city": "ZURIQUE",
+      "name": "Suíça",
+      "region": "Europa",
+      "lula_votes": 4048,
+      "flavio_votes": 2835,
+      "blank_votes": 96,
+      "null_votes": 107,
+      "turnout": 7086,
+      "electorate": 15103,
       "sections_counted": 19,
       "sections_total": 19
     },
@@ -89,6 +117,34 @@
       "electorate": 13729,
       "sections_counted": 18,
       "sections_total": 18
+    },
+    {
+      "code": "30457",
+      "city": "AMSTERDÃ",
+      "name": "Países Baixos",
+      "region": "Europa",
+      "lula_votes": 5175,
+      "flavio_votes": 1313,
+      "blank_votes": 54,
+      "null_votes": 61,
+      "turnout": 6603,
+      "electorate": 11981,
+      "sections_counted": 16,
+      "sections_total": 17
+    },
+    {
+      "code": "29432",
+      "city": "BRUXELAS",
+      "name": "Bélgica",
+      "region": "Europa",
+      "lula_votes": 2842,
+      "flavio_votes": 1979,
+      "blank_votes": 45,
+      "null_votes": 53,
+      "turnout": 4919,
+      "electorate": 9322,
+      "sections_counted": 13,
+      "sections_total": 14
     },
     {
       "code": "29360",
@@ -145,6 +201,20 @@
       "electorate": 4866,
       "sections_counted": 7,
       "sections_total": 7
+    },
+    {
+      "code": "29386",
+      "city": "BERLIM",
+      "name": "Alemanha",
+      "region": "Europa",
+      "lula_votes": 1771,
+      "flavio_votes": 406,
+      "blank_votes": 20,
+      "null_votes": 27,
+      "turnout": 2224,
+      "electorate": 4646,
+      "sections_counted": 6,
+      "sections_total": 20
     },
     {
       "code": "29262",
@@ -231,20 +301,6 @@
       "sections_total": 4
     },
     {
-      "code": "30066",
-      "city": "MADRI",
-      "name": "Espanha",
-      "region": "Europa",
-      "lula_votes": 669,
-      "flavio_votes": 417,
-      "blank_votes": 22,
-      "null_votes": 19,
-      "turnout": 1127,
-      "electorate": 3158,
-      "sections_counted": 4,
-      "sections_total": 30
-    },
-    {
       "code": "99511",
       "city": "MARSELHA",
       "name": "França",
@@ -311,6 +367,20 @@
       "null_votes": 2,
       "turnout": 581,
       "electorate": 1211,
+      "sections_counted": 2,
+      "sections_total": 2
+    },
+    {
+      "code": "29459",
+      "city": "BUDAPESTE",
+      "name": "Hungria",
+      "region": "Europa",
+      "lula_votes": 355,
+      "flavio_votes": 117,
+      "blank_votes": 5,
+      "null_votes": 5,
+      "turnout": 482,
+      "electorate": 809,
       "sections_counted": 2,
       "sections_total": 2
     },
@@ -773,14 +843,6 @@
       "sections_total": 1
     },
     {
-      "code": "29386",
-      "city": "BERLIM",
-      "name": "Alemanha",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 20
-    },
-    {
       "code": "30180",
       "city": "MUNIQUE",
       "name": "Alemanha",
@@ -971,14 +1033,6 @@
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "29432",
-      "city": "BRUXELAS",
-      "name": "Bélgica",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 14
     },
     {
       "code": "30988",
@@ -1317,14 +1371,6 @@
       "sections_total": 1
     },
     {
-      "code": "29459",
-      "city": "BUDAPESTE",
-      "name": "Hungria",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 2
-    },
-    {
       "code": "99171",
       "city": "BAGDÁ",
       "name": "Iraque",
@@ -1533,14 +1579,6 @@
       "sections_total": 2
     },
     {
-      "code": "30457",
-      "city": "AMSTERDÃ",
-      "name": "Países Baixos",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 17
-    },
-    {
       "code": "29823",
       "city": "IQUITOS",
       "name": "Peru",
@@ -1667,14 +1705,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 15
-    },
-    {
-      "code": "30864",
-      "city": "ZURIQUE",
-      "name": "Suíça",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 19
     },
     {
       "code": "39225",
