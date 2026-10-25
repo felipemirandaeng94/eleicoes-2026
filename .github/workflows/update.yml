@@ -24,5 +24,13 @@ jobs:
           git add data/results.json
           if ! git diff --cached --quiet; then
             git commit -m "Atualiza dados oficiais TSE"
-            git push
+            # O coletor do exterior também grava em main: sincronizar antes do push.
+            for tentativa in 1 2 3; do
+              if git pull --rebase origin main && git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((tentativa * 5))
+            done
+            echo "::error::Não foi possível enviar o commit do TSE para main"
+            exit 1
           fi

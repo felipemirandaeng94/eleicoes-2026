@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+# Diagnóstico de cada coleta: vai para o artefato do workflow, não para o repositório.
+data/probitas_diagnostico.json
+data/*.tmp

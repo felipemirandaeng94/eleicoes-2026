@@ -11,7 +11,8 @@ URL após a publicação: https://felipemirandaeng94.github.io/eleicoes-2026/
 
 ## Fontes e limitações
 - **Brasil e estados:** arquivos JSON oficiais do TSE, segundo turno presidencial, coletados por GitHub Actions a cada cinco minutos. Agendamentos podem atrasar.
-- **Exterior:** link para https://probitasbrasil.org/apuracao/ . **Ainda não há extração automática de boletins individuais do Probitas**; não foi confirmada uma interface estável e autorizada de dados. Não se inventam resultados.
+- **Exterior:** contagem **não oficial** do [Probitas Brasil](https://probitasbrasil.org/apuracao/) (soma dos boletins de urna do exterior já publicados pelo TSE). O workflow **Coletar Probitas Exterior** (`scripts/coletar_probitas.py`) lê a cada cinco minutos `https://probitasbrasil.org/apuracao/state.json` — o mesmo retrato JSON que a página do Probitas usa — com o fluxo `/apuracao/events` como reserva. Usa apenas `exterior.obs` (votos do 2º turno) e `secRec`/`secTot` (seções); campos de 1º turno, projeção e Brasil são ignorados. Cada leitura validada vai para `data/historico_exterior/AAAA-MM-DD_HH.sqlite3` (hora UTC; tabelas `leituras` e `cidades`) e para `data/exterior.json`. Se a coleta falhar, o último resultado válido é mantido e o painel o marca como desatualizado após 20 minutos. Não se inventam resultados.
+- Conferir o histórico: `sqlite3 data/historico_exterior/2026-10-25_14.sqlite3 "SELECT coletado_em, lula_votos, flavio_votos, secoes_contadas, secoes_total FROM leituras"`.
 - O navegador procura novo JSON a cada 60 segundos.
 - Fonte oficial: https://resultados.tse.jus.br/
 - Documentação: https://www.tse.jus.br/eleicoes/informacoes-tecnicas-sobre-a-divulgacao-de-resultados

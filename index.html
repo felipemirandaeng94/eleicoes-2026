@@ -50,7 +50,7 @@ button:hover{background:#25405f;transform:translateY(-1px)}button.active{backgro
 <div class="card ext-hero" style="margin-bottom:20px">
 <div class="ext-eyebrow">Exterior · Apuração independente</div>
 <h2 style="font-size:clamp(23px,3vw,30px);margin:0 0 7px">Presidência da República · 2º turno</h2>
-<p class="muted" style="margin-top:0">Dados publicados por <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a>. Aguardamos coleta validada para apresentar números em nosso placar.</p>
+<p class="muted" style="margin-top:0">Dados publicados por <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a>. <span id="extIntroNote">Aguardamos coleta validada para apresentar números em nosso placar.</span></p>
 <div class="ext-candidates">
 <div class="ext-candidate red-side"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto oficial de candidatura de Lula em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/08.08.2026%20-%20FOTOS%20OFICIAIS%20-%2055450293419.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Lula</div><div class="muted">PT · Número</div><div class="candidate-number lula">13</div></div></div><strong id="extRedPct">—</strong><span class="ext-votes" id="extRedVotes">Aguardando dados</span></div>
 <div class="ext-candidate blue-side"><div class="candidate-card"><img class="candidate-photo" loading="lazy" alt="Foto de registro eleitoral de Flávio Bolsonaro em 2026" src="https://commons.wikimedia.org/wiki/Special:FilePath/2026%20FLAVIO%20BOLSONARO%20CANDIDATO%20PRESIDENTE%20TSE%20%28280002551544%29%20%28cropped%29.jpg?width=240"><div class="candidate-meta"><div class="candidate-name">Flávio Bolsonaro</div><div class="muted">PL · Número</div><div class="candidate-number flavio">22</div></div></div><strong id="extBluePct">—</strong><span class="ext-votes" id="extBlueVotes">Aguardando dados</span></div>
@@ -120,14 +120,29 @@ function syncElectionMode(){
     show(official?'br':'ext');
   }
 }
+// Exterior: três estados — indisponível (sem coleta válida), disponível e desatualizado.
+// Uma falha de leitura nunca apaga o último placar válido já exibido.
+const EXT_STALE_MIN=20;
+const brt=iso=>new Date(iso).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+let extLast=null;
+function extFreshness(){
+if(!extLast){return}
+const age=(Date.now()-Date.parse(extLast.collected_at))/60000;
+const bu=extLast.last_bulletin_at?' · último boletim lido pelo Probitas: '+brt(extLast.last_bulletin_at):'';
+el('extUpdated').textContent=(age>EXT_STALE_MIN?'Desatualizado: última coleta válida em ':'Atualizado em ')+brt(extLast.collected_at)+' (Brasília)'+bu;
+}
 async function refreshExterior(){
+let d;
 try{
 const response=await fetch('./data/exterior.json?v='+Date.now(),{cache:'no-store'});
-if(!response.ok) return;
-const d=await response.json();
-if(!d.validated||!d.source||!String(d.source).includes('probitasbrasil.org'))return;
+if(response.status===404){if(!extLast)el('extUpdated').textContent='Sem coleta validada até agora';return}
+if(!response.ok)throw Error('HTTP '+response.status);
+d=await response.json();
+}catch(e){console.warn('Exterior: falha ao ler data/exterior.json',e);if(extLast)extFreshness();else el('extUpdated').textContent='Dados do exterior indisponíveis no momento';return}
+try{
+if(!d.validated||!d.source||!String(d.source).includes('probitasbrasil.org')||!d.collected_at||Number.isNaN(Date.parse(d.collected_at))){console.warn('Exterior: JSON sem validação ou sem horário de coleta');return}
 const red=Number(d.lula_votes),blue=Number(d.flavio_votes),total=red+blue;
-if(!Number.isFinite(red)||!Number.isFinite(blue)||red<0||blue<0||total<=0)return;
+if(!Number.isFinite(red)||!Number.isFinite(blue)||red<0||blue<0||total<=0){console.warn('Exterior: votos inválidos no JSON');return}
 const redPct=red/total*100,bluePct=blue/total*100;
 el('extRedPct').textContent=percentage(redPct);el('extBluePct').textContent=percentage(bluePct);
 el('extRedVotes').textContent=format(red)+' votos';el('extBlueVotes').textContent=format(blue)+' votos';
@@ -138,17 +153,18 @@ el('extSectionsPct').textContent=percentage(counted/all*100);
 el('extSectionsCount').textContent=format(counted)+' de '+format(all)+' seções';
 el('extProgress').style.width=counted/all*100+'%';
 }
-el('extUpdated').textContent=d.collected_at?'Coleta: '+new Date(d.collected_at).toLocaleString('pt-BR'):'Dados validados';
+extLast=d;extFreshness();
+el('extIntroNote').textContent='Contagem não oficial: soma dos boletins de urna do exterior já publicados pelo TSE. A totalização oficial do TSE pode diferir.';
 const countries=Array.isArray(d.countries)?d.countries:[];
 function renderCountries(){
 const q=el('countrySearch').value.toLocaleLowerCase('pt-BR').trim();
 const rows=countries.filter(c=>String(c.name||'').toLocaleLowerCase('pt-BR').includes(q)||String(c.city||'').toLocaleLowerCase('pt-BR').includes(q));
 el('countryResults').replaceChildren();
 if(!rows.length){el('countryResults').textContent='Nenhum país disponível para esta busca.';return}
-for(const c of rows){const div=document.createElement('div');div.className='tile';div.style.marginBottom='9px';div.textContent=[c.name,c.city,'Lula: '+format(c.lula_votes),'Flávio: '+format(c.flavio_votes),c.sections_counted!=null?'Seções: '+format(c.sections_counted):''].filter(Boolean).join(' · ');el('countryResults').append(div)}
+for(const c of rows){const div=document.createElement('div');div.className='tile';div.style.marginBottom='9px';div.textContent=[c.name,c.city,'Lula: '+format(c.lula_votes),'Flávio: '+format(c.flavio_votes),c.sections_counted!=null?'Seções: '+format(c.sections_counted)+(c.sections_total!=null?' de '+format(c.sections_total):''):''].filter(Boolean).join(' · ');el('countryResults').append(div)}
 }
 el('countrySearch').oninput=renderCountries;renderCountries();
-}catch(e){/* Mantém placeholders e fonte incorporada quando não há coleta */}}
+}catch(e){console.warn('Exterior: erro ao atualizar o placar',e)}}
 buildMap();refresh();refreshExterior();setInterval(refresh,60000);setInterval(refreshExterior,60000);syncElectionMode();
 setInterval(syncElectionMode,1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});

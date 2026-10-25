@@ -3,28 +3,35 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
+  # Alterações no coletor disparam uma coleta imediata (teste real em produção).
+  # Os commits de dados do bot não tocam estes caminhos, então não há laço.
+  push:
+    branches: [main]
+    paths:
+      - scripts/coletar_probitas.py
+      - .github/workflows/coletar-probitas.yml
 permissions:
   contents: write
 concurrency:
   group: coletar-probitas-exterior
   cancel-in-progress: false
+env:
+  # Depois desta data o coletor encerra sem acessar a fonte (evita execuções
+  # indefinidas após a eleição). Desabilite o workflow quando não for mais útil.
+  COLETA_ATE_UTC: '2026-10-26T15:00:00Z'
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Instalar navegador de coleta
-        run: |
-          python -m pip install --upgrade pip
-          pip install playwright==1.56.0
-          python -m playwright install --with-deps chromium
-      - name: Inspecionar dados públicos do Probitas
+      # Sem dependências externas: a fonte é JSON público, lido com a biblioteca padrão.
+      - name: Coletar e validar apuração do exterior
         run: python scripts/coletar_probitas.py
-      - name: Guardar diagnóstico sem disparar GitHub Pages
+      - name: Guardar diagnóstico (artefato, sem commit)
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -32,19 +39,22 @@ jobs:
           path: data/probitas_diagnostico.json
           retention-days: 7
           if-no-files-found: ignore
-      - name: Publicar leituras validadas e histórico horário
+      # Só executa se a coleta foi validada; em falha, o último JSON válido permanece.
+      - name: Publicar leitura validada e histórico horário
         run: |
-          if test ! -f data/exterior.json; then
-            echo "Nenhum dado validado; nenhum resultado publicado."
-            exit 0
-          fi
           git add data/exterior.json data/historico_exterior/
           if git diff --staged --quiet; then
-            echo "Nenhuma leitura nova."
+            echo "Nenhuma alteração para publicar."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Registrar coleta validada do exterior"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for tentativa in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((tentativa * 5))
+          done
+          echo "::error::Não foi possível enviar o commit de dados para main"
+          exit 1

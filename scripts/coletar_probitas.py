@@ -1,217 +1,459 @@
 #!/usr/bin/env python3
-"""Diagnostica dados públicos da apuração Probitas sem inventar resultados.
+"""Coletor da apuração do exterior publicada pelo Probitas Brasil.
 
-Usa um navegador real para registrar as requisições JSON/HTML. Apenas publica
-resultados quando encontra explicitamente votos e seções, com validação.
+Fonte mapeada em 25/10/2026 inspecionando a página, a rede e o app.js do site:
+
+  https://probitasbrasil.org/apuracao/state.json
+      Retrato JSON do estado da apuração. O próprio app.js do Probitas usa este
+      arquivo no modo "?estatico=1" (plano B sem conexão ao vivo). Fonte primária.
+  https://probitasbrasil.org/apuracao/events
+      Fluxo Server-Sent Events usado pela página ao vivo. O evento "estado"
+      carrega o mesmo JSON. Usado apenas como reserva.
+
+O placar "Só exterior" exibido na página corresponde a estado["exterior"]:
+  obs.L / obs.F   votos de Lula (13) e Flávio Bolsonaro (22) no 2º turno
+                  (contagem não oficial: soma dos boletins de urna já publicados)
+  obs.B / obs.N   brancos / nulos       obs.C  comparecimento
+  obs.E           eleitores aptos das seções já contadas
+  secRec/secTot   seções contadas / total de seções do exterior
+  cidades[]       o mesmo detalhamento por cidade (pais, regiao, sec, rec, obs)
+
+Campos que NÃO são votos do 2º turno e nunca são publicados como tal:
+  t1, t1oficial, cmp, mesmos  -> 1º turno ou comparação com o 1º turno
+  proj                        -> projeção estatística
+  pApur                       -> fração do ELEITORADO coberto (não de seções)
+  nacional, ufs               -> Brasil, não exterior
+
+Fluxo: Probitas -> validação -> SQLite horário (UTC) -> data/exterior.json.
+Em caso de falha, nada é sobrescrito: o último resultado válido é preservado
+e o script termina com código 2 para que a execução apareça como falha.
 """
-import asyncio
+from __future__ import annotations
+
+import argparse
 import datetime as dt
+import hashlib
+import http.client
 import json
 import os
-import re
 import sqlite3
+import sys
+import time
+import urllib.error
+import urllib.request
 from pathlib import Path
-from urllib.parse import urlparse
-from playwright.async_api import async_playwright
 
-BASE = "https://probitasbrasil.org/apuracao/"
-OUT = Path("data/exterior.json")
-REPORT = Path("data/probitas_diagnostico.json")
-NUMBER = re.compile(r"^\d{1,3}(?:\.\d{3})*$|^\d+$")
+ORIGEM = "https://probitasbrasil.org/apuracao/"
+URL_STATE = "https://probitasbrasil.org/apuracao/state.json"
+URL_SSE = "https://probitasbrasil.org/apuracao/events"
+USER_AGENT = ("Eleicoes2026Painel/2.0 "
+              "(+https://github.com/felipemirandaeng94/eleicoes-2026)")
+NATUREZA = ("Contagem não oficial do Probitas Brasil: soma dos boletins de urna "
+            "do exterior já publicados pelo TSE (2º turno, Presidente).")
+CAMPOS_VOTOS = ("L", "F", "B", "N", "O", "C", "E")
 
-def integer(value):
-    if isinstance(value, bool):
-        return None
-    if isinstance(value, int):
-        return value if value >= 0 else None
-    if isinstance(value, str) and NUMBER.fullmatch(value.strip()):
-        return int(value.replace(".", ""))
+
+class ErroFonte(Exception):
+    """Falha de acesso ou formato inesperado na fonte."""
+
+
+def agora_utc() -> dt.datetime:
+    return dt.datetime.now(dt.timezone.utc)
+
+
+def iso(momento: dt.datetime) -> str:
+    return momento.astimezone(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def de_epoch_ms(valor) -> str | None:
+    if isinstance(valor, (int, float)) and not isinstance(valor, bool) and valor > 0:
+        return iso(dt.datetime.fromtimestamp(valor / 1000, dt.timezone.utc))
     return None
 
-def scan(value, trail="", depth=0, results=None):
-    if results is None:
-        results = []
-    if depth > 13:
-        return results
-    if isinstance(value, dict):
-        # Guardar APENAS indícios: não inferir automaticamente que contagens
-        # com nomes parecidos são votos do segundo turno.
-        keys = [str(k) for k in value]
-        interesting = [k for k in keys if re.search(
-            r"lula|fl[aá]vio|bolsonaro|se[cç][oõ]es|sections|votos|votes|apurad|totaliz",
-            k, re.I)]
-        if interesting:
-            results.append({"path": trail or "$", "keys": interesting[:25]})
-        for k, v in value.items():
-            scan(v, trail + "/" + str(k), depth + 1, results)
-    elif isinstance(value, list):
-        for i, v in enumerate(value[:100]):
-            scan(v, trail + "/" + str(i), depth + 1, results)
-    return results
 
-def extract_explicit(data):
-    """Somente esquema nominal inequívoco, sem interpretar métricas desconhecidas."""
-    if not isinstance(data, dict):
-        return None
-    aliases = {
-        "lula_votes": ("lula_votes", "votos_lula", "votosLula"),
-        "flavio_votes": ("flavio_votes", "votos_flavio", "votosFlavio"),
-        "sections_counted": ("sections_counted", "secoes_apuradas", "secoesApuradas"),
-        "sections_total": ("sections_total", "secoes_total", "totalSecoes"),
-    }
-    matched = {}
-    for field, options in aliases.items():
-        candidates = [integer(data[k]) for k in options if k in data]
-        candidates = [n for n in candidates if n is not None]
-        if len(set(candidates)) != 1:
-            return None
-        matched[field] = candidates[0]
-    if matched["lula_votes"] + matched["flavio_votes"] <= 0:
-        return None
-    if not 0 < matched["sections_total"] <= 100000 or not 0 <= matched["sections_counted"] <= matched["sections_total"]:
-        return None
-    return matched
+# ---------------------------------------------------------------- acesso à fonte
 
-def visible_number(text):
-    value = text.strip().replace("\u00a0", " ")
-    m = re.fullmatch(r"\s*(\d{1,3}(?:\.\d{3})+|\d+)\s*(?:votos?)?\s*", value, re.I)
-    return int(m.group(1).replace(".", "")) if m else None
-
-def extract_rendered(text):
-    """Leitura conservadora de blocos de texto visíveis, sem OCR e sem palpites."""
-    lines = [re.sub(r"\s+", " ", x).strip() for x in text.splitlines() if x.strip()]
-    def find_vote(pattern):
-        matches = []
-        for i,line in enumerate(lines):
-            if not re.search(pattern,line,re.I):
-                continue
-            # Exigir campo 'votos' na proximidade para não confundir número
-            # do candidato ou porcentagem com a totalização.
-            vicinity = lines[max(0,i-2):min(len(lines),i+5)]
-            for j,near in enumerate(vicinity):
-                m=re.search(r"(?:votos?\s*[:\-]?\s*)(\d{1,3}(?:\.\d{3})+|\d+)(?![%\d])",near,re.I)
-                if m:
-                    matches.append(int(m.group(1).replace(".","")))
-                elif re.fullmatch(r"\d{1,3}(?:\.\d{3})+|\d+",near):
-                    if any(re.search(r"votos?",s,re.I) for s in vicinity):
-                        matches.append(int(near.replace(".","")))
-        matches=[x for x in matches if x>100]
-        return matches[0] if len(set(matches))==1 else None
-    lula=find_vote(r"\bLula\b")
-    flavio=find_vote(r"Fl[aá]vio\s+Bolsonaro")
-    counted=total=None
-    for line in lines:
-        if re.search(r"se[cç][oõ]es|urnas",line,re.I):
-            m=re.search(r"(\d{1,3}(?:\.\d{3})+|\d+)\s*(?:de|/)\s*(\d{1,3}(?:\.\d{3})+|\d+)",line,re.I)
-            if m:
-                counted,total=(int(x.replace(".","")) for x in m.groups())
-                break
-    if None in (lula,flavio,counted,total) or not (0<=counted<=total<=100000):
-        return None
-    return {"lula_votes":lula,"flavio_votes":flavio,
-            "sections_counted":counted,"sections_total":total}
-
-def save_hourly_record(payload, timestamp):
-    """Persistir leituras validadas em um SQLite por hora (UTC)."""
-    hour = dt.datetime.fromisoformat(timestamp).strftime("%Y-%m-%d_%H")
-    path = Path("data/historico_exterior") / f"{hour}.sqlite3"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(path) as db:
-        db.execute("""CREATE TABLE IF NOT EXISTS leituras (
-            coletado_em TEXT PRIMARY KEY,
-            lula_votes INTEGER NOT NULL,
-            flavio_votes INTEGER NOT NULL,
-            sections_counted INTEGER NOT NULL,
-            sections_total INTEGER NOT NULL,
-            fonte TEXT NOT NULL
-        )""")
-        db.execute(
-            """INSERT OR REPLACE INTO leituras
-            (coletado_em,lula_votes,flavio_votes,sections_counted,sections_total,fonte)
-            VALUES (?,?,?,?,?,?)""",
-            (timestamp, payload["lula_votes"], payload["flavio_votes"],
-             payload["sections_counted"], payload["sections_total"], payload["source"])
-        )
-    print(f"Histórico validado registrado em {path}")
-
-
-async def main():
-    captured = []
-    selected = None
-    page_text = ""
-    extracted_from = None
-    errors = []
-
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True, args=["--no-sandbox"])
-        page = await browser.new_page(locale="pt-BR", timezone_id="America/Sao_Paulo",
-                                      user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36")
-        async def on_response(response):
-            nonlocal selected
-            url = response.url
-            if urlparse(url).scheme not in ("https", "http"):
-                return
-            ctype = response.headers.get("content-type", "")
-            if not any(t in ctype for t in ("json", "javascript")):
-                return
-            try:
-                body = await response.body()
-                if len(body) > 5_000_000:
-                    return
-                data = json.loads(body)
-                findings = scan(data)[:35]
-                entry = {"url":url.split("?")[0], "status":response.status,
-                         "content_type":ctype, "indicios":findings}
-                if findings:
-                    captured.append(entry)
-                if selected is None:
-                    candidate = extract_explicit(data)
-                    if candidate and "probitasbrasil.org" in (urlparse(url).hostname or ""):
-                        selected = candidate
-            except (ValueError, UnicodeDecodeError, RuntimeError):
-                return
-            except Exception as exc:
-                errors.append(str(exc)[:150])
-        page.on("response", on_response)
+def baixar_state(tentativas: int = 3, timeout: float = 20.0) -> dict:
+    erros = []
+    for tentativa in range(1, tentativas + 1):
+        req = urllib.request.Request(URL_STATE, headers={
+            "User-Agent": USER_AGENT, "Accept": "application/json"})
         try:
-            await page.goto(BASE, wait_until="domcontentloaded", timeout=35000)
-            await page.wait_for_timeout(15000)
-            texts=[]
-            for frame in page.frames:
-                try:
-                    texts.append((await frame.locator("body").inner_text(timeout=5000))[:40000])
-                except Exception:
-                    pass
-            page_text="\\n".join(texts)
-            if selected is None:
-                for rendered in texts:
-                    candidate=extract_rendered(rendered)
-                    if candidate:
-                        selected=candidate
-                        extracted_from="rendered_text"
-                        break
-        except Exception as exc:
-            errors.append("Página: " + str(exc)[:180])
-        await browser.close()
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                tipo = resp.headers.get("content-type", "")
+                corpo = resp.read(5_000_000)
+            if "json" not in tipo:
+                raise ErroFonte(f"state.json respondeu content-type inesperado: {tipo!r}")
+            return json.loads(corpo)
+        except urllib.error.HTTPError as exc:
+            detalhe = f"HTTP {exc.code}"
+            if exc.headers.get("cf-mitigated"):
+                detalhe += f" (Cloudflare cf-mitigated={exc.headers.get('cf-mitigated')})"
+            erros.append(f"tentativa {tentativa}: {detalhe}")
+            if exc.code in (401, 403, 404):
+                break  # bloqueio ou ausência: repetir não ajuda
+        except (OSError, http.client.HTTPException, ValueError, ErroFonte) as exc:
+            # OSError cobre URLError, timeout e conexão encerrada pelo servidor.
+            erros.append(f"tentativa {tentativa}: {type(exc).__name__}: {str(exc)[:160]}")
+        time.sleep(2 * tentativa)
+    raise ErroFonte("state.json indisponível: " + "; ".join(erros))
 
-    timestamp = dt.datetime.now(dt.timezone.utc).isoformat()
-    # Não publicar texto bruto nem resultados parcialmente identificados:
-    # podem ser do primeiro turno, Brasil em vez de exterior ou projeções.
-    report = {"checked_at":timestamp, "source":BASE, "status":"validado" if selected else "requer_mapeamento",
-              "responses_with_indicators":captured[:80], "page_indicators":
-              sorted(set(re.findall(r"(?i)lula|fl[aá]vio|se[cç][oõ]es|exterior|estados unidos|portugal|jap[aã]o", page_text)))[:30],
-              "errors":errors[:10], "extraction_method": extracted_from or ("json" if selected else None)}
-    REPORT.parent.mkdir(parents=True, exist_ok=True)
-    REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    if selected:
-        payload = {**selected, "validated":True,"source":BASE,"collected_at":timestamp,
-                   "countries":[]}
-        save_hourly_record(payload, timestamp)
-        OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-        print("VALIDADO: votos e seções gravados em data/exterior.json")
+
+def ler_sse_estado(prazo: float = 25.0) -> dict:
+    """Lê o fluxo SSE apenas até o primeiro evento 'estado' e encerra a conexão."""
+    req = urllib.request.Request(URL_SSE, headers={
+        "User-Agent": USER_AGENT, "Accept": "text/event-stream"})
+    limite = time.monotonic() + prazo
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            evento, dados = "message", []
+            while time.monotonic() < limite:
+                linha = resp.readline()
+                if not linha:
+                    break
+                linha = linha.decode("utf-8", "replace").rstrip("\r\n")
+                if linha.startswith("event:"):
+                    evento = linha[6:].strip()
+                elif linha.startswith("data:"):
+                    dados.append(linha[5:].lstrip())
+                elif linha == "":
+                    if evento == "estado" and dados:
+                        return json.loads("\n".join(dados))
+                    evento, dados = "message", []
+    except urllib.error.HTTPError as exc:
+        raise ErroFonte(f"events respondeu HTTP {exc.code}") from exc
+    except (OSError, http.client.HTTPException, ValueError) as exc:
+        raise ErroFonte(f"events falhou: {type(exc).__name__}: {str(exc)[:160]}") from exc
+    raise ErroFonte(f"events não enviou o evento 'estado' em {prazo:.0f} s")
+
+
+def obter_estado(diagnostico: dict) -> tuple[dict, str, str]:
+    try:
+        return baixar_state(), "state.json", URL_STATE
+    except ErroFonte as exc:
+        diagnostico["falhas_acesso"].append(str(exc))
+    try:
+        return ler_sse_estado(), "sse", URL_SSE
+    except ErroFonte as exc:
+        diagnostico["falhas_acesso"].append(str(exc))
+    raise ErroFonte("nenhuma das duas fontes do Probitas respondeu com dados")
+
+
+# ---------------------------------------------------------------- validação
+
+def inteiro(valor) -> int | None:
+    if isinstance(valor, bool) or not isinstance(valor, int) or valor < 0:
+        return None
+    return valor
+
+
+def ler_votos(bloco, rotulo: str, problemas: list) -> dict | None:
+    if not isinstance(bloco, dict):
+        problemas.append(f"{rotulo}: ausente ou não é objeto")
+        return None
+    votos = {}
+    for campo in CAMPOS_VOTOS:
+        n = inteiro(bloco.get(campo))
+        if n is None:
+            problemas.append(f"{rotulo}.{campo}: ausente ou não é inteiro não negativo ({bloco.get(campo)!r})")
+            return None
+        votos[campo] = n
+    return votos
+
+
+def validar_exterior(estado) -> tuple[dict | None, list, list]:
+    """Retorna (dados, problemas, avisos). dados é None se algo essencial falhar."""
+    problemas, avisos = [], []
+    if not isinstance(estado, dict):
+        return None, ["resposta da fonte não é um objeto JSON"], avisos
+    ext = estado.get("exterior")
+    if not isinstance(ext, dict):
+        return None, ["chave 'exterior' ausente: a fonte não publicou dados do exterior"], avisos
+
+    obs = ler_votos(ext.get("obs"), "exterior.obs", problemas)
+    sec_rec, sec_tot = inteiro(ext.get("secRec")), inteiro(ext.get("secTot"))
+    if sec_rec is None:
+        problemas.append(f"exterior.secRec (seções contadas) ausente ou inválido: {ext.get('secRec')!r}")
+    if sec_tot is None:
+        problemas.append(f"exterior.secTot (total de seções) ausente ou inválido: {ext.get('secTot')!r}")
+    cidades = ext.get("cidades")
+    if not isinstance(cidades, list) or not cidades:
+        problemas.append("exterior.cidades ausente: sem detalhamento por cidade para conferência")
+        cidades = []
+    if problemas:
+        return None, problemas, avisos
+
+    # Contexto eleitoral: exterior e 2º turno.
+    if not 1 <= sec_tot <= 5000:
+        problemas.append(f"total de seções {sec_tot} incompatível com o exterior (esperado ~1.351)")
+    if obs["O"] != 0:
+        problemas.append(f"obs.O = {obs['O']} votos em outros candidatos: não é o 2º turno")
+    if not 0 <= sec_rec <= sec_tot:
+        problemas.append(f"seções contadas ({sec_rec}) fora do intervalo 0..{sec_tot}")
+    # Consistência aritmética do boletim de urna.
+    soma = obs["L"] + obs["F"] + obs["B"] + obs["N"] + obs["O"]
+    if soma != obs["C"]:
+        problemas.append(f"comparecimento {obs['C']} difere de L+F+B+N+O = {soma}")
+    if obs["C"] > obs["E"]:
+        problemas.append(f"comparecimento {obs['C']} maior que eleitores das seções {obs['E']}")
+
+    # Conferência cruzada: a soma das cidades deve reproduzir o total.
+    linhas, soma_cid = [], dict.fromkeys(CAMPOS_VOTOS, 0)
+    soma_rec = soma_sec = 0
+    for i, c in enumerate(cidades):
+        p = []
+        v = ler_votos(c.get("obs") if isinstance(c, dict) else None, f"cidades[{i}].obs", p)
+        rec = inteiro(c.get("rec")) if isinstance(c, dict) else None
+        sec = inteiro(c.get("sec")) if isinstance(c, dict) else None
+        if p or rec is None or sec is None or rec > sec:
+            problemas.append(f"cidade {i} ({c.get('nm') if isinstance(c, dict) else '?'}) com campos inválidos")
+            continue
+        soma_rec, soma_sec = soma_rec + rec, soma_sec + sec
+        for k in CAMPOS_VOTOS:
+            soma_cid[k] += v[k]
+        if rec > 0:
+            linhas.append({
+                "code": str(c.get("cd") or ""), "city": str(c.get("nm") or "").strip(),
+                "name": str(c.get("pais") or "").strip(), "region": str(c.get("regiao") or "").strip(),
+                "lula_votes": v["L"], "flavio_votes": v["F"], "blank_votes": v["B"],
+                "null_votes": v["N"], "turnout": v["C"], "electorate": v["E"],
+                "sections_counted": rec, "sections_total": sec,
+            })
+    if soma_rec != sec_rec or soma_sec != sec_tot:
+        problemas.append(f"seções por cidade ({soma_rec}/{soma_sec}) não batem com o total ({sec_rec}/{sec_tot})")
+    for k in ("L", "F", "B", "N", "C"):
+        if soma_cid[k] != obs[k]:
+            problemas.append(f"soma das cidades para {k} ({soma_cid[k]}) difere do total ({obs[k]})")
+    if problemas:
+        return None, problemas, avisos
+
+    if sec_rec == 0 or obs["L"] + obs["F"] == 0:
+        return None, ["a fonte ainda não tem seções do exterior contadas no 2º turno"], avisos
+
+    fontes = estado.get("fontes") if isinstance(estado.get("fontes"), dict) else {}
+    oficial = ext.get("oficial") if isinstance(ext.get("oficial"), dict) else None
+    oficial_tse = None
+    if oficial:
+        oficial_tse = {
+            "lula_votes": inteiro(oficial.get("L")), "flavio_votes": inteiro(oficial.get("F")),
+            "sections_counted": inteiro(oficial.get("secApur")),
+            "sections_total": inteiro(oficial.get("secTot")),
+            "generated_at": oficial.get("dg"), "finished": bool(oficial.get("tf")),
+        }
     else:
-        print("SEM DADOS VALIDADOS: consulte data/probitas_diagnostico.json. Não altera os números anteriores.")
-    print(f"Requisições com indícios: {len(captured)}; erros: {len(errors)}")
+        avisos.append("exterior.oficial ausente: sem referência da totalização oficial do TSE")
+    p_apur = ext.get("pApur")
+    linhas.sort(key=lambda x: (-x["sections_counted"], x["name"], x["city"]))
+    dados = {
+        "lula_votes": obs["L"], "flavio_votes": obs["F"], "blank_votes": obs["B"],
+        "null_votes": obs["N"], "turnout": obs["C"], "electorate_counted_sections": obs["E"],
+        "sections_counted": sec_rec, "sections_total": sec_tot,
+        "electorate_share_counted": round(p_apur, 6) if isinstance(p_apur, (int, float)) else None,
+        "source_updated_at": de_epoch_ms(estado.get("at")),
+        "last_bulletin_at": de_epoch_ms(fontes.get("bu")),
+        "source_version": estado.get("versao"),
+        "official_tse": oficial_tse,
+        "countries": linhas,
+    }
+    if dados["source_updated_at"] is None:
+        avisos.append("estado.at ausente: horário de atualização da fonte desconhecido")
+    return dados, problemas, avisos
+
+
+def comparar_com_anterior(dados: dict, anterior: dict | None, avisos: list) -> None:
+    if not anterior or not anterior.get("validated"):
+        return
+    for campo, nome in (("sections_counted", "seções contadas"), ("lula_votes", "votos de Lula"),
+                        ("flavio_votes", "votos de Flávio")):
+        antes = anterior.get(campo)
+        if isinstance(antes, int) and dados[campo] < antes:
+            avisos.append(f"{nome} diminuíram de {antes} para {dados[campo]} (possível correção na fonte)")
+
+
+def hash_conteudo(dados: dict) -> str:
+    base = {k: dados[k] for k in ("lula_votes", "flavio_votes", "blank_votes", "null_votes",
+                                  "turnout", "sections_counted", "sections_total")}
+    base["countries"] = [(c["code"], c["lula_votes"], c["flavio_votes"], c["sections_counted"])
+                         for c in dados["countries"]]
+    return hashlib.sha256(json.dumps(base, sort_keys=True).encode()).hexdigest()[:16]
+
+
+# ---------------------------------------------------------------- persistência
+
+ESQUEMA = """
+CREATE TABLE IF NOT EXISTS leituras (
+    coletado_em        TEXT PRIMARY KEY,          -- UTC, ISO 8601
+    fonte_atualizada_em TEXT UNIQUE,              -- estado.at da fonte (evita duplicar o mesmo retrato)
+    ultimo_boletim_em  TEXT,
+    origem             TEXT NOT NULL,
+    endpoint           TEXT NOT NULL,
+    metodo             TEXT NOT NULL,
+    lula_votos         INTEGER NOT NULL CHECK (lula_votos >= 0),
+    flavio_votos       INTEGER NOT NULL CHECK (flavio_votos >= 0),
+    brancos            INTEGER NOT NULL,
+    nulos              INTEGER NOT NULL,
+    comparecimento     INTEGER NOT NULL,
+    eleitores_secoes_contadas INTEGER NOT NULL,
+    secoes_contadas    INTEGER NOT NULL,
+    secoes_total       INTEGER NOT NULL,
+    hash_conteudo      TEXT NOT NULL,
+    CHECK (secoes_contadas BETWEEN 0 AND secoes_total)
+);
+CREATE TABLE IF NOT EXISTS cidades (
+    coletado_em     TEXT NOT NULL REFERENCES leituras(coletado_em) ON DELETE CASCADE,
+    codigo          TEXT NOT NULL,
+    cidade          TEXT NOT NULL,
+    pais            TEXT NOT NULL,
+    regiao          TEXT,
+    secoes_contadas INTEGER NOT NULL,
+    secoes_total    INTEGER NOT NULL,
+    lula_votos      INTEGER NOT NULL,
+    flavio_votos    INTEGER NOT NULL,
+    brancos         INTEGER NOT NULL,
+    nulos           INTEGER NOT NULL,
+    comparecimento  INTEGER NOT NULL,
+    PRIMARY KEY (coletado_em, codigo)
+);
+"""
+
+
+def gravar_sqlite(pasta: Path, coletado: dt.datetime, dados: dict, metodo: str,
+                  endpoint: str, conteudo: str) -> tuple[Path, bool]:
+    """Um banco por hora UTC. Retorna (caminho, inseriu?)."""
+    caminho = pasta / f"{coletado.astimezone(dt.timezone.utc):%Y-%m-%d_%H}.sqlite3"
+    pasta.mkdir(parents=True, exist_ok=True)
+    chave = iso(coletado)
+    con = sqlite3.connect(caminho)
+    try:
+        con.execute("PRAGMA journal_mode=DELETE")
+        con.execute("PRAGMA foreign_keys=ON")
+        con.executescript(ESQUEMA)
+        with con:
+            cur = con.execute(
+                """INSERT OR IGNORE INTO leituras VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (chave, dados["source_updated_at"], dados["last_bulletin_at"], ORIGEM, endpoint,
+                 metodo, dados["lula_votes"], dados["flavio_votes"], dados["blank_votes"],
+                 dados["null_votes"], dados["turnout"], dados["electorate_counted_sections"],
+                 dados["sections_counted"], dados["sections_total"], conteudo))
+            inseriu = cur.rowcount == 1
+            if inseriu:
+                con.executemany(
+                    "INSERT INTO cidades VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                    [(chave, c["code"], c["city"], c["name"], c["region"], c["sections_counted"],
+                      c["sections_total"], c["lula_votes"], c["flavio_votes"], c["blank_votes"],
+                      c["null_votes"], c["turnout"]) for c in dados["countries"]])
+        if inseriu:
+            con.execute("VACUUM")
+    finally:
+        con.close()
+    return caminho, inseriu
+
+
+def escrever_json(caminho: Path, conteudo: dict) -> None:
+    caminho.parent.mkdir(parents=True, exist_ok=True)
+    tmp = caminho.with_suffix(caminho.suffix + ".tmp")
+    tmp.write_text(json.dumps(conteudo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    os.replace(tmp, caminho)
+
+
+def resumo_actions(linhas: list[str]) -> None:
+    destino = os.environ.get("GITHUB_STEP_SUMMARY")
+    if destino:
+        with open(destino, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(linhas) + "\n")
+
+
+# ---------------------------------------------------------------- principal
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--dados-dir", default="data", help="pasta de saída (padrão: data)")
+    ap.add_argument("--entrada", help="TESTE: lê um state.json local em vez da rede; exige --dados-dir")
+    args = ap.parse_args(argv)
+    pasta = Path(args.dados_dir)
+    if args.entrada and Path(args.dados_dir).resolve() == Path("data").resolve():
+        print("Modo teste (--entrada) não pode gravar em data/: use --dados-dir com uma pasta de teste.")
+        return 64
+
+    inicio = agora_utc()
+    limite = os.environ.get("COLETA_ATE_UTC")
+    if limite and not args.entrada:
+        fim = dt.datetime.fromisoformat(limite.replace("Z", "+00:00"))
+        if inicio > fim:
+            print(f"Janela de coleta encerrada em {limite}; nenhum acesso à fonte.")
+            resumo_actions([f"Janela de coleta encerrada em {limite}."])
+            return 0
+
+    saida, relatorio = pasta / "exterior.json", pasta / "probitas_diagnostico.json"
+    anterior = None
+    if saida.exists():
+        try:
+            anterior = json.loads(saida.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            anterior = None
+
+    diag = {"verificado_em": iso(inicio), "origem": ORIGEM, "falhas_acesso": [],
+            "metodo": None, "endpoint": None, "problemas": [], "avisos": [], "status": None}
+    try:
+        if args.entrada:
+            estado = json.loads(Path(args.entrada).read_text(encoding="utf-8"))
+            metodo, endpoint = "arquivo_local_teste", f"arquivo:{args.entrada}"
+        else:
+            estado, metodo, endpoint = obter_estado(diag)
+        diag["metodo"], diag["endpoint"] = metodo, endpoint
+        dados, problemas, avisos = validar_exterior(estado)
+    except (ErroFonte, OSError, ValueError) as exc:
+        dados, problemas, avisos = None, [str(exc)], []
+    diag["problemas"], diag["avisos"] = problemas, avisos
+
+    if dados is None:
+        diag["status"] = "sem_dados_validos"
+        escrever_json(relatorio, diag)
+        print("SEM DADOS VÁLIDOS. O último data/exterior.json foi preservado.")
+        for p in diag["falhas_acesso"] + problemas:
+            print(f"::error title=Probitas::{p}")
+        resumo_actions(["### Coleta Probitas: sem dados válidos", "",
+                        *[f"- {p}" for p in diag["falhas_acesso"] + problemas],
+                        "", "O último resultado válido foi preservado."])
+        return 2
+
+    comparar_com_anterior(dados, anterior, avisos)
+    conteudo = hash_conteudo(dados)
+    banco, inseriu = gravar_sqlite(pasta / "historico_exterior", inicio, dados, metodo, endpoint, conteudo)
+    publicado = {
+        "schema": 2,
+        "validated": True,
+        "source": ORIGEM,
+        "source_endpoint": endpoint,
+        "extraction_method": metodo,
+        "nature": NATUREZA,
+        "office": "Presidente", "round": 2, "scope": "exterior",
+        "collected_at": iso(inicio),
+        **{k: v for k, v in dados.items() if k != "countries"},
+        "content_hash": conteudo,
+        "changed_since_previous": (anterior or {}).get("content_hash") != conteudo,
+        "history_db": banco.as_posix(),
+        "warnings": avisos,
+        "countries": dados["countries"],
+    }
+    escrever_json(saida, publicado)
+    diag.update(status="validado", leitura_sqlite_inserida=inseriu, banco=banco.as_posix(),
+                lula_votes=dados["lula_votes"], flavio_votes=dados["flavio_votes"],
+                sections=f"{dados['sections_counted']}/{dados['sections_total']}")
+    escrever_json(relatorio, diag)
+
+    linha = (f"Lula {dados['lula_votes']:,} | Flávio {dados['flavio_votes']:,} | "
+             f"seções {dados['sections_counted']}/{dados['sections_total']} | "
+             f"fonte em {dados['source_updated_at']} | via {metodo}").replace(",", ".")
+    print("VALIDADO: " + linha)
+    print(f"SQLite: {banco} ({'nova leitura' if inseriu else 'retrato já registrado'})")
+    for a in avisos:
+        print(f"::warning title=Probitas::{a}")
+    resumo_actions(["### Coleta Probitas: validada", "", f"- {linha}",
+                    f"- SQLite: `{banco.as_posix()}` ({'nova leitura' if inseriu else 'retrato já registrado'})",
+                    *[f"- Aviso: {a}" for a in avisos]])
+    return 0
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(main())
