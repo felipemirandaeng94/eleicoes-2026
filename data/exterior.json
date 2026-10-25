@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T15:15:09Z",
-  "lula_votes": 16692,
-  "flavio_votes": 34117,
-  "blank_votes": 1328,
-  "null_votes": 1168,
-  "turnout": 53305,
-  "electorate_counted_sections": 124317,
-  "sections_counted": 181,
+  "collected_at": "2026-10-25T15:23:12Z",
+  "lula_votes": 16996,
+  "flavio_votes": 34331,
+  "blank_votes": 1339,
+  "null_votes": 1180,
+  "turnout": 53846,
+  "electorate_counted_sections": 125377,
+  "sections_counted": 184,
   "sections_total": 1351,
-  "electorate_share_counted": 0.136006,
-  "source_updated_at": "2026-10-25T15:15:04Z",
-  "last_bulletin_at": "2026-10-25T15:13:20Z",
+  "electorate_share_counted": 0.137165,
+  "source_updated_at": "2026-10-25T15:23:04Z",
+  "last_bulletin_at": "2026-10-25T15:21:43Z",
   "source_version": "41c128099e",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "43c2601042c712d6",
+  "content_hash": "8c0b06157ab85c35",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_15.sqlite3",
   "warnings": [],
@@ -245,6 +245,20 @@
       "sections_total": 1
     },
     {
+      "code": "39322",
+      "city": "NICOSIA",
+      "name": "Chipre",
+      "region": "Europa",
+      "lula_votes": 29,
+      "flavio_votes": 25,
+      "blank_votes": 1,
+      "null_votes": 3,
+      "turnout": 58,
+      "electorate": 137,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "30538",
       "city": "SEUL",
       "name": "Coreia do Sul",
@@ -273,6 +287,20 @@
       "sections_total": 1
     },
     {
+      "code": "99317",
+      "city": "TALIN",
+      "name": "Estônia",
+      "region": "Europa",
+      "lula_votes": 160,
+      "flavio_votes": 33,
+      "blank_votes": 1,
+      "null_votes": 7,
+      "turnout": 201,
+      "electorate": 318,
+      "sections_counted": 1,
+      "sections_total": 1
+    },
+    {
       "code": "30082",
       "city": "MANILA",
       "name": "Filipinas",
@@ -285,6 +313,20 @@
       "electorate": 229,
       "sections_counted": 1,
       "sections_total": 1
+    },
+    {
+      "code": "29335",
+      "city": "ATENAS",
+      "name": "Grécia",
+      "region": "Europa",
+      "lula_votes": 115,
+      "flavio_votes": 156,
+      "blank_votes": 9,
+      "null_votes": 2,
+      "turnout": 282,
+      "electorate": 605,
+      "sections_counted": 1,
+      "sections_total": 2
     },
     {
       "code": "29840",
@@ -733,14 +775,6 @@
       "sections_total": 5
     },
     {
-      "code": "39322",
-      "city": "NICOSIA",
-      "name": "Chipre",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "29408",
       "city": "BOGOTÁ",
       "name": "Colômbia",
@@ -941,14 +975,6 @@
       "sections_total": 31
     },
     {
-      "code": "99317",
-      "city": "TALIN",
-      "name": "Estônia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 1
-    },
-    {
       "code": "99325",
       "city": "ADIS ABEBA",
       "name": "Etiópia",
@@ -1003,14 +1029,6 @@
       "region": "Ásia e Oriente Médio",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "29335",
-      "city": "ATENAS",
-      "name": "Grécia",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 2
     },
     {
       "code": "98000",
