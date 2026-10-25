@@ -24,7 +24,16 @@ button:hover{background:#25405f;transform:translateY(-1px)}button.active{backgro
 </style></head><body>
 <header><h1>Eleições 2026 <span style="color:#8abef0">| Presidente</span></h1><div class="muted">2º turno · 25 de outubro de 2026</div><p id="status">Aguardando coleta oficial...</p></header>
 <main><div class="tabs"><button id="extTab">Exterior · Probitas</button><button id="brTab">Brasil · TSE oficial</button></div>
-<section id="exterior" class="hidden"><div class="card"><h2>Apuração do exterior · Probitas</h2><p class="muted">Fonte: <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a> · contagem independente de boletins de urna do exterior, ainda não oficial. O placar abaixo é fornecido e atualizado pelo próprio Probitas.</p><iframe src="https://probitasbrasil.org/apuracao/embed" width="100%" height="230" style="border:0;max-width:640px;display:block;margin:auto" title="Apuração do 2º turno ao vivo, por Probitas" loading="lazy"></iframe><p class="muted">O placar incorporado é agregado; a importação de cada seção individual depende de uma interface de dados verificável. Após as 17h, a aba Brasil utiliza o TSE.</p><p><a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Ver países e seções no Probitas</a></p></div></section>
+<section id="exterior" class="hidden">
+<div class="card" style="margin-bottom:20px"><div class="muted">APURAÇÃO INDEPENDENTE · EXTERIOR</div><h2 style="margin-top:9px">Resultados do exterior</h2><p class="muted">Fonte: <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a> · Dados sujeitos a confirmação. O painel próprio só apresenta números após coleta validada.</p>
+<div class="two" style="margin-top:22px"><div class="tile"><div class="muted">Lula · 13</div><strong id="extRedPct">—</strong><span id="extRedVotes">Aguardando dados</span></div><div class="tile"><div class="muted">Flávio Bolsonaro · 22</div><strong id="extBluePct">—</strong><span id="extBlueVotes">Aguardando dados</span></div></div>
+<div class="bar" style="height:23px;margin-bottom:8px"><div class="red" id="extRedBar" style="width:0%"></div><div class="blue" id="extBlueBar" style="width:0%"></div></div>
+<div class="legend"><span>Votos válidos · vermelho / azul</span><span id="extUpdated">Sem coleta validada</span></div>
+<h3>Seções do exterior contabilizadas</h3><div class="big" id="extSectionsPct">—</div><div class="muted" id="extSectionsCount">Aguardando dados de seções</div><div class="bar"><div id="extProgress" style="width:0%;background:#4ab9a9"></div></div>
+</div>
+<div class="card" style="margin-bottom:20px"><h2>Resultados por país</h2><p class="muted">Consulte países, cidades e seções quando a extração estruturada estiver disponível. Nenhum valor será preenchido por estimativa.</p><input id="countrySearch" type="search" placeholder="Buscar país ou cidade" aria-label="Buscar país ou cidade" style="width:100%;padding:13px;border-radius:11px;background:#0b192a;color:white;border:1px solid #344c67;margin:5px 0 16px"><div id="countryResults" class="muted">Aguardando dados detalhados por país.</div></div>
+<div class="card"><h2>Placar original e dados detalhados</h2><p class="muted">Enquanto a coleta automática não estiver validada, acompanhe abaixo o placar publicado pelo Probitas. Para países, cidades, seções e comparação com o primeiro turno, consulte a fonte original.</p><iframe src="https://probitasbrasil.org/apuracao/embed" width="100%" height="245" style="border:0;max-width:760px;display:block;margin:auto;background:white;border-radius:12px" title="Placar original do Probitas" loading="lazy"></iframe><p><a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Abrir resultados por país e comparação com o 1º turno no Probitas ↗</a></p></div>
+</section>
 <section id="brasil"><div class="grid"><div class="card"><h2>Mapa eleitoral por estado</h2><p class="muted">Clique no mapa ou em uma UF. Azul = liderança de Flávio Bolsonaro; vermelho = liderança de Lula. Quanto maior a vantagem, mais forte a cor. Cinza = dados indisponíveis.</p><div id="map"></div><div class="legend"><span>Azul: Flávio Bolsonaro (22)</span><span>Vermelho: Lula (13)</span></div><div class="ufbuttons" id="ufbuttons"></div></div><div class="card"><div class="muted">Fonte: Tribunal Superior Eleitoral</div><h2 id="region">Brasil</h2><div class="muted" id="published">Aguardando dados</div><div class="bar"><div class="red" id="redBar" style="width:0%"></div><div class="blue" id="blueBar" style="width:0%"></div></div><div class="two"><div class="tile">Lula · 13<br><strong id="redPct">—</strong><div class="muted" id="redVotes">— votos</div></div><div class="tile">Flávio Bolsonaro · 22<br><strong id="bluePct">—</strong><div class="muted" id="blueVotes">— votos</div></div></div><h3>Seções totalizadas</h3><div class="big" id="sectionsPct">—</div><div class="muted" id="sectionsCount">Sem dados</div><div class="bar"><div id="progress" style="width:0%;background:#48b9a6"></div></div><p class="muted">Percentuais dos candidatos sobre votos válidos. O percentual de seções totalizadas usa os campos oficiais de seções, não a quantidade de eleitores.</p><a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Conferir no TSE</a></div></div></section>
 <footer>Painel independente. Os dados podem ser preliminares e sofrer alterações. O agendamento de cinco minutos do GitHub Actions não garante atualização em tempo real.</footer></main>
 <script>
@@ -54,7 +63,36 @@ function syncElectionMode(){
     show(official?'br':'ext');
   }
 }
-buildMap();refresh();setInterval(refresh,60000);syncElectionMode();
+async function refreshExterior(){
+try{
+const response=await fetch('./data/exterior.json?v='+Date.now(),{cache:'no-store'});
+if(!response.ok) return;
+const d=await response.json();
+if(!d.validated||!d.source||!String(d.source).includes('probitasbrasil.org'))return;
+const red=Number(d.lula_votes),blue=Number(d.flavio_votes),total=red+blue;
+if(!Number.isFinite(red)||!Number.isFinite(blue)||red<0||blue<0||total<=0)return;
+const redPct=red/total*100,bluePct=blue/total*100;
+el('extRedPct').textContent=percentage(redPct);el('extBluePct').textContent=percentage(bluePct);
+el('extRedVotes').textContent=format(red)+' votos';el('extBlueVotes').textContent=format(blue)+' votos';
+el('extRedBar').style.width=redPct+'%';el('extBlueBar').style.width=bluePct+'%';
+const counted=Number(d.sections_counted),all=Number(d.sections_total);
+if(Number.isFinite(counted)&&Number.isFinite(all)&&all>0&&counted>=0&&counted<=all){
+el('extSectionsPct').textContent=percentage(counted/all*100);
+el('extSectionsCount').textContent=format(counted)+' de '+format(all)+' seções';
+el('extProgress').style.width=counted/all*100+'%';
+}
+el('extUpdated').textContent=d.collected_at?'Coleta: '+new Date(d.collected_at).toLocaleString('pt-BR'):'Dados validados';
+const countries=Array.isArray(d.countries)?d.countries:[];
+function renderCountries(){
+const q=el('countrySearch').value.toLocaleLowerCase('pt-BR').trim();
+const rows=countries.filter(c=>String(c.name||'').toLocaleLowerCase('pt-BR').includes(q)||String(c.city||'').toLocaleLowerCase('pt-BR').includes(q));
+el('countryResults').replaceChildren();
+if(!rows.length){el('countryResults').textContent='Nenhum país disponível para esta busca.';return}
+for(const c of rows){const div=document.createElement('div');div.className='tile';div.style.marginBottom='9px';div.textContent=[c.name,c.city,'Lula: '+format(c.lula_votes),'Flávio: '+format(c.flavio_votes),c.sections_counted!=null?'Seções: '+format(c.sections_counted):''].filter(Boolean).join(' · ');el('countryResults').append(div)}
+}
+el('countrySearch').oninput=renderCountries;renderCountries();
+}catch(e){/* Mantém placeholders e fonte incorporada quando não há coleta */}}
+buildMap();refresh();refreshExterior();setInterval(refresh,60000);setInterval(refreshExterior,60000);syncElectionMode();
 setInterval(syncElectionMode,1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});
 </script></body></html>
