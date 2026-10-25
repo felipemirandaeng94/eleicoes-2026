@@ -8,18 +8,18 @@
   "office": "Presidente",
   "round": 2,
   "scope": "exterior",
-  "collected_at": "2026-10-25T16:38:11Z",
-  "lula_votes": 25610,
-  "flavio_votes": 38050,
-  "blank_votes": 1523,
-  "null_votes": 1377,
-  "turnout": 66560,
-  "electorate_counted_sections": 152038,
-  "sections_counted": 224,
+  "collected_at": "2026-10-25T16:43:09Z",
+  "lula_votes": 28027,
+  "flavio_votes": 38738,
+  "blank_votes": 1536,
+  "null_votes": 1408,
+  "turnout": 69709,
+  "electorate_counted_sections": 158285,
+  "sections_counted": 233,
   "sections_total": 1351,
-  "electorate_share_counted": 0.166333,
-  "source_updated_at": "2026-10-25T16:38:06Z",
-  "last_bulletin_at": "2026-10-25T16:37:36Z",
+  "electorate_share_counted": 0.173167,
+  "source_updated_at": "2026-10-25T16:43:06Z",
+  "last_bulletin_at": "2026-10-25T16:43:04Z",
   "source_version": "28d7c4507f",
   "official_tse": {
     "lula_votes": 0,
@@ -29,7 +29,7 @@
     "generated_at": "24/10/2026 20:11:36",
     "finished": false
   },
-  "content_hash": "7600239ec83cf956",
+  "content_hash": "a789af784da6432e",
   "changed_since_previous": true,
   "history_db": "data/historico_exterior/2026-10-25_16.sqlite3",
   "warnings": [],
@@ -117,6 +117,20 @@
       "electorate": 6246,
       "sections_counted": 10,
       "sections_total": 10
+    },
+    {
+      "code": "29696",
+      "city": "FRANKFURT",
+      "name": "Alemanha",
+      "region": "Europa",
+      "lula_votes": 2147,
+      "flavio_votes": 601,
+      "blank_votes": 12,
+      "null_votes": 26,
+      "turnout": 2786,
+      "electorate": 5550,
+      "sections_counted": 8,
+      "sections_total": 21
     },
     {
       "code": "29262",
@@ -637,6 +651,20 @@
       "sections_total": 1
     },
     {
+      "code": "30767",
+      "city": "VIENA",
+      "name": "Áustria",
+      "region": "Europa",
+      "lula_votes": 270,
+      "flavio_votes": 87,
+      "blank_votes": 1,
+      "null_votes": 5,
+      "turnout": 363,
+      "electorate": 697,
+      "sections_counted": 1,
+      "sections_total": 5
+    },
+    {
       "code": "30210",
       "city": "NOVA DELHI",
       "name": "Índia",
@@ -667,14 +695,6 @@
       "region": "Europa",
       "sections_counted": 0,
       "sections_total": 20
-    },
-    {
-      "code": "29696",
-      "city": "FRANKFURT",
-      "name": "Alemanha",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 21
     },
     {
       "code": "30180",
@@ -1771,14 +1791,6 @@
       "region": "África",
       "sections_counted": 0,
       "sections_total": 1
-    },
-    {
-      "code": "30767",
-      "city": "VIENA",
-      "name": "Áustria",
-      "region": "Europa",
-      "sections_counted": 0,
-      "sections_total": 5
     },
     {
       "code": "30171",
