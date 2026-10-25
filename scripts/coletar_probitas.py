@@ -72,13 +72,13 @@ def extract_explicit(data):
     return matched
 
 def visible_number(text):
-    value = text.strip().replace("\\u00a0", " ")
-    m = re.fullmatch(r"\\s*(\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:votos?)?\\s*", value, re.I)
+    value = text.strip().replace("\u00a0", " ")
+    m = re.fullmatch(r"\s*(\d{1,3}(?:\.\d{3})+|\d+)\s*(?:votos?)?\s*", value, re.I)
     return int(m.group(1).replace(".", "")) if m else None
 
 def extract_rendered(text):
     """Leitura conservadora de blocos de texto visíveis, sem OCR e sem palpites."""
-    lines = [re.sub(r"\\s+", " ", x).strip() for x in text.splitlines() if x.strip()]
+    lines = [re.sub(r"\s+", " ", x).strip() for x in text.splitlines() if x.strip()]
     def find_vote(pattern):
         matches = []
         for i,line in enumerate(lines):
@@ -88,20 +88,20 @@ def extract_rendered(text):
             # do candidato ou porcentagem com a totalização.
             vicinity = lines[max(0,i-2):min(len(lines),i+5)]
             for j,near in enumerate(vicinity):
-                m=re.search(r"(?:votos?\\s*[:\\-]?\\s*)(\\d{1,3}(?:\\.\\d{3})+|\\d+)(?![%\\d])",near,re.I)
+                m=re.search(r"(?:votos?\s*[:\-]?\s*)(\d{1,3}(?:\.\d{3})+|\d+)(?![%\d])",near,re.I)
                 if m:
                     matches.append(int(m.group(1).replace(".","")))
-                elif re.fullmatch(r"\\d{1,3}(?:\\.\\d{3})+|\\d+",near):
+                elif re.fullmatch(r"\d{1,3}(?:\.\d{3})+|\d+",near):
                     if any(re.search(r"votos?",s,re.I) for s in vicinity):
                         matches.append(int(near.replace(".","")))
         matches=[x for x in matches if x>100]
         return matches[0] if len(set(matches))==1 else None
-    lula=find_vote(r"\\bLula\\b")
-    flavio=find_vote(r"Fl[aá]vio\\s+Bolsonaro")
+    lula=find_vote(r"\bLula\b")
+    flavio=find_vote(r"Fl[aá]vio\s+Bolsonaro")
     counted=total=None
     for line in lines:
         if re.search(r"se[cç][oõ]es|urnas",line,re.I):
-            m=re.search(r"(\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:de|/)\\s*(\\d{1,3}(?:\\.\\d{3})+|\\d+)",line,re.I)
+            m=re.search(r"(\d{1,3}(?:\.\d{3})+|\d+)\s*(?:de|/)\s*(\d{1,3}(?:\.\d{3})+|\d+)",line,re.I)
             if m:
                 counted,total=(int(x.replace(".","")) for x in m.groups())
                 break
