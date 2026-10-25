@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-25T22:20:22.693041+00:00",
+  "collected_at": "2026-10-25T22:20:37.087570+00:00",
   "source": "TSE",
   "brasil": {
     "votes": {
@@ -20,20 +20,20 @@
     "valid": 236937,
     "sections_total": 1351,
     "sections_done": 817,
-    "published_at": "25/10/2026 19:19:35",
-    "generation_id": "3958898"
+    "published_at": "25/10/2026 19:20:06",
+    "generation_id": "3959602"
   },
   "ufs": {
     "AC": {
       "votes": {
-        "22": 16248,
-        "13": 10361
+        "22": 17502,
+        "13": 10757
       },
-      "valid": 26609,
+      "valid": 28259,
       "sections_total": 2270,
-      "sections_done": 167,
-      "published_at": "25/10/2026 19:19:05",
-      "generation_id": "3962942"
+      "sections_done": 177,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3959599"
     },
     "AL": {
       "votes": {
@@ -48,14 +48,14 @@
     },
     "AP": {
       "votes": {
-        "22": 2290,
-        "13": 5931
+        "22": 2316,
+        "13": 6178
       },
-      "valid": 8221,
+      "valid": 8494,
       "sections_total": 1914,
-      "sections_done": 52,
-      "published_at": "25/10/2026 19:19:05",
-      "generation_id": "3961250"
+      "sections_done": 54,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3963982"
     },
     "AM": {
       "votes": {
@@ -70,14 +70,14 @@
     },
     "BA": {
       "votes": {
-        "22": 11013,
-        "13": 26071
+        "22": 11080,
+        "13": 26314
       },
-      "valid": 37084,
+      "valid": 37394,
       "sections_total": 35476,
-      "sections_done": 139,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3963038"
+      "sections_done": 140,
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3955876"
     },
     "CE": {
       "votes": {
@@ -87,19 +87,19 @@
       "valid": 11207,
       "sections_total": 23765,
       "sections_done": 43,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3962030"
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3955875"
     },
     "DF": {
       "votes": {
-        "22": 166761,
-        "13": 138340
+        "22": 169648,
+        "13": 140887
       },
-      "valid": 305101,
+      "valid": 310535,
       "sections_total": 6969,
-      "sections_done": 1209,
-      "published_at": "25/10/2026 19:19:34",
-      "generation_id": "3960354"
+      "sections_done": 1230,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3954906"
     },
     "ES": {
       "votes": {
@@ -109,8 +109,8 @@
       "valid": 4324,
       "sections_total": 9844,
       "sections_done": 20,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3959515"
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3961329"
     },
     "GO": {
       "votes": {
@@ -120,19 +120,19 @@
       "valid": 7965,
       "sections_total": 15686,
       "sections_done": 30,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3963042"
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3963985"
     },
     "MA": {
       "votes": {
-        "22": 27026,
-        "13": 59739
+        "22": 27554,
+        "13": 61585
       },
-      "valid": 86765,
+      "valid": 89139,
       "sections_total": 18093,
-      "sections_done": 429,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3954883"
+      "sections_done": 442,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3960442"
     },
     "MT": {
       "votes": {
@@ -147,58 +147,58 @@
     },
     "MS": {
       "votes": {
-        "22": 8189,
-        "13": 7023
+        "22": 9302,
+        "13": 8616
       },
-      "valid": 15212,
+      "valid": 17918,
       "sections_total": 7106,
-      "sections_done": 75,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3962027"
+      "sections_done": 86,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3962058"
     },
     "MG": {
       "votes": {
-        "22": 104235,
-        "13": 102892
+        "22": 108791,
+        "13": 106967
       },
-      "valid": 207127,
+      "valid": 215758,
       "sections_total": 52062,
-      "sections_done": 709,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3959519"
+      "sections_done": 744,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3962061"
     },
     "PA": {
       "votes": {
-        "22": 195935,
-        "13": 253294
+        "22": 208766,
+        "13": 266734
       },
-      "valid": 449229,
+      "valid": 475500,
       "sections_total": 20827,
-      "sections_done": 1851,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3961293"
+      "sections_done": 1949,
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3959605"
     },
     "PB": {
       "votes": {
-        "22": 67178,
-        "13": 168547
+        "22": 70946,
+        "13": 175533
       },
-      "valid": 235725,
+      "valid": 246479,
       "sections_total": 10712,
-      "sections_done": 964,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3958900"
+      "sections_done": 1005,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3963096"
     },
     "PR": {
       "votes": {
-        "22": 323193,
-        "13": 205055
+        "22": 344666,
+        "13": 219885
       },
-      "valid": 528248,
+      "valid": 564551,
       "sections_total": 27142,
-      "sections_done": 2074,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3962032"
+      "sections_done": 2220,
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3959606"
     },
     "PE": {
       "votes": {
@@ -219,8 +219,8 @@
       "valid": 10129,
       "sections_total": 10225,
       "sections_done": 51,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3963039"
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3955874"
     },
     "RJ": {
       "votes": {
@@ -230,41 +230,41 @@
       "valid": 756,
       "sections_total": 37675,
       "sections_done": 3,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3955813"
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3963095"
     },
     "RN": {
       "votes": {
-        "22": 9057,
-        "13": 23552
+        "22": 9211,
+        "13": 23879
       },
-      "valid": 32609,
+      "valid": 33090,
       "sections_total": 8115,
-      "sections_done": 131,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3955815"
+      "sections_done": 133,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3963094"
     },
     "RS": {
       "votes": {
-        "22": 24639,
-        "13": 13357
+        "22": 25399,
+        "13": 13830
       },
-      "valid": 37996,
+      "valid": 39229,
       "sections_total": 27547,
-      "sections_done": 160,
-      "published_at": "25/10/2026 19:19:05",
-      "generation_id": "3962936"
+      "sections_done": 165,
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3959601"
     },
     "RO": {
       "votes": {
-        "22": 48294,
-        "13": 30737
+        "22": 50808,
+        "13": 32121
       },
-      "valid": 79031,
+      "valid": 82929,
       "sections_total": 4698,
-      "sections_done": 369,
-      "published_at": "25/10/2026 19:19:05",
-      "generation_id": "3962934"
+      "sections_done": 387,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3959597"
     },
     "RR": {
       "votes": {
@@ -279,25 +279,25 @@
     },
     "SC": {
       "votes": {
-        "22": 46952,
-        "13": 41934
+        "22": 48651,
+        "13": 43273
       },
-      "valid": 88886,
+      "valid": 91924,
       "sections_total": 17326,
-      "sections_done": 323,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3959516"
+      "sections_done": 334,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3961330"
     },
     "SP": {
       "votes": {
-        "22": 3588,
-        "13": 2940
+        "22": 4048,
+        "13": 3178
       },
-      "valid": 6528,
+      "valid": 7226,
       "sections_total": 103656,
-      "sections_done": 32,
-      "published_at": "25/10/2026 19:19:05",
-      "generation_id": "3955763"
+      "sections_done": 35,
+      "published_at": "25/10/2026 19:20:05",
+      "generation_id": "3964910"
     },
     "SE": {
       "votes": {
@@ -312,14 +312,14 @@
     },
     "TO": {
       "votes": {
-        "22": 39978,
-        "13": 42795
+        "22": 41388,
+        "13": 44380
       },
-      "valid": 82773,
+      "valid": 85768,
       "sections_total": 4384,
-      "sections_done": 415,
-      "published_at": "25/10/2026 19:19:35",
-      "generation_id": "3958897"
+      "sections_done": 430,
+      "published_at": "25/10/2026 19:20:06",
+      "generation_id": "3959603"
     }
   },
   "errors": {
