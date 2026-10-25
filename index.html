@@ -23,7 +23,7 @@ button:hover{background:#25405f;transform:translateY(-1px)}button.active{backgro
 @media(max-width:850px){.grid{grid-template-columns:1fr}main{padding:17px 12px}.card{padding:18px}#map{height:390px}header{padding:25px 17px}.tabs{width:100%}.tabs button{flex:1;padding:12px 8px;font-size:13px}}
 </style></head><body>
 <header><h1>Eleições 2026 <span style="color:#8abef0">| Presidente</span></h1><div class="muted">2º turno · 25 de outubro de 2026</div><p id="status">Aguardando coleta oficial...</p></header>
-<main><div class="tabs"><button id="brTab" class="active">Brasil · TSE oficial</button><button id="extTab">Exterior · Probitas</button></div>
+<main><div class="tabs"><button id="extTab">Exterior · Probitas</button><button id="brTab">Brasil · TSE oficial</button></div>
 <section id="exterior" class="hidden"><div class="card"><h2>Apuração do exterior · Probitas</h2><p class="muted">Fonte: <a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Probitas Brasil</a> · contagem independente de boletins de urna do exterior, ainda não oficial. O placar abaixo é fornecido e atualizado pelo próprio Probitas.</p><iframe src="https://probitasbrasil.org/apuracao/embed" width="100%" height="230" style="border:0;max-width:640px;display:block;margin:auto" title="Apuração do 2º turno ao vivo, por Probitas" loading="lazy"></iframe><p class="muted">O placar incorporado é agregado; a importação de cada seção individual depende de uma interface de dados verificável. Após as 17h, a aba Brasil utiliza o TSE.</p><p><a href="https://probitasbrasil.org/apuracao/" target="_blank" rel="noopener noreferrer">Ver países e seções no Probitas</a></p></div></section>
 <section id="brasil"><div class="grid"><div class="card"><h2>Mapa eleitoral por estado</h2><p class="muted">Clique no mapa ou em uma UF. Azul = liderança de Flávio Bolsonaro; vermelho = liderança de Lula. Quanto maior a vantagem, mais forte a cor. Cinza = dados indisponíveis.</p><div id="map"></div><div class="legend"><span>Azul: Flávio Bolsonaro (22)</span><span>Vermelho: Lula (13)</span></div><div class="ufbuttons" id="ufbuttons"></div></div><div class="card"><div class="muted">Fonte: Tribunal Superior Eleitoral</div><h2 id="region">Brasil</h2><div class="muted" id="published">Aguardando dados</div><div class="bar"><div class="red" id="redBar" style="width:0%"></div><div class="blue" id="blueBar" style="width:0%"></div></div><div class="two"><div class="tile">Lula · 13<br><strong id="redPct">—</strong><div class="muted" id="redVotes">— votos</div></div><div class="tile">Flávio Bolsonaro · 22<br><strong id="bluePct">—</strong><div class="muted" id="blueVotes">— votos</div></div></div><h3>Seções totalizadas</h3><div class="big" id="sectionsPct">—</div><div class="muted" id="sectionsCount">Sem dados</div><div class="bar"><div id="progress" style="width:0%;background:#48b9a6"></div></div><p class="muted">Percentuais dos candidatos sobre votos válidos. O percentual de seções totalizadas usa os campos oficiais de seções, não a quantidade de eleitores.</p><a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Conferir no TSE</a></div></div></section>
 <footer>Painel independente. Os dados podem ser preliminares e sofrer alterações. O agendamento de cinco minutos do GitHub Actions não garante atualização em tempo real.</footer></main>
@@ -39,5 +39,22 @@ function redraw(){select(chosen);document.querySelectorAll('.state').forEach(nod
 async function buildMap(){try{const r=await fetch('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson');if(!r.ok)throw Error('GeoJSON indisponível');const geo=await r.json();const svg=d3.select('#map').append('svg').attr('viewBox','0 0 620 540');const projection=d3.geoMercator().fitSize([600,525],geo),path=d3.geoPath(projection);svg.selectAll('path').data(geo.features).join('path').attr('class','state').attr('d',path).attr('data-uf',d=>names[d.properties.name]||d.properties.sigla||'').attr('fill',d=>fill(names[d.properties.name]||d.properties.sigla)).on('click',(_,d)=>select(names[d.properties.name]||d.properties.sigla||'BR')).append('title').text(d=>d.properties.name||'Estado')}catch(e){el('map').textContent='Mapa temporariamente indisponível. Selecione uma UF abaixo.'}}
 for(const uf of ['BR',...UFS]){const b=document.createElement('button');b.textContent=uf;b.onclick=()=>select(uf);el('ufbuttons').appendChild(b)}
 async function refresh(){try{const r=await fetch('./data/results.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);payload=await r.json();el('status').textContent='Última coleta: '+(payload.collected_at?new Date(payload.collected_at).toLocaleString('pt-BR'):'ainda não executada')+' · tela consulta a cada 60 segundos';redraw()}catch(e){el('status').textContent='Aguardando dados oficiais; verifique o workflow no GitHub.'}}
-buildMap();refresh();setInterval(refresh,60000);show('br');
+// Horário de corte fixo: 25/10/2026, 17:00 em Brasília (UTC-03).
+// Usar instante absoluto evita diferenças de fuso do visitante.
+const cutoff=Date.parse('2026-10-25T17:00:00-03:00');
+let switched=false;
+function syncElectionMode(){
+  const official=Date.now()>=cutoff;
+  const tabs=document.querySelector('.tabs');
+  const first=official?el('brTab'):el('extTab');
+  const second=official?el('extTab'):el('brTab');
+  if(tabs.firstElementChild!==first){tabs.append(first,second)}
+  if(official!==switched){
+    switched=official;
+    show(official?'br':'ext');
+  }
+}
+buildMap();refresh();setInterval(refresh,60000);syncElectionMode();
+setInterval(syncElectionMode,1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncElectionMode()});
 </script></body></html>
